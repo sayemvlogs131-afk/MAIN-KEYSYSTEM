@@ -1,1 +1,1 @@
-FLOWER HUB v2.12.0: NEW 🌊 SEA EVENTS tab — boat fly, ghost boat and boat speed all in one place. Tabs now fit every device. Join the Discord 🌸 https://discord.gg/UCF4AAAyU
+FLOWER HUB v2.13.0: NEW 🚀 AUTO GO — the boat drives straight by itself, plus a custom STOP keybind you choose. NEW 🧭 Boat Anti-Flip. Sea Events tab keeps getting better! Join the Discord 🌸 https://discord.gg/UCF4AAAyU
