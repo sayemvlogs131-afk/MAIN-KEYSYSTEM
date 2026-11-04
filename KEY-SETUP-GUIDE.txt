@@ -1,0 +1,104 @@
+================================================================
+ RBX 1.0 HUB — KEY SYSTEM v5 EARNING GUIDE (MADE BY FAHIMRBX)
+ Read this ONE time. 5 minutes. Then you're earning.
+================================================================
+
+WHY YOU WERE NOT EARNING BEFORE
+-------------------------------
+PlatoBoost MOVED their API. The old address (api.platoboost.com)
+is DEAD — I checked it worldwide: the domain does not exist
+anymore. Your old script was still calling the dead address, so
+GET KEY always failed and NO player ever completed an offer.
+That was the whole problem. It is fixed now: the script uses the
+LIVE addresses (api.platoboost.net / api.platoboost.app) and I
+verified your service 31611 answers on them.
+
+YOUR NEW MONEY FLOW (PLAYER PAYS YOU TWICE, 1 KEY)
+--------------------------------------------------
+1) Player presses GET KEY in your key GUI.
+2) The script copies a LOOTLABS link (yours) that has your
+   PlatoBoost key page hidden inside it (AES-encrypted &data=).
+3) Player completes the LootLabs steps  ->  YOU EARN (LootLabs).
+4) The link auto-redirects to YOUR PlatoBoost key page.
+5) Player completes PlatoBoost's steps  ->  YOU EARN AGAIN.
+6) Player copies the key, pastes it, VERIFY -> hub loads.
+If LootLabs is ever down, the button still gives the direct
+PlatoBoost link, so fans ALWAYS get their key and you still
+earn on PlatoBoost.
+
+DO THIS NOW — CHECKLIST (5 MINUTES)
+-----------------------------------
+[ ] 1. PLATOBOOST: log in at platoboost.app -> Sign in -> Dashboard ->
+       service 31611 -> make sure it is ENABLED and the key
+       page + offers are configured. (It answers, it just needs
+       your offers turned on.)
+[ ] 2. LOOTLABS: log in at lootlabs.gg -> fill your payout /
+       creator details. They are MANDATORY — links do NOT earn
+       until this is filled. Then check your balance and press
+       WITHDRAW if you have money waiting.
+[ ] 3. Copy RBX_KEY_SYSTEM.lua (this folder) and give it to
+       your fans — YouTube description, Discord, anywhere.
+
+[ ] 4. LINKVERTISE (NEW v2.14.0 — optional, 3 minutes):
+       Fans can now pick LOOTLABS or LINKVERTISE on the GET KEY
+       screen. LootLabs already works. For Linkvertise:
+       a) creators.linkvertise.com -> sign up (free) + payout info
+       b) Create link -> destination = your PlatoBoost key page
+          (the page LootLabs finally opens for you)
+       c) copy the short link (link-hub.net / direct-link.net ...)
+       d) paste it into RBX_KEY_SYSTEM.lua:
+          LinkvertiseLink = "https://link-hub.net/...",
+       Full walkthrough: LINKVERTISE-SETUP.md (same folder).
+       NEVER share the hub files themselves.
+[ ] 4. Post a short video: "new link is live, get the updated
+       key script" — old copies of the script fans saved still
+       call the DEAD PlatoBoost address, so they MUST re-copy
+       the new one from you.
+
+HOW TO TEST IT YOURSELF (2 MINUTES)
+-----------------------------------
+1) Open any executor -> execute RBX_KEY_SYSTEM.lua in Roblox.
+2) Press GET KEY -> a loot-link.com/s?XXXX link is copied.
+3) Open it in your browser -> do the quick steps.
+4) Your PlatoBoost key page opens -> finish it -> copy the key.
+5) Back in the GUI: PASTE -> VERIFY -> hub loads.
+If all 5 steps work, your fans are earning you money.
+
+WHERE THE MONEY SHOWS UP
+------------------------
+- LootLabs: lootlabs.gg dashboard -> stats + balance -> withdraw.
+- PlatoBoost: platoboost.app dashboard -> service 31611 -> stats.
+- Keys last 24h (KeyLifetimeHours = 24 in the script), so the
+  same fan re-does the key page EVERY DAY = daily income.
+  (Set it to 0 if you ever want keys to last forever.)
+
+SMALL BUT IMPORTANT
+-------------------
+- Your LootLabs API key is inside the script (it is needed to
+  build the double-money link). If you ever see strange links
+  made on your account: LootLabs dashboard -> API -> reset key,
+  then paste the new key into the script (LootLabsAPIKey line).
+- Your LootLabs links (both yours, tested live):
+    MAIN  = https://loot-link.com/s?kGq0P0XY  <- used by the script now (3 tasks)
+    SPARE = https://loot-link.com/s?4CjS17LO  <- backup, also yours
+  To swap links: edit the LootLabsStaticLink line in the script.
+
+REMOTE CONTROL FROM YOUR DASHBOARD (v2.6.4+)
+--------------------------------------------
+PlatoBoost dashboard -> service 31611 -> Flags. Create these two:
+
+  HubEnabled   (type: boolean, default: true)
+     Set FALSE = the hub pauses for EVERY fan instantly (they get an
+     "offline" notice). No re-push, no new file needed. Set it back
+     to true (or delete the flag) and everyone can play again.
+
+  LatestVersion   (type: string, e.g. "v2.7.0")
+     Forces the UPDATE AVAILABLE banner in every fan's hub without
+     pushing anything. Delete the flag when you are done nagging.
+
+These are SAFE: if a flag is missing, the internet breaks, or the
+server hiccups, the hub keeps working normally (fail-open). Nothing
+here can brick your hub by accident.
+
+MADE BY FAHIMRBX
+================================================================

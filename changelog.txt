@@ -1,0 +1,26 @@
+FLOWER HUB v2.14.0 - SEA EVENTS POWER PACK + KEY SITE CHOICE
+=========================================================
+SEA EVENTS - FIXED FOR REAL:
+• The hull is now handed to YOU (network ownership). Servers used to
+  keep the boat, so every velocity write was silently ignored -
+  that is why the boat functions looked dead on some games.
+• ANTI-FLIP BUG: the old loop deleted + re-created its gyro every
+  single frame, so it never had time to work. It is made once now.
+• Boat Speed no longer requires holding W (touch players included).
+
+NEW SEA EVENTS FEATURES:
+• Auto Sail - keeps full throttle by itself (game propulsion engages)
+• Turbo Mode - full-power run up to 2000 studs/s
+• Max Boat Speed slider - your own cap, 100-2000
+• Boat Hover - waves can push you but never sink you
+• Boat Jump + Jump Power - tap Space to launch the hull
+• Instant Brake - stops the hull dead
+• Check Boat - diagnostic button: model, seat, speed, owner
+
+KEY SYSTEM:
+• GET KEY now asks LOOTLABS or LINKVERTISE (2 animated cards).
+  Both sites give the SAME key - pick whichever loads best.
+• New animations: sparkles, button shine sweep, chooser pop-ins,
+  liquid title gradient.
+• Linkvertise is wired and ready: paste one link from your creator
+  dashboard into CONFIG.LinkvertiseLink (see LINKVERTISE-SETUP.md).
