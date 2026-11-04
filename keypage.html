@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<title>FLOWER HUB — Get Your Key Page</title>
+<style>
+  :root { color-scheme: dark; --accent:#00d28c; --accent2:#4cc9ff; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html,body { height:100%; }
+  body {
+    margin:0; display:flex; align-items:center; justify-content:center; padding:20px;
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif; color:#eafff5;
+    background: radial-gradient(900px 600px at 50% -10%, #0d3a2a 0%, #071a12 50%, #04100b 100%);
+  }
+  .card {
+    width:100%; max-width:430px; background:#0b1f17; border:1px solid #1e4a34;
+    border-radius:22px; padding:26px 22px 22px; box-shadow:0 22px 60px rgba(0,0,0,.6);
+    animation: pop .45s cubic-bezier(.2,1.3,.4,1);
+  }
+  @keyframes pop { from { transform:scale(.92); opacity:0 } to { transform:scale(1); opacity:1 } }
+  .flower { font-size:38px; text-align:center; animation: spin 6s linear infinite; display:block; }
+  @keyframes spin { to { transform: rotate(360deg) } }
+  h1 { font-size:19px; text-align:center; margin:6px 0 2px; }
+  .sub { text-align:center; color:#7fc9a5; font-size:12.5px; margin-bottom:18px; line-height:1.5; }
+  label { display:block; font-size:12px; color:#8fe3bd; margin-bottom:6px; letter-spacing:.4px; }
+  input {
+    width:100%; padding:14px 14px; font-size:17px; letter-spacing:2px; text-align:center;
+    font-family:ui-monospace,Consolas,monospace; text-transform:uppercase;
+    background:#08150f; color:#eafff5; border:1.5px solid #245741; border-radius:12px; outline:none;
+  }
+  input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(0,210,140,.15); }
+  button {
+    width:100%; margin-top:14px; padding:15px; font-size:16px; font-weight:800; border:0; border-radius:12px;
+    color:#04120c; background:linear-gradient(135deg,var(--accent),#00b7a4); cursor:pointer;
+    transition: transform .08s, filter .2s;
+  }
+  button:active { transform:scale(.98); }
+  button:disabled { filter:grayscale(.6) brightness(.8); cursor:wait; }
+  #msg { min-height:20px; margin-top:12px; font-size:12.5px; text-align:center; line-height:1.5; color:#9fe8c6; }
+  #msg.err { color:#ff8a8a; }
+  .hint { margin-top:16px; font-size:11.5px; color:#6fae90; text-align:center; line-height:1.6; }
+  .hint b { color:#9fe8c6; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <span class="flower">🌸</span>
+    <h1>FLOWER HUB — KEY PAGE</h1>
+    <div class="sub">Paste the <b>HUB CODE</b> from the key window<br>(the green code next to COPY CODE).</div>
+
+    <label for="code">YOUR HUB CODE</label>
+    <input id="code" inputmode="latin" autocomplete="off" spellcheck="false" maxlength="12" placeholder="A1B2C3D4E5">
+    <button id="go">🔑 OPEN MY KEY PAGE</button>
+    <div id="msg"></div>
+
+    <div class="hint">
+      No code? Type <b>GET KEY</b> in FLOWER HUB → the code is under the two cards.<br>
+      Your key page is unique to your device — never share your code.
+    </div>
+  </div>
+
+<script>
+(function () {
+  var API = "https://api.platoboost.net/public/start";
+  var SERVICE = 31611;
+  var input = document.getElementById('code');
+  var btn = document.getElementById('go');
+  var msg = document.getElementById('msg');
+
+  function say(text, isErr) {
+    msg.textContent = text || '';
+    msg.className = isErr ? 'err' : '';
+  }
+
+  function clean(v) {
+    return String(v || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 10);
+  }
+
+  // ?c=CODE support so a link can carry the code
+  try {
+    var q = new URLSearchParams(location.search).get('c');
+    if (q) input.value = clean(q);
+  } catch (e) {}
+
+  input.addEventListener('input', function () { input.value = clean(input.value); });
+
+  function openKeyPage() {
+    var code = clean(input.value);
+    if (code.length !== 10) {
+      say('Enter the 10-character HUB CODE from the key window.', true);
+      input.focus();
+      return;
+    }
+    btn.disabled = true;
+    say('Minting your personal key page…');
+
+    fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ service: SERVICE, identifier: code })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var url = data && data.success && data.data && data.data.url;
+        if (!url) {
+          throw new Error((data && data.message) || 'Server refused the code');
+        }
+        say('Opening your key page… 🌸');
+        location.replace(url);
+      })
+      .catch(function (err) {
+        btn.disabled = false;
+        say('Could not open the key page: ' + err.message + '. Check the code and try again.', true);
+      });
+  }
+
+  btn.addEventListener('click', openKeyPage);
+  input.addEventListener('keydown', function (e) { if (e.key === 'Enter') openKeyPage(); });
+  if (input.value.length === 10) { setTimeout(openKeyPage, 350); }
+})();
+</script>
+</body>
+</html>
