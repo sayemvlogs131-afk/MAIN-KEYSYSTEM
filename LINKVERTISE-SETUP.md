@@ -19,20 +19,36 @@ takes about 3 minutes and is free.
 3. In the dashboard fill in your **payout details** (country, payout method).
    Without payout details links still work but stay at 0 earnings.
 
-## Step 2 — Create ONE link
+## Step 2 — Set the DESTINATION (this is the important one)
 
-1. Dashboard → **Links** → **Create link** (some accounts show
-   "New Link" / "Create publisher link").
-2. **Destination URL** = your PlatoBoost key page. Use the same page your
-   LootLabs wrap lands on, i.e. the URL from
-   `https://api.platoboost.net/public/start` for service **31611**
-   (the `auth.platorelay.com/...` style page). If you are unsure, open your
-   LootLabs link once, complete its tasks and copy the page it finally opens —
-   that is your destination.
-3. Set the task/step count the same way you did on LootLabs (2–3 steps).
-4. Save → Linkvertise gives you a short link such as
-   `https://link-hub.net/123456/your-key-page` (or `link-target.net`,
-   `direct-link.net`, `link-to.net` … any of them is fine).
+Open your link `https://link-center.net/8313449/3r0W6fwK8KTy` in the Linkvertise
+dashboard → **Edit link** → **Destination URL**, and paste exactly this:
+
+```
+https://sayemvlogs131-afk.github.io/MAIN-KEYSYSTEM/keypage.html
+```
+
+Save it. That's the whole setup.
+
+### Why this page and not PlatoBoost directly?
+
+PlatoBoost key pages are **per-device** (`auth.platorelay.com/a?d=…`). A plain
+PlatoBoost URL shows **"Expired link"** to anyone else — so a fixed Linkvertise
+destination pointed there would give your fans no key at all.
+
+`keypage.html` (already live, hosted from your own repo via GitHub Pages) asks
+the fan for their **HUB CODE**, then mints **their own** key page on the spot and
+opens it. Verified working: it lands on your live service page
+("get key Flower hub — Completed 0 of 3").
+
+## What the fan does
+
+1. Key window → **GET KEY** → taps the **LINKVERTISE** card → link is copied.
+2. They open it and complete the Linkvertise tasks → they keep earning you money.
+3. They land on the FLOWER HUB key page, type/paste their **HUB CODE**
+   (visible next to **COPY CODE** in the key window).
+4. They get their personal PlatoBoost page, finish it, copy the key, paste it,
+   press **VERIFY** — hub loads.
 
 ## Step 3 — Paste it into the script
 
