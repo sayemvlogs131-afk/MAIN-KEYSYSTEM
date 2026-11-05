@@ -32,14 +32,28 @@ Save it. That's the whole setup.
 
 ### Why this page and not PlatoBoost directly?
 
-PlatoBoost key pages are **per-device** (`auth.platorelay.com/a?d=…`). A plain
-PlatoBoost URL shows **"Expired link"** to anyone else — so a fixed Linkvertise
-destination pointed there would give your fans no key at all.
+PlatoBoost key pages are **per-device** (`auth.platorelay.com/a?d=...`). A plain
+PlatoBoost URL shows **"Expired link"** to anyone else, and PlatoBoost itself
+was removed from this path. Instead, `keypage.html` (your own page, hosted free
+on GitHub Pages from this repo) mints a **FLOWER key** right in the browser:
 
-`keypage.html` (already live, hosted from your own repo via GitHub Pages) asks
-the fan for their **HUB CODE**, then mints **their own** key page on the spot and
-opens it. Verified working: it lands on your live service page
-("get key Flower hub — Completed 0 of 3").
+- key format is always `FLOWER-XXXXX-XXXX` (FLOWER + randoms, e.g. FLOWER-7KQ2A-B4X9)
+- the random part changes every mint -> every key is unique
+- the key only verifies on the device of the HUB CODE thatminted it
+- VERIFY in the key window checks it 100% on-device (no server to break)
+
+The minting math is identical in `keypage.html` and `RBX_KEY_SYSTEM.lua`
+(device part = hash chain on the HUB CODE), so keys verify perfectly.
+
+## What the fan does
+
+1. Key window -> **GET KEY** -> taps the **LINKVERTISE** card -> link is copied.
+2. They open it and complete the Linkvertise tasks -> they keep earning you money.
+3. They land on the FLOWER HUB key page, type/paste their **HUB CODE**
+   (visible next to **COPY CODE** in the key window) and press **GENERATE**.
+4. They copy their `FLOWER-XXXXX-XXXX` key, paste it in the key window,
+   press **VERIFY** - hub loads.
+
 
 ## What the fan does
 

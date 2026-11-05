@@ -2,123 +2,293 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
-<title>FLOWER HUB — Get Your Key Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FLOWER HUB — Get Your FLOWER Key</title>
+<meta name="description" content="Paste your HUB CODE from FLOWER HUB and generate your unique FLOWER-XXXXX-XXXX key.">
 <style>
-  :root { color-scheme: dark; --accent:#00d28c; --accent2:#4cc9ff; }
-  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html,body { height:100%; }
-  body {
-    margin:0; display:flex; align-items:center; justify-content:center; padding:20px;
-    font-family:'Segoe UI',system-ui,-apple-system,sans-serif; color:#eafff5;
-    background: radial-gradient(900px 600px at 50% -10%, #0d3a2a 0%, #071a12 50%, #04100b 100%);
+  :root{
+    --bg1:#0b1020; --bg2:#160b28; --card:rgba(16,20,40,.72);
+    --pink:#ff7ac8; --pink2:#ffb3de; --blue:#6ec8ff; --teal:#5ef2c0;
+    --text:#eef2ff; --dim:#aab3d6;
   }
-  .card {
-    width:100%; max-width:430px; background:#0b1f17; border:1px solid #1e4a34;
-    border-radius:22px; padding:26px 22px 22px; box-shadow:0 22px 60px rgba(0,0,0,.6);
-    animation: pop .45s cubic-bezier(.2,1.3,.4,1);
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{min-height:100%}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    color:var(--text);background:var(--bg1);
+    background:linear-gradient(120deg,var(--bg1),var(--bg2),#0a2434,#241033);
+    background-size:300% 300%;overflow-x:hidden;
+    animation:bgShift 14s ease infinite;
   }
-  @keyframes pop { from { transform:scale(.92); opacity:0 } to { transform:scale(1); opacity:1 } }
-  .flower { font-size:38px; text-align:center; animation: spin 6s linear infinite; display:block; }
-  @keyframes spin { to { transform: rotate(360deg) } }
-  h1 { font-size:19px; text-align:center; margin:6px 0 2px; }
-  .sub { text-align:center; color:#7fc9a5; font-size:12.5px; margin-bottom:18px; line-height:1.5; }
-  label { display:block; font-size:12px; color:#8fe3bd; margin-bottom:6px; letter-spacing:.4px; }
-  input {
-    width:100%; padding:14px 14px; font-size:17px; letter-spacing:2px; text-align:center;
-    font-family:ui-monospace,Consolas,monospace; text-transform:uppercase;
-    background:#08150f; color:#eafff5; border:1.5px solid #245741; border-radius:12px; outline:none;
+  @keyframes bgShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+  /* ---------- spring petals ---------- */
+  .petal{position:fixed;bottom:-40px;font-size:18px;opacity:.35;pointer-events:none;
+    animation:rise linear infinite;z-index:0;}
+  @keyframes rise{
+    0%{transform:translateY(0) rotate(0deg);opacity:0}
+    10%{opacity:.35}
+    100%{transform:translateY(-110vh) rotate(340deg);opacity:0}
   }
-  input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(0,210,140,.15); }
-  button {
-    width:100%; margin-top:14px; padding:15px; font-size:16px; font-weight:800; border:0; border-radius:12px;
-    color:#04120c; background:linear-gradient(135deg,var(--accent),#00b7a4); cursor:pointer;
-    transition: transform .08s, filter .2s;
+
+  /* ---------- top header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    justify-content:space-between;padding:12px 18px;
+    background:rgba(10,12,26,.75);backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    animation:slideDown .7s cubic-bezier(.2,1.4,.3,1) both;
   }
-  button:active { transform:scale(.98); }
-  button:disabled { filter:grayscale(.6) brightness(.8); cursor:wait; }
-  #msg { min-height:20px; margin-top:12px; font-size:12.5px; text-align:center; line-height:1.5; color:#9fe8c6; }
-  #msg.err { color:#ff8a8a; }
-  .hint { margin-top:16px; font-size:11.5px; color:#6fae90; text-align:center; line-height:1.6; }
-  .hint b { color:#9fe8c6; }
+  @keyframes slideDown{from{transform:translateY(-70px);opacity:0}to{transform:translateY(0);opacity:1}}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.5px}
+  .brand .logo{font-size:22px;animation:bloom 2.6s ease-in-out infinite}
+  @keyframes bloom{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.15) rotate(8deg)}}
+  .brand b{background:linear-gradient(90deg,var(--pink),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .madeby{font-size:12.5px;color:var(--dim)}
+  .madeby b{color:var(--pink2)}
+  .socials{display:flex;gap:8px;flex-wrap:wrap}
+  .socials a{
+    text-decoration:none;font-size:12.5px;font-weight:700;color:#fff;
+    padding:7px 12px;border-radius:999px;position:relative;overflow:hidden;
+    transition:transform .18s ease,box-shadow .18s ease;
+  }
+  .socials a:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 8px 18px rgba(0,0,0,.35)}
+  .socials a::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
+    animation:shine 2.8s infinite;}
+  @keyframes shine{0%{left:-60%}60%{left:120%}100%{left:120%}}
+  .s-discord{background:#5865F2}.s-yt{background:#e03434}
+  .s-ig{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
+  .s-tt{background:#111;border:1px solid #333}
+
+  /* ---------- main card ---------- */
+  .wrap{position:relative;z-index:1;display:flex;justify-content:center;padding:46px 16px 70px}
+  .card{
+    width:100%;max-width:520px;background:var(--card);border:1px solid rgba(255,255,255,.1);
+    border-radius:22px;padding:30px 26px;box-shadow:0 25px 60px rgba(0,0,0,.45);
+    backdrop-filter:blur(12px);text-align:center;
+    animation:pop .8s cubic-bezier(.2,1.5,.3,1) both;
+  }
+  @keyframes pop{from{transform:scale(.85) translateY(26px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+  .card .big{font-size:34px;animation:bloom 2.6s ease-in-out infinite}
+  h1{font-size:23px;margin:10px 0 6px}
+  .sub{color:var(--dim);font-size:14px;line-height:1.55}
+  .sub b{color:var(--pink2)}
+
+  label{display:block;text-align:left;margin:22px 0 8px;font-size:12px;letter-spacing:1.4px;color:var(--blue);font-weight:700}
+  .codebox{position:relative}
+  #code{
+    width:100%;padding:15px 16px;font-size:17px;letter-spacing:2.5px;text-transform:uppercase;
+    background:#0d1128;color:#fff;border:1.5px solid #2a3560;border-radius:12px;outline:none;
+    transition:border .2s,box-shadow .2s;
+  }
+  #code:focus{border-color:var(--pink);box-shadow:0 0 0 4px rgba(255,122,200,.15)}
+  .cta{
+    width:100%;margin-top:18px;padding:15px;border:0;border-radius:14px;cursor:pointer;
+    font-size:15.5px;font-weight:800;color:#fff;position:relative;overflow:hidden;letter-spacing:.6px;
+    background:linear-gradient(90deg,#ff6ab2,#7a6cff 55%,#39b7ff);
+    background-size:200% 100%;transition:transform .15s,filter .2s;
+    animation:gradSlide 4s ease infinite;
+  }
+  @keyframes gradSlide{0%,100%{background-position:0 0}50%{background-position:100% 0}}
+  .cta:hover{transform:translateY(-2px) scale(1.02);filter:brightness(1.1)}
+  .cta:active{transform:scale(.97)}
+  .cta::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);
+    transform:translateX(-120%);animation:sweep 2.6s infinite}
+  @keyframes sweep{0%{transform:translateX(-120%)}55%,100%{transform:translateX(120%)}}
+
+  /* ---------- result ---------- */
+  #result{
+    margin-top:22px;padding:20px 18px;border-radius:16px;display:none;
+    background:linear-gradient(135deg,rgba(255,122,200,.12),rgba(110,200,255,.12));
+    border:1.5px solid rgba(255,122,200,.45);
+    animation:pop .6s cubic-bezier(.2,1.5,.3,1) both;
+  }
+  #result.show{display:block}
+  .keytext{font-size:24px;font-weight:900;letter-spacing:2px;cursor:pointer;user-select:all;
+    color:transparent;background:linear-gradient(90deg,var(--pink),var(--blue));-webkit-background-clip:text;background-clip:text;
+    animation:wave 2.4s ease infinite}
+  @keyframes wave{0%,100%{filter:hue-rotate(0)}50%{filter:hue-rotate(35deg)}}
+  .keytext span{display:inline-block;animation:letterUp .5s cubic-bezier(.2,1.6,.3,1) both}
+  @keyframes letterUp{from{transform:translateY(14px);opacity:0}to{transform:translateY(0);opacity:1}}
+  .copybtn{margin-top:14px;padding:11px 22px;border-radius:10px;border:0;cursor:pointer;
+    background:var(--teal);color:#052;font-size:14px;font-weight:800;transition:transform .15s}
+  .copybtn:hover{transform:scale(1.06)}
+  .hint{margin-top:10px;font-size:12px;color:var(--dim)}
+  .hint b{color:var(--teal)}
+
+  .note{margin-top:26px;padding-top:18px;border-top:1px dashed rgba(255,255,255,.12);
+    font-size:12.5px;color:var(--dim);line-height:1.6}
+  .note b{color:var(--blue)}
+  .tag{margin-top:16px;font-size:11.5px;color:#76d9ff;letter-spacing:1px;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:.65}50%{opacity:1}}
+
+  .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(80px);
+    background:#123;border:1px solid var(--teal);color:#fff;padding:11px 20px;border-radius:999px;
+    font-size:13.5px;font-weight:700;opacity:0;transition:all .35s cubic-bezier(.2,1.5,.4,1);z-index:99}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  @media (max-width:520px){
+    .card{padding:26px 18px}
+    .keytext{font-size:20px}
+    h1{font-size:20px}
+  }
 </style>
 </head>
 <body>
-  <div class="card">
-    <span class="flower">🌸</span>
-    <h1>FLOWER HUB — KEY PAGE</h1>
-    <div class="sub">Paste the <b>HUB CODE</b> from the key window<br>(the green code next to COPY CODE).</div>
 
-    <label for="code">YOUR HUB CODE</label>
-    <input id="code" inputmode="latin" autocomplete="off" spellcheck="false" maxlength="12" placeholder="A1B2C3D4E5">
-    <button id="go">🔑 OPEN MY KEY PAGE</button>
-    <div id="msg"></div>
-
-    <div class="hint">
-      No code? Type <b>GET KEY</b> in FLOWER HUB → the code is under the two cards.<br>
-      Your key page is unique to your device — never share your code.
+<header>
+  <div class="brand">
+    <div class="logo">🌸</div>
+    <div>
+      <div><b>FLOWER HUB</b> <span class="madeby">— made by <b>fahimrbx</b></span></div>
+      <div style="font-size:10.5px;color:var(--dim);letter-spacing:1px">OFFICIAL KEY PAGE</div>
     </div>
   </div>
+  <nav class="socials">
+    <a class="s-discord" href="https://discord.gg/qDYPqjwqYa" target="_blank" rel="noopener">💬 Discord</a>
+    <a class="s-yt" href="https://www.youtube.com/shorts/-56OvI6mkIU" target="_blank" rel="noopener">▶ YouTube</a>
+    <a class="s-ig" href="https://www.instagram.com/fahimrbx1/" target="_blank" rel="noopener">📸 Instagram</a>
+    <a class="s-tt" href="https://www.tiktok.com/@fahimrbx1" target="_blank" rel="noopener">🎵 TikTok</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="card">
+    <div class="big">🌸</div>
+    <h1>GET YOUR FLOWER KEY</h1>
+    <p class="sub">Paste the <b>HUB CODE</b> shown in the key window
+      under <b>COPY CODE</b> — everything is searched from your own device, no key sharing.</p>
+
+    <label for="code">YOUR HUB CODE</label>
+    <div class="codebox">
+      <input id="code" inputmode="numeric" spellcheck="false" maxlength="10" placeholder="example A1B2C3D4E5" autocomplete="off">
+    </div>
+
+    <button id="gen" class="cta">🔑 GENERATE MY FLOWER KEY</button>
+
+    <div id="result">
+      <div style="font-size:12px;color:var(--dim);letter-spacing:1.5px;margin-bottom:8px">YOUR UNIQUE KEY — PRESS AGAIN ANYTIME FOR A FRESH ONE</div>
+      <div id="keytext" class="keytext" title="Click to copy"></div>
+      <div><button class="copybtn" id="copy">📋 COPY KEY</button></div>
+      <div class="hint">Paste it in FLOWER HUB and press <b>VERIFY</b>. Works only with <b>your</b> HUB CODE.</div>
+    </div>
+
+    <p class="note">
+      🌊 <b>LOOTLABS path?</b> You don't need this page — the LootLabs link opens
+      your PlatoBoost page directly.<br>
+      🟠 <b>LINKVERTISE path?</b> Complete your Linkvertise tasks, then press
+      GENERATE on this page. Key format: <b>FLOWER-XXXXX-XXXX</b>, different every time.
+    </p>
+    <div class="tag">MADE BY FAHIMRBX • JOIN DISCORD 🌸</div>
+  </section>
+</main>
+
+<div id="toast" class="toast">✅ Key copied!</div>
 
 <script>
-(function () {
-  var API = "https://api.platoboost.net/public/start";
-  var SERVICE = 31611;
-  var input = document.getElementById('code');
-  var btn = document.getElementById('go');
-  var msg = document.getElementById('msg');
-
-  function say(text, isErr) {
-    msg.textContent = text || '';
-    msg.className = isErr ? 'err' : '';
+/* ------------------------------------------------------------
+   FLOWER-XXXXX-XXXX minting — EXACT same math as the hub (Lua):
+   acc = 0; for each byte: acc = (acc*31 + byte) % 2^32
+   five letters from CH after acc rounds of (acc*31 + 17) % 2^32,
+   then four RANDOM letters per mint = fresh key every time.
+------------------------------------------------------------ */
+const CH = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+function devicePart(code){
+  let a = 0;
+  for (let i = 0; i < code.length; i++){
+    a = (a * 31 + code.charCodeAt(i)) % 4294967296;
   }
-
-  function clean(v) {
-    return String(v || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 10);
+  let out = "";
+  for (let i = 0; i < 5; i++){
+    a = (a * 31 + 17) % 4294967296;
+    out += CH[a % 36];
   }
+  return out;
+}
+function randomSalt(){
+  let s = "";
+  for (let i = 0; i < 4; i++) s += CH[Math.floor(Math.random() * 36)];
+  return s;
+}
+function mintKey(code){
+  return "FLOWER-" + devicePart(code) + "-" + randomSalt();
+}
 
-  // ?c=CODE support so a link can carry the code
-  try {
-    var q = new URLSearchParams(location.search).get('c');
-    if (q) input.value = clean(q);
-  } catch (e) {}
-
-  input.addEventListener('input', function () { input.value = clean(input.value); });
-
-  function openKeyPage() {
-    var code = clean(input.value);
-    if (code.length !== 10) {
-      say('Enter the 10-character HUB CODE from the key window.', true);
-      input.focus();
-      return;
-    }
-    btn.disabled = true;
-    say('Minting your personal key page…');
-
-    fetch(API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ service: SERVICE, identifier: code })
-    })
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        var url = data && data.success && data.data && data.data.url;
-        if (!url) {
-          throw new Error((data && data.message) || 'Server refused the code');
-        }
-        say('Opening your key page… 🌸');
-        location.replace(url);
-      })
-      .catch(function (err) {
-        btn.disabled = false;
-        say('Could not open the key page: ' + err.message + '. Check the code and try again.', true);
-      });
+/* petals */
+(function(){
+  const kinds = ["🌸","✦","❀","♡","🍃","✧"];
+  for (let i = 0; i < 14; i++){
+    const p = document.createElement("div");
+    p.className = "petal";
+    p.textContent = kinds[i % kinds.length];
+    p.style.left = Math.random() * 100 + "vw";
+    p.style.fontSize = (13 + Math.random() * 12) + "px";
+    p.style.animationDuration = (9 + Math.random() * 8) + "s";
+    p.style.animationDelay = (-Math.random() * 12) + "s";
+    document.body.appendChild(p);
   }
-
-  btn.addEventListener('click', openKeyPage);
-  input.addEventListener('keydown', function (e) { if (e.key === 'Enter') openKeyPage(); });
-  if (input.value.length === 10) { setTimeout(openKeyPage, 350); }
 })();
+
+/* UI */
+const codeEl = document.getElementById("code");
+const genEl  = document.getElementById("gen");
+const resEl  = document.getElementById("result");
+const keyEl  = document.getElementById("keytext");
+const copyEl = document.getElementById("copy");
+const toast  = document.getElementById("toast");
+let currentKey = "";
+
+function showKey(key){
+  currentKey = key;
+  resEl.classList.remove("show"); void resEl.offsetWidth;
+  keyEl.innerHTML = "";
+  [...key].forEach((ch, i) => {
+    const s = document.createElement("span");
+    s.textContent = ch;
+    if (ch === "-") s.style.opacity = ".45";
+    s.style.animationDelay = (i * 55) + "ms";
+    keyEl.appendChild(s);
+  });
+  keyEl.onclick = copyKey;
+  resEl.classList.add("show");
+}
+function copyKey(){
+  navigator.clipboard && navigator.clipboard.writeText(currentKey).catch(()=>{});
+  const ta = document.createElement("textarea");
+  ta.value = currentKey; ta.style.position="fixed"; ta.style.opacity="0";
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand("copy"); }catch(e){}
+  document.body.removeChild(ta);
+  toast.classList.add("show");
+  setTimeout(()=>toast.classList.remove("show"), 1600);
+}
+copyEl.addEventListener("click", copyKey);
+
+function generate(){
+  const code = (codeEl.value || "").toUpperCase().trim();
+  if (code.length !== 10 || /[^A-Z0-9]/.test(code)){
+    toast.textContent = "⚠ Code must be 10 letters/digits (from COPY CODE)";
+    toast.classList.add("show");
+    setTimeout(()=>{ toast.textContent = "✅ Key copied!"; toast.classList.remove("show"); }, 2100);
+    codeEl.style.borderColor = "#ff5555";
+    setTimeout(()=> codeEl.style.borderColor = "", 900);
+    return;
+  }
+  genEl.disabled = true;
+  genEl.textContent = "🌸 Growing your key...";
+  setTimeout(() => {
+    showKey(mintKey(code));
+    genEl.disabled = false;
+    genEl.textContent = "🔑 GENERATE AGAIN (fresh key)";
+  }, 400);
+}
+genEl.addEventListener("click", generate);
+codeEl.addEventListener("keydown", e => { if (e.key === "Enter") generate(); });
+
+/* autofill from ?code= or #code */
+const pre = (new URLSearchParams(location.search).get("code") || location.hash.replace("#","")).toUpperCase().replace(/[^A-Z0-9]/g,"");
+if (pre.length === 10){ codeEl.value = pre; generate(); codeEl.readOnly = true; }
 </script>
 </body>
 </html>
