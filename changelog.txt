@@ -1,4 +1,19 @@
 ===========================================================
+FLOWER HUB v2.15.3 — MEGA HITBOX (bigger + whole body)
+===========================================================
+- SIZE: default 12 -> 25 studs, slider cap 50 -> 200 studs.
+- WHOLE BODY: "Hitbox Expand Torso/Arms" is now "Hitbox Whole Body"
+  and ON by default — head, torso, arms, legs, accessories and
+  tools all become one big cube (no more floating head ball).
+- STAYS BIG: a single guarded 1s refresh loop re-applies the
+  hitbox to every player, so respawns, late joiners and parts
+  created later are covered (LoopId prevents duplicate loops).
+- Slider moves now resize the whole body live and remember the
+  original sizes, so turning it OFF restores everything exactly.
+- VERSION: hub v2.15.3 / v2.15.3-MOBILE.
+===========================================================
+
+===========================================================
 FLOWER HUB v2.15.2 — BOT DETECTION + NO-CODE KEYS + NEW SITE
 ===========================================================
 - HUMAN CHECK IN THE KEY WINDOW, TWICE: the key box is locked
