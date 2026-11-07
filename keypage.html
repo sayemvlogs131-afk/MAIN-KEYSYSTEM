@@ -4,145 +4,170 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FLOWER HUB — Get Your FLOWER Key</title>
-<meta name="description" content="Paste your HUB CODE from FLOWER HUB and generate your unique FLOWER-XXXXX-XXXX key.">
+<meta name="description" content="Pass the human check and get your FLOWER-XXXXX-XXXX key for FLOWER HUB. No hub code needed.">
 <style>
   :root{
-    --bg1:#0b1020; --bg2:#160b28; --card:rgba(16,20,40,.72);
-    --pink:#ff7ac8; --pink2:#ffb3de; --blue:#6ec8ff; --teal:#5ef2c0;
-    --text:#eef2ff; --dim:#aab3d6;
+    --bg1:#070a14; --bg2:#140a24; --bg3:#04202e;
+    --pink:#ff7ac8; --pink2:#ffc2e4; --blue:#6ec8ff; --teal:#5ef2c0;
+    --text:#eef2ff; --dim:#a7b0d4;
+    --card:rgba(14,18,36,.72); --line:rgba(255,255,255,.10);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{min-height:100%}
   body{
-    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
-    color:var(--text);background:var(--bg1);
-    background:linear-gradient(120deg,var(--bg1),var(--bg2),#0a2434,#241033);
-    background-size:300% 300%;overflow-x:hidden;
-    animation:bgShift 14s ease infinite;
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--text);
+    background:var(--bg1);overflow-x:hidden;
   }
-  @keyframes bgShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  /* ---------- aurora backdrop ---------- */
+  .aurora{position:fixed;inset:-20%;z-index:0;filter:blur(70px);opacity:.75;pointer-events:none}
+  .blob{position:absolute;border-radius:50%;mix-blend-mode:screen;animation:drift 18s ease-in-out infinite}
+  .b1{width:46vw;height:46vw;left:-8vw;top:-6vw;background:radial-gradient(circle,#ff5fb4,transparent 62%)}
+  .b2{width:42vw;height:42vw;right:-6vw;top:2vw;background:radial-gradient(circle,#5a7bff,transparent 62%);animation-delay:-6s}
+  .b3{width:40vw;height:40vw;left:22vw;bottom:-14vw;background:radial-gradient(circle,#28e0c8,transparent 64%);animation-delay:-11s}
+  @keyframes drift{0%,100%{transform:translate3d(0,0,0) scale(1)}33%{transform:translate3d(4vw,-3vw,0) scale(1.08)}66%{transform:translate3d(-3vw,2vw,0) scale(.95)}}
 
-  /* ---------- spring petals ---------- */
-  .petal{position:fixed;bottom:-40px;font-size:18px;opacity:.35;pointer-events:none;
-    animation:rise linear infinite;z-index:0;}
-  @keyframes rise{
-    0%{transform:translateY(0) rotate(0deg);opacity:0}
-    10%{opacity:.35}
-    100%{transform:translateY(-110vh) rotate(340deg);opacity:0}
-  }
+  /* ---------- petals ---------- */
+  .petal{position:fixed;bottom:-40px;font-size:18px;opacity:.32;pointer-events:none;z-index:1;
+    animation:rise linear infinite}
+  @keyframes rise{0%{transform:translateY(0) rotate(0);opacity:0}12%{opacity:.34}
+    100%{transform:translateY(-112vh) rotate(340deg);opacity:0}}
 
-  /* ---------- top header ---------- */
-  header{
-    position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
-    justify-content:space-between;padding:12px 18px;
-    background:rgba(10,12,26,.75);backdrop-filter:blur(8px);
-    border-bottom:1px solid rgba(255,255,255,.08);
-    animation:slideDown .7s cubic-bezier(.2,1.4,.3,1) both;
-  }
+  /* ---------- header ---------- */
+  header{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    justify-content:space-between;padding:11px 16px;background:rgba(7,9,20,.72);
+    backdrop-filter:blur(14px);border-bottom:1px solid var(--line);
+    animation:slideDown .65s cubic-bezier(.2,1.4,.3,1) both}
   @keyframes slideDown{from{transform:translateY(-70px);opacity:0}to{transform:translateY(0);opacity:1}}
-  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.5px}
-  .brand .logo{font-size:22px;animation:bloom 2.6s ease-in-out infinite}
-  @keyframes bloom{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.15) rotate(8deg)}}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px}
+  .brand .logo{font-size:22px;animation:bloom 2.6s ease-in-out infinite;filter:drop-shadow(0 0 10px rgba(255,122,200,.6))}
+  @keyframes bloom{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.16) rotate(8deg)}}
   .brand b{background:linear-gradient(90deg,var(--pink),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
   .madeby{font-size:12.5px;color:var(--dim)}
   .madeby b{color:var(--pink2)}
   .socials{display:flex;gap:8px;flex-wrap:wrap}
-  .socials a{
-    text-decoration:none;font-size:12.5px;font-weight:700;color:#fff;
-    padding:7px 12px;border-radius:999px;position:relative;overflow:hidden;
-    transition:transform .18s ease,box-shadow .18s ease;
-  }
-  .socials a:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 8px 18px rgba(0,0,0,.35)}
+  .socials a{text-decoration:none;font-size:12.5px;font-weight:700;color:#fff;padding:7px 12px;
+    border-radius:999px;position:relative;overflow:hidden;transition:transform .18s,box-shadow .18s}
+  .socials a:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 8px 18px rgba(0,0,0,.4)}
   .socials a::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
-    background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
-    animation:shine 2.8s infinite;}
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);animation:shine 3s infinite}
   @keyframes shine{0%{left:-60%}60%{left:120%}100%{left:120%}}
   .s-discord{background:#5865F2}.s-yt{background:#e03434}
   .s-ig{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
   .s-tt{background:#111;border:1px solid #333}
 
-  /* ---------- main card ---------- */
-  .wrap{position:relative;z-index:1;display:flex;justify-content:center;padding:46px 16px 70px}
-  .card{
-    width:100%;max-width:520px;background:var(--card);border:1px solid rgba(255,255,255,.1);
-    border-radius:22px;padding:30px 26px;box-shadow:0 25px 60px rgba(0,0,0,.45);
-    backdrop-filter:blur(12px);text-align:center;
-    animation:pop .8s cubic-bezier(.2,1.5,.3,1) both;
-  }
-  @keyframes pop{from{transform:scale(.85) translateY(26px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
-  .card .big{font-size:34px;animation:bloom 2.6s ease-in-out infinite}
-  h1{font-size:23px;margin:10px 0 6px}
-  .sub{color:var(--dim);font-size:14px;line-height:1.55}
-  .sub b{color:var(--pink2)}
+  /* ---------- layout ---------- */
+  .wrap{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;
+    padding:44px 16px 70px;gap:18px}
+  .hero{text-align:center;max-width:560px;animation:pop .8s cubic-bezier(.2,1.5,.3,1) both}
+  .hero .badge{display:inline-block;font-size:11px;letter-spacing:2px;color:#9ff0d8;
+    border:1px solid rgba(94,242,192,.4);background:rgba(94,242,192,.08);
+    padding:6px 12px;border-radius:999px;margin-bottom:14px}
+  .hero h1{font-size:34px;line-height:1.12;letter-spacing:-.5px}
+  .hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--pink),var(--blue) 70%);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{color:var(--dim);font-size:14.5px;line-height:1.6;margin-top:10px}
+  .hero p b{color:var(--pink2)}
 
-  label{display:block;text-align:left;margin:22px 0 8px;font-size:12px;letter-spacing:1.4px;color:var(--blue);font-weight:700}
-  .codebox{position:relative}
-  #code{
-    width:100%;padding:15px 16px;font-size:17px;letter-spacing:2.5px;text-transform:uppercase;
-    background:#0d1128;color:#fff;border:1.5px solid #2a3560;border-radius:12px;outline:none;
-    transition:border .2s,box-shadow .2s;
-  }
-  #code:focus{border-color:var(--pink);box-shadow:0 0 0 4px rgba(255,122,200,.15)}
-  .cta{
-    width:100%;margin-top:18px;padding:15px;border:0;border-radius:14px;cursor:pointer;
-    font-size:15.5px;font-weight:800;color:#fff;position:relative;overflow:hidden;letter-spacing:.6px;
-    background:linear-gradient(90deg,#ff6ab2,#7a6cff 55%,#39b7ff);
-    background-size:200% 100%;transition:transform .15s,filter .2s;
-    animation:gradSlide 4s ease infinite;
-  }
-  @keyframes gradSlide{0%,100%{background-position:0 0}50%{background-position:100% 0}}
-  .cta:hover{transform:translateY(-2px) scale(1.02);filter:brightness(1.1)}
-  .cta:active{transform:scale(.97)}
-  .cta::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);
-    transform:translateX(-120%);animation:sweep 2.6s infinite}
-  @keyframes sweep{0%{transform:translateX(-120%)}55%,100%{transform:translateX(120%)}}
+  .card{width:100%;max-width:520px;background:var(--card);border:1px solid var(--line);
+    border-radius:22px;padding:26px 22px;backdrop-filter:blur(14px);
+    box-shadow:0 26px 70px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.03) inset;
+    animation:pop .8s cubic-bezier(.2,1.5,.3,1) both;position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;inset:0;padding:1px;border-radius:22px;
+    background:linear-gradient(140deg,rgba(255,122,200,.5),transparent 40%,rgba(110,200,255,.45));
+    -webkit-mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);
+    -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+  @keyframes pop{from{transform:scale(.9) translateY(22px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+  .stephead{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+  .stepnum{width:26px;height:26px;border-radius:9px;display:grid;place-items:center;font-size:12.5px;
+    font-weight:900;color:#1a0a14;background:linear-gradient(140deg,var(--pink2),var(--pink))}
+  .stephead h2{font-size:14px;letter-spacing:2px;color:var(--blue);font-weight:800}
+  .hint{color:var(--dim);font-size:13px;line-height:1.6}
+  .hint b{color:var(--pink2)}
 
-  /* ---------- result ---------- */
-  #result{
-    margin-top:22px;padding:20px 18px;border-radius:16px;display:none;
+  /* ---------- human gate ---------- */
+  .gate{text-align:center}
+  .hold{position:relative;width:132px;height:132px;margin:16px auto 10px;border-radius:50%;
+    background:conic-gradient(var(--pink) 0deg,rgba(255,255,255,.08) 0deg);
+    display:grid;place-items:center;transition:transform .15s;touch-action:none;
+    box-shadow:0 0 0 1px rgba(255,255,255,.08),0 18px 40px rgba(255,90,180,.22)}
+  .hold:active{transform:scale(.97)}
+  .hold .inner{width:108px;height:108px;border-radius:50%;display:grid;place-items:center;
+    background:radial-gradient(circle at 40% 30%,#241031,#0b0f1e 70%);border:1px solid rgba(255,255,255,.08)}
+  .hold .flower{font-size:44px;filter:drop-shadow(0 0 12px rgba(255,122,200,.7));
+    animation:bloom 2.2s ease-in-out infinite}
+  .hold .cap{font-size:10px;letter-spacing:1.6px;color:#ffd0e8;margin-top:2px}
+  .gate .status{margin-top:8px;font-size:12.5px;color:var(--dim);min-height:18px}
+  .gate .status.ok{color:var(--teal)}
+  .gate .status.bad{color:#ff7a94}
+  .checks{margin-top:14px;display:grid;gap:6px;font-size:12px;color:#8f9bc4;text-align:left}
+  .checks span{display:flex;gap:8px;align-items:center}
+  .checks i{font-style:normal;width:16px;text-align:center}
+
+  /* ---------- key ---------- */
+  .keybox{margin-top:6px;padding:20px 16px;border-radius:16px;text-align:center;
     background:linear-gradient(135deg,rgba(255,122,200,.12),rgba(110,200,255,.12));
-    border:1.5px solid rgba(255,122,200,.45);
-    animation:pop .6s cubic-bezier(.2,1.5,.3,1) both;
-  }
-  #result.show{display:block}
-  .keytext{font-size:24px;font-weight:900;letter-spacing:2px;cursor:pointer;user-select:all;
-    color:transparent;background:linear-gradient(90deg,var(--pink),var(--blue));-webkit-background-clip:text;background-clip:text;
-    animation:wave 2.4s ease infinite}
-  @keyframes wave{0%,100%{filter:hue-rotate(0)}50%{filter:hue-rotate(35deg)}}
+    border:1.5px solid rgba(255,122,200,.42);animation:pop .55s cubic-bezier(.2,1.6,.3,1) both}
+  .keytext{font-size:25px;font-weight:900;letter-spacing:2px;cursor:pointer;user-select:all;
+    color:transparent;background:linear-gradient(90deg,var(--pink),var(--blue));
+    -webkit-background-clip:text;background-clip:text;animation:wave 2.4s ease infinite;word-break:break-all}
+  @keyframes wave{0%,100%{filter:hue-rotate(0)}50%{filter:hue-rotate(32deg)}}
   .keytext span{display:inline-block;animation:letterUp .5s cubic-bezier(.2,1.6,.3,1) both}
   @keyframes letterUp{from{transform:translateY(14px);opacity:0}to{transform:translateY(0);opacity:1}}
-  .copybtn{margin-top:14px;padding:11px 22px;border-radius:10px;border:0;cursor:pointer;
-    background:var(--teal);color:#052;font-size:14px;font-weight:800;transition:transform .15s}
-  .copybtn:hover{transform:scale(1.06)}
-  .hint{margin-top:10px;font-size:12px;color:var(--dim)}
-  .hint b{color:var(--teal)}
+  .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+  .btn{border:0;cursor:pointer;border-radius:12px;font-weight:800;font-size:14px;padding:12px 20px;
+    transition:transform .15s,filter .2s}
+  .btn:hover{transform:translateY(-2px) scale(1.03);filter:brightness(1.08)}
+  .btn:active{transform:scale(.97)}
+  .btn.copy{background:var(--teal);color:#04241b}
+  .btn.again{background:rgba(255,255,255,.08);color:#dfe6ff;border:1px solid var(--line)}
+  .btn.primary{width:100%;padding:15px;color:#fff;font-size:15px;letter-spacing:.5px;
+    background:linear-gradient(90deg,#ff6ab2,#7a6cff 55%,#39b7ff);background-size:200% 100%;
+    animation:gradSlide 4s ease infinite;position:relative;overflow:hidden}
+  @keyframes gradSlide{0%,100%{background-position:0 0}50%{background-position:100% 0}}
+  .btn.primary::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);
+    transform:translateX(-120%);animation:sweep 2.8s infinite}
+  @keyframes sweep{0%{transform:translateX(-120%)}55%,100%{transform:translateX(120%)}}
 
-  .note{margin-top:26px;padding-top:18px;border-top:1px dashed rgba(255,255,255,.12);
-    font-size:12.5px;color:var(--dim);line-height:1.6}
+  details{margin-top:16px;border-top:1px dashed rgba(255,255,255,.12);padding-top:14px}
+  summary{cursor:pointer;font-size:12.5px;color:var(--blue);font-weight:700;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"🔒 "}
+  .lockwrap{margin-top:12px}
+  .lockwrap input{width:100%;padding:13px 14px;font-size:16px;letter-spacing:2.4px;
+    text-transform:uppercase;background:#0b0f22;color:#fff;border:1.5px solid #263259;
+    border-radius:11px;outline:none;transition:border .2s,box-shadow .2s}
+  .lockwrap input:focus{border-color:var(--pink);box-shadow:0 0 0 4px rgba(255,122,200,.15)}
+  .lockwrap .small{font-size:11.5px;color:var(--dim);margin-top:8px;line-height:1.5}
+
+  .note{margin-top:18px;font-size:12.5px;color:var(--dim);line-height:1.65}
   .note b{color:var(--blue)}
-  .tag{margin-top:16px;font-size:11.5px;color:#76d9ff;letter-spacing:1px;animation:pulse 2s infinite}
-  @keyframes pulse{0%,100%{opacity:.65}50%{opacity:1}}
+  footer{position:relative;z-index:2;text-align:center;font-size:11.5px;color:#6f7aa0;padding:0 16px 40px}
+  footer a{color:var(--pink2);text-decoration:none}
 
-  .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(80px);
-    background:#123;border:1px solid var(--teal);color:#fff;padding:11px 20px;border-radius:999px;
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(90px);
+    background:#0f1b22;border:1px solid var(--teal);color:#fff;padding:11px 20px;border-radius:999px;
     font-size:13.5px;font-weight:700;opacity:0;transition:all .35s cubic-bezier(.2,1.5,.4,1);z-index:99}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
   @media (max-width:520px){
-    .card{padding:26px 18px}
+    .hero h1{font-size:26px}
+    .card{padding:22px 16px}
     .keytext{font-size:20px}
-    h1{font-size:20px}
   }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
+
+<div class="aurora"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
 
 <header>
   <div class="brand">
     <div class="logo">🌸</div>
     <div>
       <div><b>FLOWER HUB</b> <span class="madeby">— made by <b>fahimrbx</b></span></div>
-      <div style="font-size:10.5px;color:var(--dim);letter-spacing:1px">OFFICIAL KEY PAGE</div>
+      <div style="font-size:10.5px;color:var(--dim);letter-spacing:1.4px">OFFICIAL KEY PAGE</div>
     </div>
   </div>
   <nav class="socials">
@@ -154,56 +179,91 @@
 </header>
 
 <main class="wrap">
-  <section class="card">
-    <div class="big">🌸</div>
-    <h1>GET YOUR FLOWER KEY</h1>
-    <p class="sub">Paste the <b>HUB CODE</b> shown in the key window
-      under <b>COPY CODE</b> — everything is searched from your own device, no key sharing.</p>
+  <section class="hero">
+    <div class="badge">🌸 NO HUB CODE NEEDED</div>
+    <h1>GET YOUR <em>FLOWER</em> KEY</h1>
+    <p>Pass the human check and your key appears instantly —
+      format <b>FLOWER-XXXXX-XXXX</b>, fresh every time.
+      Paste it in FLOWER HUB and press <b>VERIFY</b>.</p>
+  </section>
 
-    <label for="code">YOUR HUB CODE</label>
-    <div class="codebox">
-      <input id="code" inputmode="numeric" spellcheck="false" maxlength="10" placeholder="example A1B2C3D4E5" autocomplete="off">
+  <!-- ============ STEP 1: BOT DETECTION ============ -->
+  <section class="card gate" id="gateCard">
+    <div class="stephead"><div class="stepnum">1</div><h2>HUMAN CHECK</h2></div>
+    <p class="hint">Bots skip straight to the key — holding proves you're real.
+      <b>Press and hold</b> the flower for <b>1.5 seconds</b>.</p>
+
+    <div class="hold" id="hold">
+      <div class="inner">
+        <div>
+          <div class="flower">🌸</div>
+          <div class="cap" id="holdCap">HOLD</div>
+        </div>
+      </div>
     </div>
+    <div class="status" id="gateStatus">waiting for you…</div>
 
-    <button id="gen" class="cta">🔑 GENERATE MY FLOWER KEY</button>
+    <div class="checks">
+      <span><i id="c1">○</i> pointer / touch detected</span>
+      <span><i id="c2">○</i> hold time completed</span>
+      <span><i id="c3">○</i> automated browser blocked</span>
+    </div>
+  </section>
 
-    <div id="result">
-      <div style="font-size:12px;color:var(--dim);letter-spacing:1.5px;margin-bottom:8px">YOUR UNIQUE KEY — PRESS AGAIN ANYTIME FOR A FRESH ONE</div>
+  <!-- ============ STEP 2: KEY ============ -->
+  <section class="card" id="keyCard" style="display:none">
+    <div class="stephead"><div class="stepnum">2</div><h2>YOUR KEY</h2></div>
+    <div class="keybox">
+      <div style="font-size:11.5px;letter-spacing:1.5px;color:var(--dim);margin-bottom:8px">
+        COPY THIS INTO FLOWER HUB → VERIFY
+      </div>
       <div id="keytext" class="keytext" title="Click to copy"></div>
-      <div><button class="copybtn" id="copy">📋 COPY KEY</button></div>
-      <div class="hint">Paste it in FLOWER HUB and press <b>VERIFY</b>. Works only with <b>your</b> HUB CODE.</div>
+      <div class="row">
+        <button class="btn copy" id="copy">📋 COPY KEY</button>
+        <button class="btn again" id="again">🔄 NEW KEY</button>
+      </div>
     </div>
 
     <p class="note">
-      🌊 <b>LOOTLABS path?</b> You don't need this page — the LootLabs link opens
-      your PlatoBoost page directly.<br>
-      🟠 <b>LINKVERTISE path?</b> Complete your Linkvertise tasks, then press
-      GENERATE on this page. Key format: <b>FLOWER-XXXXX-XXXX</b>, different every time.
+      🌊 <b>LOOTLABS path?</b> skip this page — your LootLabs link opens the
+      PlatoBoost key page directly.<br>
+      🟠 <b>LINKVERTISE path?</b> finish your tasks, pass the human check here,
+      copy the key — that's it, no hub code to type.
     </p>
-    <div class="tag">MADE BY FAHIMRBX • JOIN DISCORD 🌸</div>
+
+    <details>
+      <summary>Lock this key to my device (optional, extra security)</summary>
+      <div class="lockwrap">
+        <input id="code" inputmode="latin" spellcheck="false" maxlength="10"
+               placeholder="YOUR HUB CODE (10 characters)" autocomplete="off">
+        <div class="small">Want a key nobody can reuse on another device? Copy the
+          <b>HUB CODE</b> from the key window in FLOWER HUB, paste it here, then press
+          NEW KEY — that key only works on your device.</div>
+        <div class="row"><button class="btn again" id="lockBtn">🔒 MAKE DEVICE-LOCKED KEY</button></div>
+      </div>
+    </details>
   </section>
 </main>
 
+<footer>MADE BY FAHIMRBX 🌸 • <a href="https://discord.gg/qDYPqjwqYa" target="_blank" rel="noopener">JOIN THE DISCORD</a></footer>
 <div id="toast" class="toast">✅ Key copied!</div>
 
 <script>
-/* ------------------------------------------------------------
-   FLOWER-XXXXX-XXXX minting — EXACT same math as the hub (Lua):
-   acc = 0; for each byte: acc = (acc*31 + byte) % 2^32
-   five letters from CH after acc rounds of (acc*31 + 17) % 2^32,
-   then four RANDOM letters per mint = fresh key every time.
------------------------------------------------------------- */
+/* ============================================================
+   FLOWER key minting — EXACT same math as the hub (Lua):
+     acc = 0; for each byte: acc = (acc*31 + byte) % 2^32
+     5 chars: acc = (acc*31 + 17) % 2^32 -> CH[acc % 36]
+     4 random chars = fresh key every mint
+   TWO kinds of key:
+     day key  = FLOWER-<part("FLOWER-DAY-YYYYMMDD")>-XXXX   (no code needed)
+     device   = FLOWER-<part(HUBCODE)>-XXXX                (locked, optional)
+   ============================================================ */
 const CH = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-function devicePart(code){
+function devicePart(str){
   let a = 0;
-  for (let i = 0; i < code.length; i++){
-    a = (a * 31 + code.charCodeAt(i)) % 4294967296;
-  }
+  for (let i = 0; i < str.length; i++) a = (a * 31 + str.charCodeAt(i)) % 4294967296;
   let out = "";
-  for (let i = 0; i < 5; i++){
-    a = (a * 31 + 17) % 4294967296;
-    out += CH[a % 36];
-  }
+  for (let i = 0; i < 5; i++){ a = (a * 31 + 17) % 4294967296; out += CH[a % 36]; }
   return out;
 }
 function randomSalt(){
@@ -211,84 +271,184 @@ function randomSalt(){
   for (let i = 0; i < 4; i++) s += CH[Math.floor(Math.random() * 36)];
   return s;
 }
-function mintKey(code){
-  return "FLOWER-" + devicePart(code) + "-" + randomSalt();
+function utcDay(){
+  const d = new Date();
+  return d.getUTCFullYear()
+    + String(d.getUTCMonth() + 1).padStart(2, "0")
+    + String(d.getUTCDate()).padStart(2, "0");
 }
+function daySalt(){ return "FLOWER-DAY-" + utcDay(); }
+function mintDayKey(){ return "FLOWER-" + devicePart(daySalt()) + "-" + randomSalt(); }
+function mintDeviceKey(code){ return "FLOWER-" + devicePart(code) + "-" + randomSalt(); }
 
-/* petals */
+/* ---------- petals ---------- */
 (function(){
   const kinds = ["🌸","✦","❀","♡","🍃","✧"];
-  for (let i = 0; i < 14; i++){
+  for (let i = 0; i < 16; i++){
     const p = document.createElement("div");
     p.className = "petal";
     p.textContent = kinds[i % kinds.length];
     p.style.left = Math.random() * 100 + "vw";
-    p.style.fontSize = (13 + Math.random() * 12) + "px";
-    p.style.animationDuration = (9 + Math.random() * 8) + "s";
-    p.style.animationDelay = (-Math.random() * 12) + "s";
+    p.style.fontSize = (13 + Math.random() * 13) + "px";
+    p.style.animationDuration = (9 + Math.random() * 9) + "s";
+    p.style.animationDelay = (-Math.random() * 13) + "s";
     document.body.appendChild(p);
   }
 })();
 
-/* UI */
+/* ---------- elements ---------- */
+const gateCard = document.getElementById("gateCard");
+const keyCard  = document.getElementById("keyCard");
+const holdEl   = document.getElementById("hold");
+const capEl    = document.getElementById("holdCap");
+const stEl     = document.getElementById("gateStatus");
+const c1 = document.getElementById("c1"), c2 = document.getElementById("c2"), c3 = document.getElementById("c3");
+const keyEl = document.getElementById("keytext");
 const codeEl = document.getElementById("code");
-const genEl  = document.getElementById("gen");
-const resEl  = document.getElementById("result");
-const keyEl  = document.getElementById("keytext");
-const copyEl = document.getElementById("copy");
-const toast  = document.getElementById("toast");
-let currentKey = "";
+const toast = document.getElementById("toast");
 
+const HOLD_MS = 1500;
+let passed = false;
+let pointerSeen = false;
+let moved = 0;
+let holdStart = 0;
+let raf = 0;
+
+/* ---------- bot heuristics ---------- */
+const looksAutomated = (() => {
+  try{
+    if (navigator.webdriver) return true;                       // selenium/puppeteer
+    if (!navigator.languages || navigator.languages.length === 0) return true;
+    if (/HeadlessChrome|PhantomJS|Electron/i.test(navigator.userAgent)) return true;
+  }catch(e){}
+  return false;
+})();
+if (looksAutomated){
+  c3.textContent = "✕";
+  c3.style.color = "#ff7a94";
+  stEl.textContent = "automated browser detected — open this page in a normal browser";
+  stEl.className = "status bad";
+  holdEl.style.filter = "grayscale(.8)";
+} else {
+  c3.textContent = "✓";
+  c3.style.color = "#5ef2c0";
+}
+
+/* a real pointer moves before it holds; scripts fire a single synthetic press */
+addEventListener("pointermove", () => {
+  if (!pointerSeen){ pointerSeen = true; moved++; c1.textContent = "✓"; c1.style.color = "#5ef2c0"; }
+  else moved++;
+}, { passive: true });
+addEventListener("touchstart", () => {
+  if (!pointerSeen){ pointerSeen = true; moved++; c1.textContent = "✓"; c1.style.color = "#5ef2c0"; }
+}, { passive: true });
+
+function setRing(p){
+  const deg = Math.max(0, Math.min(1, p)) * 360;
+  holdEl.style.background =
+    "conic-gradient(#ff7ac8 " + deg + "deg, rgba(255,255,255,.08) " + deg + "deg)";
+}
+
+function startHold(e){
+  if (passed || looksAutomated) return;
+  if (e && e.cancelable) e.preventDefault();
+  holdStart = performance.now();
+  capEl.textContent = "HOLDING";
+  cancelAnimationFrame(raf);
+  const tick = () => {
+    const p = (performance.now() - holdStart) / HOLD_MS;
+    setRing(p);
+    if (p >= 1){ completeGate(); return; }
+    raf = requestAnimationFrame(tick);
+  };
+  raf = requestAnimationFrame(tick);
+}
+
+function endHold(){
+  if (passed) return;
+  cancelAnimationFrame(raf);
+  const p = holdStart ? (performance.now() - holdStart) / HOLD_MS : 0;
+  setRing(0);
+  capEl.textContent = "HOLD";
+  if (p < 1) stEl.textContent = p > 0.35 ? "almost — hold it all the way" : "hold longer 🌸";
+}
+
+function completeGate(){
+  passed = true;
+  cancelAnimationFrame(raf);
+  setRing(1);
+  capEl.textContent = "DONE";
+  c2.textContent = "✓"; c2.style.color = "#5ef2c0";
+  stEl.textContent = "human verified — here is your key";
+  stEl.className = "status ok";
+  setTimeout(() => {
+    gateCard.style.display = "none";
+    keyCard.style.display = "";
+    keyCard.scrollIntoView({ behavior: "smooth", block: "center" });
+    showKey(mintDayKey());
+  }, 420);
+}
+
+holdEl.addEventListener("pointerdown", startHold);
+holdEl.addEventListener("pointerup", endHold);
+holdEl.addEventListener("pointercancel", endHold);
+holdEl.addEventListener("pointerleave", endHold);
+holdEl.addEventListener("contextmenu", e => e.preventDefault());
+
+/* ---------- key display ---------- */
+let currentKey = "";
 function showKey(key){
   currentKey = key;
-  resEl.classList.remove("show"); void resEl.offsetWidth;
   keyEl.innerHTML = "";
   [...key].forEach((ch, i) => {
     const s = document.createElement("span");
     s.textContent = ch;
-    if (ch === "-") s.style.opacity = ".45";
-    s.style.animationDelay = (i * 55) + "ms";
+    if (ch === "-") s.style.opacity = ".4";
+    s.style.animationDelay = (i * 45) + "ms";
     keyEl.appendChild(s);
   });
   keyEl.onclick = copyKey;
-  resEl.classList.add("show");
 }
 function copyKey(){
-  navigator.clipboard && navigator.clipboard.writeText(currentKey).catch(()=>{});
+  if (!currentKey) return;
+  if (navigator.clipboard) navigator.clipboard.writeText(currentKey).catch(() => {});
   const ta = document.createElement("textarea");
-  ta.value = currentKey; ta.style.position="fixed"; ta.style.opacity="0";
+  ta.value = currentKey;
+  ta.style.position = "fixed"; ta.style.opacity = "0";
   document.body.appendChild(ta); ta.select();
   try{ document.execCommand("copy"); }catch(e){}
   document.body.removeChild(ta);
   toast.classList.add("show");
-  setTimeout(()=>toast.classList.remove("show"), 1600);
+  setTimeout(() => toast.classList.remove("show"), 1600);
 }
-copyEl.addEventListener("click", copyKey);
+document.getElementById("copy").addEventListener("click", copyKey);
+document.getElementById("again").addEventListener("click", () => showKey(mintDayKey()));
 
-function generate(){
-  const code = (codeEl.value || "").toUpperCase().trim();
-  if (code.length !== 10 || /[^A-Z0-9]/.test(code)){
-    toast.textContent = "⚠ Code must be 10 letters/digits (from COPY CODE)";
+/* optional device lock */
+document.getElementById("lockBtn").addEventListener("click", () => {
+  const code = (codeEl.value || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+  if (code.length !== 10){
+    toast.textContent = "⚠ HUB CODE must be 10 letters/digits";
     toast.classList.add("show");
-    setTimeout(()=>{ toast.textContent = "✅ Key copied!"; toast.classList.remove("show"); }, 2100);
+    setTimeout(() => { toast.textContent = "✅ Key copied!"; toast.classList.remove("show"); }, 2100);
     codeEl.style.borderColor = "#ff5555";
-    setTimeout(()=> codeEl.style.borderColor = "", 900);
+    setTimeout(() => codeEl.style.borderColor = "", 900);
     return;
   }
-  genEl.disabled = true;
-  genEl.textContent = "🌸 Growing your key...";
-  setTimeout(() => {
-    showKey(mintKey(code));
-    genEl.disabled = false;
-    genEl.textContent = "🔑 GENERATE AGAIN (fresh key)";
-  }, 400);
-}
-genEl.addEventListener("click", generate);
-codeEl.addEventListener("keydown", e => { if (e.key === "Enter") generate(); });
+  codeEl.value = code;
+  showKey(mintDeviceKey(code));
+  toast.textContent = "🔒 Device-locked key ready";
+  toast.classList.add("show");
+  setTimeout(() => { toast.textContent = "✅ Key copied!"; toast.classList.remove("show"); }, 1800);
+});
+codeEl.addEventListener("keydown", e => {
+  if (e.key === "Enter") document.getElementById("lockBtn").click();
+});
 
-/* autofill from ?code= or #code */
-const pre = (new URLSearchParams(location.search).get("code") || location.hash.replace("#","")).toUpperCase().replace(/[^A-Z0-9]/g,"");
-if (pre.length === 10){ codeEl.value = pre; generate(); codeEl.readOnly = true; }
+/* ?code=XXXX autofill still works for people who followed an old link */
+const pre = (new URLSearchParams(location.search).get("code") || "")
+  .toUpperCase().replace(/[^A-Z0-9]/g, "");
+if (pre.length === 10) codeEl.value = pre;
 </script>
 </body>
 </html>

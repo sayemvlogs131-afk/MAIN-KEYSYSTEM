@@ -1,4 +1,25 @@
 ===========================================================
+FLOWER HUB v2.15.2 — BOT DETECTION + NO-CODE KEYS + NEW SITE
+===========================================================
+- HUMAN CHECK IN THE KEY WINDOW, TWICE: the key box is locked
+  behind a button you must HOLD (1.5s) before it becomes usable,
+  and a second hold (1.2s) is required AFTER the key is accepted,
+  right before the hub opens. A bot/macro fires one instant click
+  and never fills either bar, so replaying a saved VERIFY click
+  can no longer skip the key wall.
+- WEBSITE REBUILT: aurora background, glass cards, conic-gradient
+  hold ring, petal rain, gradient key reveal, copy + "new key",
+  and a human check that runs FIRST (real pointer/touch required,
+  hold 1.5s, headless browsers blocked before anything is shown).
+- NO HUB CODE NEEDED: the Linkvertise page now mints a DAILY key
+  straight after the check (FLOWER-<daypart>-XXXX, UTC date, valid
+  today + yesterday). Device-locking is still there as an OPTIONAL
+  "lock to my device" box for anyone who wants it.
+- KEY SYSTEM LOOKS: petal backdrop, gradient titles, rounded
+  glass frames on every key-window card.
+- VERSION: hub v2.15.2 / v2.15.2-MOBILE, key system v2.15.2.
+===========================================================
+
 FLOWER HUB v2.15.1 — "NOTHING CAME" FIX (KEY -> HUB LOAD)
 ===========================================================
 - THE BUG: after entering a valid key the key window closed and
@@ -34,39 +55,7 @@ FLOWER HUB v2.15.0 — FLOWER KEYS + WEBSITE KEY SYSTEM
 - Toggle float button / logo / avatar renamed R -> F (Flower).
 - ESP REBUILT: one shared RenderStepped loop for all players
   (was one loop per player = lag), auto-heal records on respawn,
-  1500-stud culling, everything guard-wrapped. Box + highlight +
-  name + HP + distance + tool + tracer + skeleton all stable.
-- SEA EVENTS: new BOAT TO ME (one tap = your last boat teleports
-  in front of you; only YOUR boat, never someone else's). Boat
-  Turbo / Max Boat Speed ceiling raised 2000 -> 4000 studs/s.
-- Socials unified: discord.gg/qDYPqjwqYa everywhere, YouTube/
-  Instagram/TikTok links live in hub + website.
-- VERSION: hub v2.15.0 / v2.15.0-MOBILE, key system v2.15.0.
+  1500-stud culling, everything guard-wrapped.
+- SEA EVENTS: BOAT TO ME + boat speed ceiling 2000 -> 4000.
+- Socials unified: discord.gg/qDYPqjwqYa everywhere.
 ===========================================================
-
-FLOWER HUB v2.14.0 - SEA EVENTS POWER PACK + KEY SITE CHOICE
-=========================================================
-SEA EVENTS - FIXED FOR REAL:
-• The hull is now handed to YOU (network ownership). Servers used to
-  keep the boat, so every velocity write was silently ignored -
-  that is why the boat functions looked dead on some games.
-• ANTI-FLIP BUG: the old loop deleted + re-created its gyro every
-  single frame, so it never had time to work. It is made once now.
-• Boat Speed no longer requires holding W (touch players included).
-
-NEW SEA EVENTS FEATURES:
-• Auto Sail - keeps full throttle by itself (game propulsion engages)
-• Turbo Mode - full-power run up to 2000 studs/s
-• Max Boat Speed slider - your own cap, 100-2000
-• Boat Hover - waves can push you but never sink you
-• Boat Jump + Jump Power - tap Space to launch the hull
-• Instant Brake - stops the hull dead
-• Check Boat - diagnostic button: model, seat, speed, owner
-
-KEY SYSTEM:
-• GET KEY now asks LOOTLABS or LINKVERTISE (2 animated cards).
-  Both sites give the SAME key - pick whichever loads best.
-• New animations: sparkles, button shine sweep, chooser pop-ins,
-  liquid title gradient.
-• Linkvertise is wired and ready: paste one link from your creator
-  dashboard into CONFIG.LinkvertiseLink (see LINKVERTISE-SETUP.md).
