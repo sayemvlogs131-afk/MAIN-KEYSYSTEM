@@ -1,3 +1,49 @@
+===========================================================
+FLOWER HUB v2.15.1 — "NOTHING CAME" FIX (KEY -> HUB LOAD)
+===========================================================
+- THE BUG: after entering a valid key the key window closed and
+  NOTHING appeared. The key system destroyed its own GUI, then
+  downloaded the hub with ONE method (game:HttpGet(url, true)),
+  ran it WITHOUT pcall, and reported every failure through
+  warn() only — which most executors never show. Blank screen.
+- HUB LAUNCH REBUILT: 4 fetch attempts per build (plain HttpGet,
+  nocache HttpGet, jsDelivr mirror, cache-busted URL), desktop
+  build then mobile build as fallback, then local files.
+- IT ALWAYS TALKS NOW: a small on-screen toast says
+  "Starting FLOWER HUB ..." the moment the key is accepted, and
+  ANY failure shows a red panel with the real error + the Discord
+  link. No more silent blank screen, ever.
+- HUB BOOT HARDENED: CreateLoadingScreen() is pcall-wrapped, so a
+  bug inside the loading screen can no longer abort the whole boot
+  and leave an empty screen.
+- VERSION: hub v2.15.1 / v2.15.1-MOBILE, key system v2.15.1.
+===========================================================
+
+FLOWER HUB v2.15.0 — FLOWER KEYS + WEBSITE KEY SYSTEM
+===========================================================
+- KEY SYSTEM SPLIT: LOOTLABS = PlatoBoost key page (official
+  redeem, server-verified). LINKVERTISE = OUR OWN key website
+  (GitHub Pages keypage.html) which mints a unique
+  FLOWER-XXXXX-XXXX key: always starts with FLOWER, random part
+  changes every mint, locked to the fan's HUB CODE, and VERIFY
+  checks it 100% on-device (no network, no dead-API risk).
+- GET KEY chooser fix: the dark scrim + game blur now ALWAYS
+  shows behind the two provider cards (direct set, no tween race).
+- Loading screen rebuilt: glass card pop-in, spinning ring,
+  emoji petals, live status cycler, gradient bar + shine sweep.
+- Toggle float button / logo / avatar renamed R -> F (Flower).
+- ESP REBUILT: one shared RenderStepped loop for all players
+  (was one loop per player = lag), auto-heal records on respawn,
+  1500-stud culling, everything guard-wrapped. Box + highlight +
+  name + HP + distance + tool + tracer + skeleton all stable.
+- SEA EVENTS: new BOAT TO ME (one tap = your last boat teleports
+  in front of you; only YOUR boat, never someone else's). Boat
+  Turbo / Max Boat Speed ceiling raised 2000 -> 4000 studs/s.
+- Socials unified: discord.gg/qDYPqjwqYa everywhere, YouTube/
+  Instagram/TikTok links live in hub + website.
+- VERSION: hub v2.15.0 / v2.15.0-MOBILE, key system v2.15.0.
+===========================================================
+
 FLOWER HUB v2.14.0 - SEA EVENTS POWER PACK + KEY SITE CHOICE
 =========================================================
 SEA EVENTS - FIXED FOR REAL:
