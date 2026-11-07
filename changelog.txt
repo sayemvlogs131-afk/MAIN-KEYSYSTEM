@@ -1,4 +1,23 @@
 ===========================================================
+FLOWER HUB v2.15.4 — UNIVERSAL MODE (any game, no gating)
+===========================================================
+- NO GAME GATE, ON PURPOSE: the hub still works in any Roblox
+  game. There is no PlaceId allowlist and no "unsupported game"
+  screen, so it can never lock a fan out of a game.
+- CAPABILITY PROBE INSTEAD: at load the Info tab now reports what
+  THIS game actually gives the hub — character rig (R15 / R6),
+  "character ok / waiting for character" and "vehicles found /
+  no vehicles here" — cached for 8s so the Heartbeat refresh
+  costs nothing.
+- WHY: boat/sea features silently did nothing in games without a
+  vehicle. Now "Game Support" tells the truth up front instead of
+  looking like a broken button.
+- New Info rows: Universal Mode, Rig, Game Support. COPY ALL INFO
+  includes both new lines for support reports.
+- VERSION: hub v2.15.4 / v2.15.4-MOBILE.
+===========================================================
+
+===========================================================
 FLOWER HUB v2.15.3 — MEGA HITBOX (bigger + whole body)
 ===========================================================
 - SIZE: default 12 -> 25 studs, slider cap 50 -> 200 studs.
