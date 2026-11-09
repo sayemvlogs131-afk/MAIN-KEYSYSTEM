@@ -313,6 +313,41 @@ const codeEl = document.getElementById("code");
 const toast = document.getElementById("toast");
 
 const HOLD_MS = 1500;
+/* v2.17.0 SERVER-VERIFIED KEYS: the browser never creates a key any more.
+   It asks the FLOWER key server for a one-time challenge the moment the hold
+   starts, then trades that challenge for a key when the hold completes. The
+   server refuses anything younger than HOLD_MS, so the hold is enforced
+   server-side and a forged local page can't mint a working key. */
+const API = "https://site-6f2a0765d75140c78e5c6f26fcaf1355.freebuff.page";
+let challengeId = null;
+async function newChallenge(){
+  const r = await fetch(API + "/api/challenge", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" });
+  const j = await r.json();
+  if (!j.ok) throw new Error(j.reason || "challenge-failed");
+  challengeId = j.id;
+  return j;
+}
+async function mintServer(hwid){
+  if (!challengeId) await newChallenge();
+  const body = { challenge: challengeId };
+  if (hwid) body.hwid = hwid;
+  const r = await fetch(API + "/api/mint", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+  const j = await r.json();
+  if (!j.ok) throw new Error(j.reason || "mint-failed");
+  challengeId = null;
+  return j.key;
+}
+async function showFreshKey(hwid){
+  keyEl.style.color = "";
+  keyEl.textContent = "getting your key…";
+  try {
+    showKey(await mintServer(hwid));
+  } catch (e) {
+    keyEl.textContent = "key server busy — tap NEW KEY";
+    keyEl.style.color = "#ff7a94";
+    newChallenge().catch(() => {});
+  }
+}
 let passed = false;
 let pointerSeen = false;
 let moved = 0;
@@ -358,6 +393,7 @@ function startHold(e){
   if (passed || looksAutomated) return;
   if (e && e.cancelable) e.preventDefault();
   holdStart = performance.now();
+  newChallenge().catch(() => {}); // fresh challenge: the server checks the hold
   capEl.textContent = "HOLDING";
   cancelAnimationFrame(raf);
   const tick = () => {
@@ -390,7 +426,7 @@ function completeGate(){
     gateCard.style.display = "none";
     keyCard.style.display = "";
     keyCard.scrollIntoView({ behavior: "smooth", block: "center" });
-    showKey(mintDayKey());
+    showFreshKey();
   }, 420);
 }
 
@@ -434,7 +470,7 @@ function copyKey(){
   setTimeout(() => toast.classList.remove("show"), 1600);
 }
 document.getElementById("copy").addEventListener("click", copyKey);
-document.getElementById("again").addEventListener("click", () => showKey(mintDayKey()));
+document.getElementById("again").addEventListener("click", () => { challengeId = null; showFreshKey(); });
 
 /* optional device lock */
 document.getElementById("lockBtn").addEventListener("click", () => {
@@ -448,7 +484,8 @@ document.getElementById("lockBtn").addEventListener("click", () => {
     return;
   }
   codeEl.value = code;
-  showKey(mintDeviceKey(code));
+  challengeId = null;
+  showFreshKey(code);
   toast.textContent = "🔒 Device-locked key ready";
   toast.classList.add("show");
   setTimeout(() => { toast.textContent = "✅ Key copied!"; toast.classList.remove("show"); }, 1800);

@@ -1,4 +1,32 @@
 ===========================================================
+FLOWER HUB v2.17.0 — SERVER-VERIFIED KEYS (hosted)
+===========================================================
+- THE BYPASS IS GONE: the hub contains no key math any more.
+  FLOWER-XXXXX-XXXX keys are created and checked by the FLOWER
+  key server (Freebuff hosting: worker + database), so a patched
+  copy of the script cannot mint or approve its own key.
+- HOW A KEY IS BORN: the key page asks the server for a one-time
+  challenge when the hold starts, then trades it for a key when
+  the hold completes. The server refuses anything younger than
+  1.5s and every challenge is single use, so the hold is enforced
+  server-side, not in the browser.
+- KEYS BIND THEMSELVES: a key is claimed by the first account
+  that verifies it, then refuses every other account
+  (device-mismatch). One key = one player.
+- KEYS EXPIRE IN 24H, and a leaked key can be killed instantly
+  (admin revoke endpoint) - something a local check never could.
+- LIMITS: 12 challenges/min per IP, 10 keys/hour per account.
+- OFFLINE GRACE: a key this device already got approved keeps
+  working for 12h if the server is briefly unreachable, so an
+  outage never locks a paying fan out.
+- FAIL CLOSED: with no approved key on the device and no server,
+  VERIFY says so instead of letting anyone through.
+- KEY PAGE: the old offline mint is no longer used; the page
+  shows a real server key and NEW KEY asks for a fresh one.
+- VERSION: hub v2.17.0 / v2.17.0-MOBILE, key system v2.17.0.
+===========================================================
+
+===========================================================
 FLOWER HUB v2.16.0 — PRESETS + MAX POWER
 ===========================================================
 PRESETS (Settings tab): four one-tap setups
