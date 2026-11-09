@@ -1,4 +1,29 @@
 ===========================================================
+FLOWER HUB v2.16.0 — PRESETS + MAX POWER
+===========================================================
+PRESETS (Settings tab): four one-tap setups
+- PRESET: PvP    -> aimbot + silent aim + auto shoot + hitbox
+                    expamder/whole body + anti-knockback + auto-heal,
+                    fly/auto-go/boat sail turned off, hitbox 55.
+- PRESET: GRIND  -> speed + auto-heal + noclip + infinite jump +
+                    bunny hop, combat off, speed 250.
+- PRESET: AFK    -> god mode + auto-heal + noclip + invisible,
+                    movement and combat off.
+- PRESET: EVERYTHING OFF -> one tap returns the hub to a clean state.
+- A preset sets the REAL switch when that tab is already rendered, and
+  falls back to the feature's own callback when it has not been opened,
+  so a preset never silently does nothing.
+MAX POWER (Settings tab)
+- MAX POWER - ALL ON: hitbox 200 whole-body, speed 500, fly speed 500,
+  fly turbo 100%, jump power 300, aimbot 100/smooth, plus god mode,
+  noclip, infinite jump, auto-heal, anti-knockback, silent aim.
+- REVERT MAX POWER: puts back the toggles you had before (remembered
+  on activation) and returns the sliders to their defaults.
+- Both buttons toast exactly what changed.
+- VERSION: hub v2.16.0 / v2.16.0-MOBILE.
+===========================================================
+
+===========================================================
 FLOWER HUB v2.15.6 — REAL PHOTO FOR THE TOGGLE BUTTON
 ===========================================================
 - The flower toggle button can now use the REAL uploaded image:
