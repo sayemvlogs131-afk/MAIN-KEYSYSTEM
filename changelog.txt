@@ -1,4 +1,20 @@
 ===========================================================
+FLOWER HUB v2.15.6 — REAL PHOTO FOR THE TOGGLE BUTTON
+===========================================================
+- The flower toggle button can now use the REAL uploaded image:
+  set CONFIG.ToggleIconAsset to your Roblox decal id (plain number
+  or "rbxassetid://..."). The photo is layered on top of the drawn
+  petals, so:
+    empty value  -> the drawn flower (current look, nothing breaks)
+    valid id     -> the real photo, ring hidden (the picture has one)
+    broken id    -> the drawn flower still shows through, never blank
+- No rebuild needed to test one: _G.FLOWER_TOGGLE_ICON = "123..." in
+  the executor console applies the next time the hub loads.
+- Accepts the id with or without spaces / the rbxassetid:// prefix.
+- VERSION: hub v2.15.6 / v2.15.6-MOBILE.
+===========================================================
+
+===========================================================
 FLOWER HUB v2.15.5 — TWEEN CRASH, BYPASS, ICONS, MOVEMENT
 ===========================================================
 KEY SYSTEM
