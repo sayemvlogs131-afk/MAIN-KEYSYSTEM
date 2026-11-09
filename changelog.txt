@@ -1,4 +1,42 @@
 ===========================================================
+FLOWER HUB v2.15.5 — TWEEN CRASH, BYPASS, ICONS, MOVEMENT
+===========================================================
+KEY SYSTEM
+- CRASH FIX: RBX_KEY_SYSTEM.lua animated hovers with
+  TweenService:Create but never created TweenService, so it was a
+  nil global -> "attempt to index nil with 'Create'" on every
+  hover (the 1217/1223/1468/1472 spam). Defined once, with a
+  fallback that snaps to the final value instead of erroring.
+- BYPASS CLOSED: _G.FLOWER_HUMAN_INSTANT = true used to skip both
+  human gates for anyone who typed it. It now also requires the
+  harness token, which only the local test runner sets.
+- ICONS FIXED: emoji glyphs in the key window (HOLD / VERIFIED /
+  petal backdrop) rendered as boxes on many devices - replaced
+  with plain words and rounded shapes.
+- KEY VISIBLE ON THE PAGE: the key text used background-clip:text
+  on a parent whose children are inline-block spans, so some
+  browsers painted the whole key transparent and left only the
+  COPY button. Spans now carry their own colour, plus a fallback
+  that writes plain text if the animation never paints.
+TOGGLE BUTTON
+- New flower toggle button drawn from UI shapes (cream disc, pink
+  ring, five petals, gold centre, stem + leaves) - matches the
+  photo with no uploaded asset, so it can never 404. Click to
+  open/close, drag to move, destroyed on Panic.
+MOVEMENT TAB
+- Vehicle Speed: the BodyVelocity was destroyed and re-created 60x
+  per second - one instance now, updated in place (no more lag).
+- Anti Knockback: it divided your whole velocity by 10 every frame,
+  killing your own movement. It now strips only the external push.
+- Super Jump: forces UseJumpPower, so games using JumpHeight work.
+- Fly: rebuilds its movers after a respawn instead of going dead.
+- NoClip: remembers which parts were solid, so OFF restores them.
+- Infinite Jump: uses JumpRequest, so it works on phones too.
+- Slider renamed "Vehicle Speed Value" (was a duplicate name).
+- VERSION: hub v2.15.5 / v2.15.5-MOBILE, key system v2.15.5.
+===========================================================
+
+===========================================================
 FLOWER HUB v2.15.4 — UNIVERSAL MODE (any game, no gating)
 ===========================================================
 - NO GAME GATE, ON PURPOSE: the hub still works in any Roblox

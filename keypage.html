@@ -107,11 +107,16 @@
   .keybox{margin-top:6px;padding:20px 16px;border-radius:16px;text-align:center;
     background:linear-gradient(135deg,rgba(255,122,200,.12),rgba(110,200,255,.12));
     border:1.5px solid rgba(255,122,200,.42);animation:pop .55s cubic-bezier(.2,1.6,.3,1) both}
+  /* v2.15.5 VISIBLE-KEY FIX: the gradient used to live on the parent with
+     background-clip:text, but every character is its own inline-block span,
+     so on some browsers (mobile Chrome/WebView) the whole key painted
+     transparent and only the COPY button was left. Spans now carry a solid
+     colour of their own, so the key is always readable. */
   .keytext{font-size:25px;font-weight:900;letter-spacing:2px;cursor:pointer;user-select:all;
-    color:transparent;background:linear-gradient(90deg,var(--pink),var(--blue));
-    -webkit-background-clip:text;background-clip:text;animation:wave 2.4s ease infinite;word-break:break-all}
+    color:#ffd7ec;text-shadow:0 0 20px rgba(255,122,200,.5),0 2px 0 rgba(0,0,0,.35);
+    animation:wave 2.4s ease infinite;word-break:break-all}
   @keyframes wave{0%,100%{filter:hue-rotate(0)}50%{filter:hue-rotate(32deg)}}
-  .keytext span{display:inline-block;animation:letterUp .5s cubic-bezier(.2,1.6,.3,1) both}
+  .keytext span{display:inline-block;color:#ffd7ec;animation:letterUp .5s cubic-bezier(.2,1.6,.3,1) both}
   @keyframes letterUp{from{transform:translateY(14px);opacity:0}to{transform:translateY(0);opacity:1}}
   .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
   .btn{border:0;cursor:pointer;border-radius:12px;font-weight:800;font-size:14px;padding:12px 20px;
@@ -408,6 +413,13 @@ function showKey(key){
     keyEl.appendChild(s);
   });
   keyEl.onclick = copyKey;
+  keyEl.title = "Click to copy";
+  /* safety net: if a browser still refuses to paint the letter spans, drop
+     back to one plain text node so the key is NEVER hidden behind a button */
+  setTimeout(() => {
+    const shown = (keyEl.innerText || "").replace(/\s/g, "");
+    if (shown !== key) { keyEl.textContent = key; keyEl.style.color = "#ffd7ec"; }
+  }, 700);
 }
 function copyKey(){
   if (!currentKey) return;
