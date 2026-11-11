@@ -1,4 +1,23 @@
 ===========================================================
+FLOWER HUB v2.18.1 — HUMAN CHECK POINTER FIX
+===========================================================
+- FIXED: the hold button in the human check no longer glitches.
+  The old code cancelled the hold when the pointer/finger drifted
+  a few pixels off the button (MouseLeave), which froze the
+  progress bar and left the label stuck on "HOLDING...".
+- The press now counts until you RELEASE anywhere on the screen,
+  so a wobbly finger, a controller or a laptop trackpad all
+  finish the hold normally.
+- FIXED: every way the hold can end now resets the bar, the
+  label and the colour together - no half-finished state can be
+  left behind.
+- FIXED: the web key page ring uses pointer capture, so sliding
+  your finger slightly off the flower keeps the hold going
+  instead of cancelling it.
+- VERSION: hub v2.18.1 / v2.18.1-MOBILE, key system v2.18.1.
+===========================================================
+
+===========================================================
 FLOWER HUB v2.18.0 — GITHUB KEY PAGE IS BACK (no server)
 ===========================================================
 - KEY SYSTEM BACK TO GITHUB: FLOWER-XXXXX-XXXX keys are made

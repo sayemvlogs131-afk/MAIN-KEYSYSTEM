@@ -339,10 +339,14 @@ function completeGate(){
     makeKey(true);
   }, 380);
 }
-holdEl.addEventListener("pointerdown", startHold);
+/* v2.18.1 POINTER FIX: capture the press so a finger that slides a few
+   pixels off the ring keeps counting instead of cancelling the hold. */
+holdEl.addEventListener("pointerdown", e => {
+  try{ holdEl.setPointerCapture(e.pointerId); }catch(err){}
+  startHold(e);
+});
 holdEl.addEventListener("pointerup", endHold);
 holdEl.addEventListener("pointercancel", endHold);
-holdEl.addEventListener("pointerleave", endHold);
 holdEl.addEventListener("contextmenu", e => e.preventDefault());
 
 /* ---------- key display + animations ---------- */
@@ -492,7 +496,7 @@ async function logEvent(kind){
     await fetch("https://api.github.com/repos/" + STATS.owner + "/" + STATS.repo + "/issues/" + num + "/comments", {
       method: "POST",
       headers: h,
-      body: JSON.stringify({ body: "FLOWER_EVENT " + JSON.stringify({ kind, ver: "v2.18.0", key: kind === "key" ? currentKey : undefined, at: Math.floor(Date.now() / 1000) }) })
+      body: JSON.stringify({ body: "FLOWER_EVENT " + JSON.stringify({ kind, ver: "v2.18.1", key: kind === "key" ? currentKey : undefined, at: Math.floor(Date.now() / 1000) }) })
     });
   }catch(e){}
 }
