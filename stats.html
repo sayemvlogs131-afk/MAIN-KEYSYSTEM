@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FLOWER HUB — LIVE STATS</title>
 <meta name="description" content="Live FLOWER HUB dashboard: executions, keys minted, bugs fixed and every release — straight from GitHub.">
+<meta name="robots" content="noindex,nofollow">
 <style>
   :root{--bg:#050810;--card:rgba(16,21,40,.78);--line:rgba(255,255,255,.09);--pink:#ff7ac8;--blue:#6ec8ff;--teal:#5ef2c0;--text:#eef2ff;--dim:#9aa5c9;--bad:#ff7a94}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -59,6 +60,20 @@
 </style>
 </head>
 <body>
+<div id="lock" style="position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:20px;background:radial-gradient(900px 500px at 20% 0%,#1b0f2e,#050810 70%)">
+  <div style="width:100%;max-width:360px;background:rgba(16,21,40,.9);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:26px 22px;text-align:center;box-shadow:0 26px 70px rgba(0,0,0,.6)">
+    <div style="font-size:30px;margin-bottom:6px">🌸</div>
+    <div style="font-size:13px;letter-spacing:2px;color:#6ec8ff;font-weight:900">FLOWER STATS</div>
+    <div style="font-size:20px;font-weight:900;margin:6px 0 4px">OWNER ONLY</div>
+    <p style="font-size:12.5px;color:#9aa5c9;line-height:1.6;margin-bottom:14px">This dashboard is private. Enter your passphrase to open it.</p>
+    <input id="pass" type="password" autocomplete="current-password" placeholder="passphrase"
+           style="width:100%;padding:12px 14px;font-size:15px;letter-spacing:2px;background:#0b0f22;color:#fff;border:1.5px solid #263259;border-radius:11px;outline:none">
+    <button id="unlock" style="width:100%;margin-top:10px;padding:12px;border:0;border-radius:11px;font-weight:900;font-size:14px;color:#04241b;background:#5ef2c0;cursor:pointer">UNLOCK</button>
+    <p id="lockMsg" style="font-size:12px;color:#ff7a94;min-height:16px;margin-top:8px"></p>
+    <p style="font-size:11px;color:#5f6a8c;margin-top:10px">Forgot it? Ask Fahim to reset the hash in stats.html.</p>
+  </div>
+</div>
+
 <header>
   <div class="brand"><div class="logo">🌸</div><div><b>FLOWER HUB</b> <span style="font-size:11.5px;color:var(--dim);font-weight:600">— LIVE STATS</span></div></div>
   <div class="headright">
@@ -273,8 +288,44 @@ async function refresh(){
   }
   ticking = false;
 }
-refresh();
-setInterval(refresh, REFRESH_MS);
+/* ---------- OWNER LOCK ----------
+   The board is hidden and NOTHING is fetched until the passphrase matches, so a
+   visitor who finds this URL sees a lock screen, not your numbers. The check is
+   client-side (GitHub Pages has no server); the data itself still lives in the
+   repo, so do not treat this as encryption - see the note in the Discord. */
+const OWNER_HASH = "35b09f677c7e1fb4664cdd25ad0b05ee38ff0966f55f4ba7638d493bc79bbe29";
+const lockEl = document.getElementById("lock");
+const passEl = document.getElementById("pass");
+const lockMsg = document.getElementById("lockMsg");
+const board = document.querySelector("main");
+async function sha256hex(v){
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(v));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
+}
+function openBoard(){
+  lockEl.style.display = "none";
+  board.style.visibility = "visible";
+  refresh();
+  setInterval(refresh, REFRESH_MS);
+}
+async function tryUnlock(){
+  const v = (passEl.value || "").trim();
+  if (!v){ lockMsg.textContent = "type your passphrase"; return; }
+  let hh = "";
+  try{ hh = await sha256hex(v); }catch(e){ lockMsg.textContent = "open this page over https to unlock"; return; }
+  if (hh === OWNER_HASH){
+    try{ localStorage.setItem("flower_owner", "1"); }catch(e){}
+    lockMsg.textContent = "";
+    openBoard();
+  } else {
+    lockMsg.textContent = "wrong passphrase";
+    passEl.value = "";
+  }
+}
+document.getElementById("unlock").addEventListener("click", tryUnlock);
+passEl.addEventListener("keydown", e => { if (e.key === "Enter") tryUnlock(); });
+board.style.visibility = "hidden";
+try{ if (localStorage.getItem("flower_owner") === "1") openBoard(); }catch(e){}
 </script>
 </body>
 </html>

@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /MAIN-KEYSYSTEM/stats.html
+Disallow: /MAIN-KEYSYSTEM/robots.txt
