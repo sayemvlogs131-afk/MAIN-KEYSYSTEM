@@ -469,6 +469,26 @@ codeEl.addEventListener("keydown", e => { if (e.key === "Enter") document.getEle
 const pre = (new URLSearchParams(location.search).get("code") || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
 if (pre.length === 10) codeEl.value = pre;
 
+/* ---------- Linkvertise arrival (anti-bypass hash) ----------
+   Linkvertise appends ?hash=<64 hex> to this page after a fan completes the
+   ad steps. We never put the anti-bypass TOKEN here (this file is public);
+   the hash is only used to tag the arrival for the owner's stats.           */
+const lvParams = new URLSearchParams(location.search);
+const lvHash = (lvParams.get("hash") || "").toLowerCase().replace(/[^a-f0-9]/g, "");
+const lvFromLinkvertise = lvHash.length === 64 || (lvParams.get("src") || "").toLowerCase() === "lv";
+const lvSource = lvFromLinkvertise ? "linkvertise" : "direct";
+if (lvFromLinkvertise && lvHash.length !== 64){
+  const chip = document.createElement("div");
+  chip.textContent = "\u26a0 LINKVERTISE HASH MISSING \u2014 AD STEPS NOT FINISHED?";
+  chip.style.cssText = "margin:14px auto 0;font-size:10.5px;letter-spacing:1.4px;font-weight:800;color:#ffd0a8;border:1px solid rgba(255,180,90,.45);background:rgba(255,180,90,.1);padding:7px 14px;border-radius:999px;width:max-content;max-width:92%;text-align:center";
+  document.querySelector(".hero").appendChild(chip);
+} else if (lvFromLinkvertise){
+  const chip = document.createElement("div");
+  chip.textContent = "\u2713 ARRIVED FROM LINKVERTISE";
+  chip.style.cssText = "margin:14px auto 0;font-size:11px;letter-spacing:1.6px;font-weight:800;color:#9ff0d8;border:1px solid rgba(94,242,192,.45);background:rgba(94,242,192,.1);padding:7px 14px;border-radius:999px;width:max-content";
+  document.querySelector(".hero").appendChild(chip);
+}
+
 /* ---------- optional live stats (GitHub issue as the database) ----------
    Leave STATS.token empty and this page sends NOTHING. To go live, paste a
    fine-grained token with "issues: write" on MAIN-KEYSYSTEM below. The
@@ -495,7 +515,7 @@ async function logEvent(kind){
     await fetch("https://api.github.com/repos/" + STATS.owner + "/" + STATS.repo + "/issues/" + num + "/comments", {
       method: "POST",
       headers: h,
-      body: JSON.stringify({ body: "FLOWER_EVENT " + JSON.stringify({ kind, ver: "v2.18.1", key: kind === "key" ? currentKey : undefined, at: Math.floor(Date.now() / 1000) }) })
+      body: JSON.stringify({ body: "FLOWER_EVENT " + JSON.stringify({ kind, ver: "v2.18.1", key: kind === "key" ? currentKey : undefined, src: lvSource, at: Math.floor(Date.now() / 1000) }) })
     });
   }catch(e){}
 }
