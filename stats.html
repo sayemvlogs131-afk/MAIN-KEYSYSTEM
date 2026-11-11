@@ -68,6 +68,11 @@
     <p style="font-size:12.5px;color:#9aa5c9;line-height:1.6;margin-bottom:14px">This dashboard is private. Enter your passphrase to open it.</p>
     <input id="pass" type="password" autocomplete="current-password" placeholder="passphrase"
            style="width:100%;padding:12px 14px;font-size:15px;letter-spacing:2px;background:#0b0f22;color:#fff;border:1.5px solid #263259;border-radius:11px;outline:none">
+    <input id="apiTok" type="password" autocomplete="off" placeholder="API token (optional, stays on this device)"
+           style="width:100%;margin-top:8px;padding:11px 14px;font-size:13px;background:#0b0f22;color:#fff;border:1.5px solid #263259;border-radius:11px;outline:none">
+    <div style="font-size:10.5px;color:#5f6a8c;margin-top:6px;text-align:left;line-height:1.5">
+      Adding your GitHub token here lifts the 60/hour limit and is saved only in this browser — never in the page.
+    </div>
     <button id="unlock" style="width:100%;margin-top:10px;padding:12px;border:0;border-radius:11px;font-weight:900;font-size:14px;color:#04241b;background:#5ef2c0;cursor:pointer">UNLOCK</button>
     <p id="lockMsg" style="font-size:12px;color:#ff7a94;min-height:16px;margin-top:8px"></p>
     <p style="font-size:11px;color:#5f6a8c;margin-top:10px">Forgot it? Ask Fahim to reset the hash in stats.html.</p>
@@ -140,10 +145,15 @@ const niceTime = t => { const d = new Date(t * 1000); return d.toLocaleString([]
 /* GitHub's anonymous API allows 60 calls/hour per IP. Every answer is cached in
    localStorage, so a rate-limited (403) or offline request falls back to the
    last good data instead of blanking the dashboard. */
+let API_TOKEN = "";
+try{ API_TOKEN = localStorage.getItem("flower_api") || ""; }catch(e){}
+
 async function getJson(url){
   const ck = "flower_cache_" + url;
   try{
-    const r = await fetch(url, { headers: { "Accept": "application/vnd.github+json" }, cache: "no-store" });
+    const hdr = { "Accept": "application/vnd.github+json" };
+    if (API_TOKEN) hdr["Authorization"] = "Bearer " + API_TOKEN;
+    const r = await fetch(url, { headers: hdr, cache: "no-store" });
     if (r.status === 403 || r.status === 429) throw new Error("rate-limit");
     if (!r.ok) throw new Error("http " + r.status);
     const j = await r.json();
@@ -315,6 +325,11 @@ async function tryUnlock(){
   try{ hh = await sha256hex(v); }catch(e){ lockMsg.textContent = "open this page over https to unlock"; return; }
   if (hh === OWNER_HASH){
     try{ localStorage.setItem("flower_owner", "1"); }catch(e){}
+    const tokEl = document.getElementById("apiTok");
+    if (tokEl && tokEl.value.trim()){
+      try{ localStorage.setItem("flower_api", tokEl.value.trim()); }catch(e){}
+      API_TOKEN = tokEl.value.trim();
+    }
     lockMsg.textContent = "";
     openBoard();
   } else {
