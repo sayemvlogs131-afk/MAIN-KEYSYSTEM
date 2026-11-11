@@ -1,4 +1,37 @@
 ===========================================================
+FLOWER HUB v2.18.0 — GITHUB KEY PAGE IS BACK (no server)
+===========================================================
+- KEY SYSTEM BACK TO GITHUB: FLOWER-XXXXX-XXXX keys are made
+  by the key page again and checked on your own device in the
+  same frame. No key server, nothing to host, nothing that can
+  404 - the Freebuff site is retired for good.
+- UNLIMITED REFRESH: press NEW KEY as often as you like. Every
+  press mints a different key, instantly and free - with a slot
+  machine shuffle, a confetti burst and a keys-made counter.
+  Your last 6 keys stay listed with the time you made them, so
+  you can click any of them to copy.
+- ONE HUMAN CHECK: the hold-the-flower gate lives ONLY in the
+  key system, before the key box. The old "one last check"
+  hold in front of the hub is gone - verified players go
+  straight in.
+- FIXED: a key made before midnight UTC keeps working after
+  midnight (yesterday's key is accepted too), so nobody gets
+  "this key is not valid" for a key they just made.
+- FIXED: keys with digits in them are accepted (the strict
+  check used to allow letters only), a half-copied key says it
+  is incomplete, and typing a key in lower case works.
+- FIXED (mobile): the key window is anchor-centred and sized
+  from your real screen, so it can no longer sit off-centre.
+- FIXED (mobile hub): the panel no longer gets clipped at the
+  bottom on landscape phones, and the phone scale is capped at
+  1.0 so it matches the PC look instead of zooming past it.
+- NEW: stats.html - a LIVE dashboard on GitHub Pages: current
+  version, executions, keys minted (with times), players seen,
+  fixes shipped and commits, refreshing by itself every 30s.
+- VERSION: hub v2.18.0 / v2.18.0-MOBILE, key system v2.18.0.
+===========================================================
+
+===========================================================
 FLOWER HUB v2.17.0 — SERVER-VERIFIED KEYS (hosted)
 ===========================================================
 - THE BYPASS IS GONE: the hub contains no key math any more.
