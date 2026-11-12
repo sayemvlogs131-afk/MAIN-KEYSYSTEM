@@ -1,4 +1,13 @@
 ===========================================================
+FLOWER HUB v2.19.4 — FASTER F SPIN + PINK GLOW
+===========================================================
+- Spin is now 0.55s (was 0.85s) with a sharper Quint ease.
+- Pop is snappier: 0.10s to 1.20x, back to 1.0 in 0.22s.
+- Hover (mouse) and touch-press light a pink glow behind the button and
+  thicken the ring to 2.6; the idle colour cycling pauses while hovered.
+- Drag still works and never triggers the spin.
+
+===========================================================
 FLOWER HUB v2.19.3 — CLEAN "F" TOGGLE
 ===========================================================
 - The flower toggle is gone: one clean round "F" button again.

@@ -1,1 +1,1 @@
-FLOWER HUB v2.19.3: clean round F toggle again (no flower) with the smooth two-turn spin, scale pop and colour-cycling ring. One button only, draggable. Join the Discord 🌸 https://discord.gg/qDYPqjwqYa
+FLOWER HUB v2.19.4: the F button now spins in 0.55s with a snappier 1.20x pop and a pink hover glow (mouse + touch). Join the Discord 🌸 https://discord.gg/qDYPqjwqYa
