@@ -1,4 +1,15 @@
 ===========================================================
+FLOWER HUB v2.19.3 — CLEAN "F" TOGGLE
+===========================================================
+- The flower toggle is gone: one clean round "F" button again.
+- The click animation is kept: a smooth two-turn spin (0.85s) with a
+  scale pop and a white ring flash.
+- The ring still cycles colour while idle; the button is still draggable
+  and dragging does not fire the spin.
+- Only one float button can exist: leftovers from old executions are
+  destroyed on load.
+
+===========================================================
 FLOWER HUB v2.19.2 — PREMIUM PASS IS TYPED EVERY LAUNCH
 ===========================================================
 - The premium pass is now PER SESSION: it is never saved on the device,
