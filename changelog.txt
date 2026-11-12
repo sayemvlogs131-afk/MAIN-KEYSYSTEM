@@ -1,4 +1,19 @@
 ===========================================================
+FLOWER HUB v2.19.1 — PREMIUM / OWNER TIERS + MORE COMBAT
+===========================================================
+- PREMIUM: type the premium pass in the key box and the key status
+  shows "PREMIUM KEY CHECKMARK". A gold flower PREMIUM badge sits on
+  the hub plan line, and premium is saved on the device - the next
+  launch skips the key box and goes straight to premium.
+- OWNER: the same pass on the owner account (CONFIG.OwnerNames in the
+  key system) shows a cyan OWNER badge instead. The dashboard pass
+  stays owner-only (fahimrbx).
+- COMBAT ADDED: Hitbox Team Check, Aura Team Check, Trigger Range
+  slider, Auto Reload (R + reload remotes when Ammo hits 0) and a
+  COMBAT STATUS button that lists every module currently ON.
+- PANIC COMBAT now also clears Auto Reload and both team checks.
+
+===========================================================
 FLOWER HUB v2.19.0 — ONE FLOWER TOGGLE + COMBAT REWRITE
 ===========================================================
 - ONE TOGGLE: the two floating buttons (F + R) are gone. A single
