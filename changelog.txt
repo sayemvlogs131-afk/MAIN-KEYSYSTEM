@@ -1,4 +1,25 @@
 ===========================================================
+FLOWER HUB v2.19.0 — ONE FLOWER TOGGLE + COMBAT REWRITE
+===========================================================
+- ONE TOGGLE: the two floating buttons (F + R) are gone. A single
+  flower toggle opens the hub - 8 drawn petals, a glow ring that
+  cycles colour, a smooth 2-turn spin and a petal burst on every
+  click. Any old float button left in PlayerGui is destroyed on load.
+- COMBAT FIXED:
+  * Aim priority works: Closest = real 3D distance, FOV = screen.
+  * Trigger Bot falls back to the aim target on touch devices and
+    now skips dead players and teammates correctly.
+  * Spin Bot (Render) no longer wipes velocity or height.
+  * Auto Parry skips dead players.
+  * Melee Aura tells swords/knives from guns and no longer teleports
+    your root part (velocity preserved).
+  * Reach Distance resizes live while the slider moves.
+  * PANIC COMBAT also stops Auto Shoot + God Mode and unbinds the
+    aimbot render step.
+  * God Mode guards against a zero MaxHealth.
+- INFO TAB: UPDATE NOTES rebuilt and the stale build labels fixed.
+
+===========================================================
 FLOWER HUB v2.18.1 — HUMAN CHECK POINTER FIX
 ===========================================================
 - FIXED: the hold button in the human check no longer glitches.
