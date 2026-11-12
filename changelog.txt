@@ -1,4 +1,15 @@
 ===========================================================
+FLOWER HUB v2.19.2 — PREMIUM PASS IS TYPED EVERY LAUNCH
+===========================================================
+- The premium pass is now PER SESSION: it is never saved on the device,
+  never written to the key file and never auto-logs in. Every launch asks
+  for it again, exactly like you wanted.
+- No owner lock: whoever has the premium code gets PREMIUM - safe to give
+  it to your friend. The gold flower PREMIUM badge shows on the hub plan
+  line for that session only.
+- The dashboard pass is unchanged and still owner-only (fahimrbx).
+
+===========================================================
 FLOWER HUB v2.19.1 — PREMIUM / OWNER TIERS + MORE COMBAT
 ===========================================================
 - PREMIUM: type the premium pass in the key box and the key status
