@@ -179,7 +179,8 @@
 
     <p class="note">
       <b>ONE KEY PER EXECUTOR</b> - the page remembers the key for this device
-      and always shows the same one. Extra rerolls are disabled.<br>
+      and always shows the same one. It renews once per day; manual rerolls are
+      disabled.<br>
       Type your HUB CODE below to lock that key to your device only.<br>
       <b>LOOTLABS path?</b> your LootLabs link opens the PlatoBoost key page
       directly - you don't need this page for that.
@@ -366,11 +367,20 @@ function oneKeySlot(){
 function getOneKey(){
   const code = (deviceCode || (codeEl.value || "").toUpperCase().replace(/[^A-Z0-9]/g, "") || "");
   const slot = oneKeySlot();
-  let saved = null;
-  try { saved = localStorage.getItem(slot); } catch(e){}
-  if (!saved){
+  const today = new Date().toISOString().slice(0, 10);
+  let saved = null, savedDay = "";
+  try {
+    const raw = localStorage.getItem(slot);
+    if (raw) {
+      try { const o = JSON.parse(raw); saved = o.k; savedDay = o.d || ""; }
+      catch(e) { saved = raw; }
+    }
+  } catch(e){}
+  // device keys never expire; day keys get exactly one renewal per UTC day
+  const staleDayKey = !code && saved && savedDay !== today;
+  if (!saved || staleDayKey){
     saved = code ? mintDeviceKey(code) : mintDayKey();
-    try { localStorage.setItem(slot, saved); } catch(e){}
+    try { localStorage.setItem(slot, JSON.stringify({ k: saved, d: today })); } catch(e){}
   }
   return saved;
 }
