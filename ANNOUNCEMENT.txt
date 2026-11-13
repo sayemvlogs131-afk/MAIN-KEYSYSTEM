@@ -1,1 +1,1 @@
-FLOWER HUB v2.20.0: ONE KEY PER EXECUTOR (no more key refresh), the F button is finally visible, COPY CODE is gone, every text box glitch is fixed, and SEA EVENTS got a full boat-detection rewrite. Join the Discord https://discord.gg/qDYPqjwqYa
+FLOWER HUB v2.21.0: NEW SERVER HOP TAB - scan every public server, see players/ping/FPS, join any server, filter by region (ping), and auto-hop when alone. Join the Discord https://discord.gg/qDYPqjwqYa

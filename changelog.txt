@@ -1,3 +1,12 @@
+FLOWER HUB v2.21.0 - 2026-11-13
+- NEW SERVER HOP TAB: scans every public server of the current game, shows
+  players / ping / FPS, and joins any server from the browser.
+- Quick hop: lowest ping, fullest, emptiest, best FPS, random, Job ID, rejoin.
+- Region / country filter (ping-band estimate), max ping, min players,
+  hide-full toggle and auto-tune-to-my-ping.
+- Auto hop when alone or when the server is small.
+- Per-server ping is measured on the device after a hop and remembered.
+
 FLOWER HUB v2.20.0 - 2026-11-13
 - ONE KEY PER EXECUTOR: NEW KEY refresh removed; the key page stores and
   re-shows the same key for each HUB CODE (or browser).
