@@ -1,1 +1,1 @@
-FLOWER HUB v2.19.4: the F button now spins in 0.55s with a snappier 1.20x pop and a pink hover glow (mouse + touch). Join the Discord 🌸 https://discord.gg/qDYPqjwqYa
+FLOWER HUB v2.20.0: ONE KEY PER EXECUTOR (no more key refresh), the F button is finally visible, COPY CODE is gone, every text box glitch is fixed, and SEA EVENTS got a full boat-detection rewrite. Join the Discord https://discord.gg/qDYPqjwqYa

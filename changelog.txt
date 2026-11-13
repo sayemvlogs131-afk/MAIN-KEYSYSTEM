@@ -1,3 +1,13 @@
+FLOWER HUB v2.20.0 - 2026-11-13
+- ONE KEY PER EXECUTOR: NEW KEY refresh removed; the key page stores and
+  re-shows the same key for each HUB CODE (or browser).
+- F BUTTON: removed the glow overlay that hid the letter; the F is bigger and
+  drawn on a solid background.
+- KEY WINDOW: COPY CODE button removed.
+- TEXT: every emoji and box-drawing glyph replaced with ASCII.
+- SEA EVENTS: better boat detection (seat, near seat, largest hull part),
+  network ownership on all parts, ThrottleFloat/SteerFloat support.
+
 ===========================================================
 FLOWER HUB v2.19.4 — FASTER F SPIN + PINK GLOW
 ===========================================================
