@@ -221,13 +221,17 @@ function partOf(str){
   for (let i = 0; i < 5; i++){ a = (a * 31 + 17) % 4294967296; out += CH[a % 36]; }
   return out;
 }
-function salt4(){ let s = ""; for (let i = 0; i < 4; i++) s += CH[Math.floor(Math.random() * 36)]; return s; }
+function check4(part){ return partOf("FLOWER-CHECK-" + part).slice(0, 4); }
+function isValidKey(k){
+  const m = /^FLOWER-([0-9A-Z]{5})-([0-9A-Z]{4})$/.exec(String(k || "").toUpperCase());
+  return !!m && m[2] === check4(m[1]);
+}
 function utcDay(back){
   const d = new Date(Date.now() - (back || 0) * 86400000);
   return d.getUTCFullYear() + String(d.getUTCMonth() + 1).padStart(2, "0") + String(d.getUTCDate()).padStart(2, "0");
 }
-function mintDayKey(){ return "FLOWER-" + partOf("FLOWER-DAY-" + utcDay(0)) + "-" + salt4(); }
-function mintDeviceKey(code){ return "FLOWER-" + partOf(code) + "-" + salt4(); }
+function mintDayKey(){ const p = partOf("FLOWER-DAY-" + utcDay(0)); return "FLOWER-" + p + "-" + check4(p); }
+function mintDeviceKey(code){ const p = partOf(code); return "FLOWER-" + p + "-" + check4(p); }
 
 /* ---------- petals ---------- */
 (function(){
@@ -255,10 +259,6 @@ const keyEl = document.getElementById("keytext");
 const keyBox = document.getElementById("keyBox");
 const codeEl = document.getElementById("code");
 const toast = document.getElementById("toast");
-const countEl = document.getElementById("count");
-const countNum = document.getElementById("countNum");
-const histWrap = document.getElementById("history");
-const histList = document.getElementById("histList");
 
 const HOLD_MS = 1500;
 let passed = false, pointerSeen = false, holdStart = 0, raf = 0;
@@ -376,9 +376,12 @@ function getOneKey(){
       catch(e) { saved = raw; }
     }
   } catch(e){}
-  // device keys never expire; day keys get exactly one renewal per UTC day
+  // device keys never expire; day keys renew once per UTC day.
+  // v2.21.1: a key saved by the old random-suffix build is re-minted because
+  // the last 4 characters are now a real checksum.
+  const invalid = saved && !isValidKey(saved);
   const staleDayKey = !code && saved && savedDay !== today;
-  if (!saved || staleDayKey){
+  if (!saved || invalid || staleDayKey){
     saved = code ? mintDeviceKey(code) : mintDayKey();
     try { localStorage.setItem(slot, JSON.stringify({ k: saved, d: today })); } catch(e){}
   }
@@ -401,33 +404,14 @@ function makeKey(first){
     keyEl.classList.remove("tumble");
     paint(finalKey, 0);
     currentKey = finalKey;
-    made++;
-    countNum.textContent = made;
-    countEl.classList.remove("pop");
-    void countEl.offsetWidth;
-    countEl.classList.add("pop");
     keyBox.classList.remove("flash");
     void keyBox.offsetWidth;
     keyBox.classList.add("flash");
     if (!first) burst(14);
-    addHistory(finalKey);
     logEvent("key");
     busy = false;
     if (btn) btn.disabled = false;
   }, first ? 260 : 520);
-}
-
-function addHistory(key){
-  histWrap.style.display = "";
-  const row = document.createElement("div");
-  row.className = "hitem";
-  const now = new Date();
-  row.innerHTML = '<span class="k"></span><span class="t"></span>';
-  row.querySelector(".k").textContent = key;
-  row.querySelector(".t").textContent = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
-  row.addEventListener("click", () => { currentKey = key; copyKey(); });
-  histList.insertBefore(row, histList.firstChild);
-  while (histList.children.length > 6) histList.removeChild(histList.lastChild);
 }
 
 function burst(n){

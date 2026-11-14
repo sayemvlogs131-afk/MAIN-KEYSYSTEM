@@ -1,3 +1,10 @@
+FLOWER HUB v2.21.1 - 2026-11-13
+- Removed the old flower toggle for real: it was a separate ScreenGui at
+  DisplayOrder 999 covering the F button. Only the F exists now.
+- FLOWER key verification now checks the whole key. The last 4 characters
+  are a checksum of the first 5, so FLOWER-XXXXX-RANDOM is rejected.
+- Key page re-mints old saved keys and no longer crashes on removed elements.
+
 FLOWER HUB v2.21.0 - 2026-11-13
 - NEW SERVER HOP TAB: scans every public server of the current game, shows
   players / ping / FPS, and joins any server from the browser.

@@ -1,1 +1,1 @@
-FLOWER HUB v2.21.0: NEW SERVER HOP TAB - scan every public server, see players/ping/FPS, join any server, filter by region (ping), and auto-hop when alone. Join the Discord https://discord.gg/qDYPqjwqYa
+FLOWER HUB v2.21.1: the flower toggle is really gone (only the F button), and FLOWER keys are verified in full - a fake last-4 key no longer works. Join the Discord https://discord.gg/qDYPqjwqYa
