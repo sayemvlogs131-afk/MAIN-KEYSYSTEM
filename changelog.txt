@@ -1,3 +1,7 @@
+FLOWER HUB v2.21.3 - 2026-11-13
+- Human HOLD check removed from the Roblox key GUI (the key website keeps its
+  own human check). The key box is usable immediately.
+
 FLOWER HUB v2.21.2 - 2026-11-13
 - F toggle: solid pink background, dark high-contrast letter with a light
   outline, no gradient. Visible on desktop and mobile.
