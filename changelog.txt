@@ -1,3 +1,8 @@
+FLOWER HUB v2.22.1 - 2026-11-14
+- Loader now downloads a cache-busted hub first, so old executor caches cannot
+  serve a stale build. ESP uses the live camera, 5000 default range, plus a
+  Restart ESP button and tracking/error notices.
+
 FLOWER HUB v2.22.0 - 2026-11-14
 - ESP tab fully rewritten: one shared 2D screen loop, plain GUI boxes, names,
   health, distance, tool, tracers, chams, skeleton. New ESP Max Distance slider.

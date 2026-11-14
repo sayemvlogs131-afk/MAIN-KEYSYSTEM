@@ -1,1 +1,1 @@
-FLOWER HUB v2.22.0: ESP is fully rewritten and working - boxes, names, health, distance, tools, tracers, chams, skeleton, plus a max distance slider. Join the Discord https://discord.gg/qDYPqjwqYa
+FLOWER HUB v2.22.1: ESP fix - the hub now downloads a fresh cache-busted build instead of an old cached one. ESP uses the live camera, defaults to 5000 studs, and has a Restart ESP button. Join the Discord https://discord.gg/qDYPqjwqYa
