@@ -1,1 +1,1 @@
-FLOWER HUB v2.21.1: the flower toggle is really gone (only the F button), and FLOWER keys are verified in full - a fake last-4 key no longer works. Join the Discord https://discord.gg/qDYPqjwqYa
+FLOWER HUB v2.21.2: the F toggle is now solid pink with a dark letter so you can finally see it. Info tab refreshed. Join the Discord https://discord.gg/qDYPqjwqYa
