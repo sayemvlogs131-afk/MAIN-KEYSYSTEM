@@ -39,20 +39,26 @@ DO THIS NOW — CHECKLIST (5 MINUTES)
 [ ] 3. Copy RBX_KEY_SYSTEM.lua (this folder) and give it to
        your fans — YouTube description, Discord, anywhere.
 
-[ ] 4. LINKVERTISE (v2.23.0 — optional, 3 links):
-       Fans can pick LOOTLABS (24h only) or LINKVERTISE
-       (24h/1 task, 48h/3 tasks, 72h/6 tasks) on GET KEY.
-       Create THREE links at creators.linkvertise.com with
-       destinations:
-         .../keypage.html?plan=24   (1 task)
-         .../keypage.html?plan=48   (3 tasks)
-         .../keypage.html?plan=72   (6 tasks)
-       Paste them into RBX_KEY_SYSTEM.lua:
-         LinkvertisePlans = {
-           [24] = "https://link-hub.net/...",
-           [48] = "https://link-hub.net/...",
-           [72] = "https://link-hub.net/...",
-         },
+[ ] 4. LINKVERTISE (v2.23.0 — optional, 5 minutes):
+       Fans can pick LOOTLABS or LINKVERTISE on the GET KEY
+       screen. LootLabs already works and stays 24h only.
+       Linkvertise now has THREE plans:
+         24h / 1 task, 48h / 3 tasks, 72h / 6 tasks.
+       a) creators.linkvertise.com -> sign up (free) + payout info
+       b) Create three links, each with the matching task count
+          and destination:
+          .../keypage.html?plan=24   (1 task)
+          .../keypage.html?plan=48   (3 tasks)
+          .../keypage.html?plan=72   (6 tasks)
+       c) Copy each short link (link-hub.net / direct-link.net ...)
+       d) Paste all three into RBX_KEY_SYSTEM.lua:
+          LinkvertisePlans = {
+              [24] = "https://your-1-task-link",
+              [48] = "https://your-3-task-link",
+              [72] = "https://your-6-task-link",
+          },
+       e) The key page asks for 1/3/6 DO IT steps after the human
+          check; the key appears after the last step.
        Full walkthrough: LINKVERTISE-SETUP.md (same folder).
        NEVER share the hub files themselves.
 [ ] 4. Post a short video: "new link is live, get the updated
@@ -73,10 +79,10 @@ WHERE THE MONEY SHOWS UP
 ------------------------
 - LootLabs: lootlabs.gg dashboard -> stats + balance -> withdraw.
 - PlatoBoost: platoboost.app dashboard -> service 31611 -> stats.
-- Keys last 24h on LootLabs. Linkvertise fans can choose
-  24h/1 task, 48h/3 tasks or 72h/6 tasks. The hub enforces
-  the chosen plan and the key badge counts it down.
-  (KeyLifetimeHours = 24 is the default for legacy/LootLabs.)
+- Keys last 24h, 48h or 72h depending on the Linkvertise plan
+  the fan chooses; LootLabs keys are 24h. The same fan re-does
+  the key page when the key expires = repeat income.
+  (KeyLifetimeHours = 24 is the legacy/LootLabs default.)
 
 SMALL BUT IMPORTANT
 -------------------
