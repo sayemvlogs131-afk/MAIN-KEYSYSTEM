@@ -1,1 +1,1 @@
-FLOWER HUB v2.22.1: ESP fix - the hub now downloads a fresh cache-busted build instead of an old cached one. ESP uses the live camera, defaults to 5000 studs, and has a Restart ESP button. Join the Discord https://discord.gg/qDYPqjwqYa
+FLOWER HUB v2.22.2: glass UI - the panel, sidebar and every card are now transparent with a frosted blur, so you can see the game behind the menu. Join the Discord https://discord.gg/qDYPqjwqYa

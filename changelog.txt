@@ -1,3 +1,7 @@
+FLOWER HUB v2.22.2 - 2026-11-15
+- Glass UI: the hub panel, sidebar and feature cards are now transparent, with
+  a stronger frosted blur so the game stays visible behind them.
+
 FLOWER HUB v2.22.1 - 2026-11-14
 - Loader now downloads a cache-busted hub first, so old executor caches cannot
   serve a stale build. ESP uses the live camera, 5000 default range, plus a
