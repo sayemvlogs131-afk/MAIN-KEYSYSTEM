@@ -14,6 +14,8 @@ The task count is a property of the **Linkvertise link**. The hub cannot turn a
 
 Linkvertise shows the remaining steps on its own page between tasks. Our key
 page only receives the final redirect, so it cannot display “2 tasks left”.
+After its human check, the key page shows its own **DO IT** gate: **1 step for
+24h, 3 for 48h and 6 for 72h**. The key appears only after the last step.
 
 ---
 
@@ -73,7 +75,9 @@ push. A private-repo push alone does not update fans.
 4. The matching short link is copied. They open it and complete the tasks;
    Linkvertise shows the remaining steps.
 5. After the final task they land on `keypage.html?plan=...`.
-6. The page shows the selected duration and task count, then mints:
+6. The page shows the selected duration and task count. After the human
+   check, it shows **DO IT** steps counted `1 2 3...N` (1/3/6). The key only
+   appears after the last step, then mints:
    - 24h: `FLOWER-XXXXX-XXXX`
    - 48h: `FLOWER48-XXXXX-XXXX`
    - 72h: `FLOWER72-XXXXX-XXXX`
@@ -86,10 +90,11 @@ push. A private-repo push alone does not update fans.
 ## 5. Testing
 
 - `GET KEY` -> `LINKVERTISE` -> all three plan rows must be visible.
-- 24h should say `READY` if `LinkvertiseLink` is filled.
-- 48h/72h should say `SETUP NEEDED` while their slots are empty.
-- Open `keypage.html?plan=48`: the badge must say `48 HOUR KEY - 3 TASKS` and
-  the format must say `FLOWER48-XXXXX-XXXX`.
+- All three rows should say `READY` when their links are filled.
+- Open `keypage.html?plan=48`: the badge must say `48 HOUR KEY - 3 TASKS`,
+  the format must say `FLOWER48-XXXXX-XXXX`, and the DO IT gate must show
+  **3** steps.
+- Open `keypage.html?plan=72`: the DO IT gate must show **6** steps.
 - Open `keypage.html?plan=72`: it must say `72 HOUR KEY - 6 TASKS` and
   `FLOWER72-XXXXX-XXXX`.
 - `keypage.html` without `?plan=` must stay on 24 hours.
@@ -100,8 +105,9 @@ push. A private-repo push alone does not update fans.
 
 The 24/48/72 key math is shared by the key page and the Lua, so the keys verify
 offline. But the website cannot prove which Linkvertise tasks were completed.
-A user who knows the direct `keypage.html?plan=72` URL can mint a 72-hour key
-without doing the 6 tasks. Stopping that requires a server-side Linkvertise
+The DO IT gate enforces the 1/3/6 steps **in the page UI only**; a user who
+knows the direct `keypage.html?plan=72` URL can still click through it without
+doing the Linkvertise tasks. Stopping that requires a server-side Linkvertise
 verifier; the current GitHub-only setup does not have one.
 
 ## 7. Troubleshooting
