@@ -39,15 +39,20 @@ DO THIS NOW — CHECKLIST (5 MINUTES)
 [ ] 3. Copy RBX_KEY_SYSTEM.lua (this folder) and give it to
        your fans — YouTube description, Discord, anywhere.
 
-[ ] 4. LINKVERTISE (NEW v2.14.0 — optional, 3 minutes):
-       Fans can now pick LOOTLABS or LINKVERTISE on the GET KEY
-       screen. LootLabs already works. For Linkvertise:
-       a) creators.linkvertise.com -> sign up (free) + payout info
-       b) Create link -> destination = your PlatoBoost key page
-          (the page LootLabs finally opens for you)
-       c) copy the short link (link-hub.net / direct-link.net ...)
-       d) paste it into RBX_KEY_SYSTEM.lua:
-          LinkvertiseLink = "https://link-hub.net/...",
+[ ] 4. LINKVERTISE (v2.23.0 — optional, 3 links):
+       Fans can pick LOOTLABS (24h only) or LINKVERTISE
+       (24h/1 task, 48h/3 tasks, 72h/6 tasks) on GET KEY.
+       Create THREE links at creators.linkvertise.com with
+       destinations:
+         .../keypage.html?plan=24   (1 task)
+         .../keypage.html?plan=48   (3 tasks)
+         .../keypage.html?plan=72   (6 tasks)
+       Paste them into RBX_KEY_SYSTEM.lua:
+         LinkvertisePlans = {
+           [24] = "https://link-hub.net/...",
+           [48] = "https://link-hub.net/...",
+           [72] = "https://link-hub.net/...",
+         },
        Full walkthrough: LINKVERTISE-SETUP.md (same folder).
        NEVER share the hub files themselves.
 [ ] 4. Post a short video: "new link is live, get the updated
@@ -68,9 +73,10 @@ WHERE THE MONEY SHOWS UP
 ------------------------
 - LootLabs: lootlabs.gg dashboard -> stats + balance -> withdraw.
 - PlatoBoost: platoboost.app dashboard -> service 31611 -> stats.
-- Keys last 24h (KeyLifetimeHours = 24 in the script), so the
-  same fan re-does the key page EVERY DAY = daily income.
-  (Set it to 0 if you ever want keys to last forever.)
+- Keys last 24h on LootLabs. Linkvertise fans can choose
+  24h/1 task, 48h/3 tasks or 72h/6 tasks. The hub enforces
+  the chosen plan and the key badge counts it down.
+  (KeyLifetimeHours = 24 is the default for legacy/LootLabs.)
 
 SMALL BUT IMPORTANT
 -------------------

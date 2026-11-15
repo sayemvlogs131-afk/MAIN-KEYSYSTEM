@@ -1,3 +1,8 @@
+FLOWER HUB v2.23.0 - 2026-11-15
+- Linkvertise now offers 24 HOUR (1 task), 48 HOUR (3 tasks) and 72 HOUR
+  (6 tasks) keys. LootLabs stays 24 hours only.
+- The key badge counts down the chosen plan instead of always 24h.
+
 FLOWER HUB v2.22.2 - 2026-11-15
 - Glass UI: the hub panel, sidebar and feature cards are now transparent, with
   a stronger frosted blur so the game stays visible behind them.
