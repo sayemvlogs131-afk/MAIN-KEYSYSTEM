@@ -222,9 +222,18 @@ const PLAN_HOURS = (() => {
   } catch (e) { return 24; }
 })();
 const PLAN_TASKS = PLAN_HOURS === 72 ? 6 : PLAN_HOURS === 48 ? 3 : 1;
-const IS_FINAL = new URLSearchParams(location.search).get("final") === "1";
+const PAGE_PARAMS = new URLSearchParams(location.search);
+const IS_FINAL = PAGE_PARAMS.get("final") === "1";
 if (PLAN_HOURS > 24 && !IS_FINAL) {
-  location.replace("checkpoint.html?plan=" + PLAN_HOURS);
+  /* Old 48h/72h Linkvertise destinations may still point at keypage.html.
+     If the arrival is from a Linkvertise domain (or carries its hash), count
+     it as one completed checkpoint before redirecting. New destinations go
+     straight to checkpoint.html?plan=...&done=1. */
+  const ref = (document.referrer || "").toLowerCase();
+  const fromLv = /linkvertise|link-center|link-target|direct-link|link-hub/.test(ref)
+    || PAGE_PARAMS.get("src") === "lv"
+    || (PAGE_PARAMS.get("hash") || "").length >= 32;
+  location.replace("checkpoint.html?plan=" + PLAN_HOURS + (fromLv ? "&done=1" : ""));
 }
 document.getElementById("planBadge").textContent =
   PLAN_HOURS + " HOUR KEY - " + PLAN_TASKS + (PLAN_HOURS === 24 ? " TASK" : " CHECKPOINTS");
