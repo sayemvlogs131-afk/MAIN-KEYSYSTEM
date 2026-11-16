@@ -1,6 +1,8 @@
 FLOWER HUB v2.23.0 - 2026-11-15
-- Linkvertise now offers 24 HOUR (1 task), 48 HOUR (3 tasks) and 72 HOUR
-  (6 tasks) keys. LootLabs stays 24 hours only.
+- Linkvertise now offers 24 HOUR (1 task), 48 HOUR (3 checkpoints) and
+  72 HOUR (6 checkpoints) keys. LootLabs stays 24 hours only.
+- 48h/72h use the checkpoint page between one-task Linkvertise completions;
+  the key page opens after the final checkpoint.
 - The key badge counts down the chosen plan instead of always 24h.
 
 FLOWER HUB v2.22.2 - 2026-11-15

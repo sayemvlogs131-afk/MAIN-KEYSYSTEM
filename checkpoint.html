@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FLOWER HUB — Linkvertise Checkpoints</title>
+<meta name="description" content="Track your FLOWER HUB Linkvertise checkpoints and continue to the next task.">
+<meta name="robots" content="noindex">
+<style>
+  :root{
+    --bg1:#070a14; --pink:#ff7ac8; --pink2:#ffc2e4; --blue:#6ec8ff; --teal:#5ef2c0;
+    --text:#eef2ff; --dim:#a7b0d4;
+    --card:rgba(14,18,36,.72); --line:rgba(255,255,255,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{min-height:100%}
+  body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--text);background:var(--bg1);overflow-x:hidden}
+  .aurora{position:fixed;inset:-20%;z-index:0;filter:blur(70px);opacity:.75;pointer-events:none}
+  .blob{position:absolute;border-radius:50%;mix-blend-mode:screen;animation:drift 18s ease-in-out infinite}
+  .b1{width:46vw;height:46vw;left:-8vw;top:-6vw;background:radial-gradient(circle,#ff5fb4,transparent 62%)}
+  .b2{width:42vw;height:42vw;right:-6vw;top:2vw;background:radial-gradient(circle,#5a7bff,transparent 62%);animation-delay:-6s}
+  .b3{width:40vw;height:40vw;left:22vw;bottom:-14vw;background:radial-gradient(circle,#28e0c8,transparent 64%);animation-delay:-11s}
+  @keyframes drift{0%,100%{transform:translate3d(0,0,0) scale(1)}33%{transform:translate3d(4vw,-3vw,0) scale(1.08)}66%{transform:translate3d(-3vw,2vw,0) scale(.95)}}
+  header{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:space-between;padding:11px 16px;background:rgba(7,9,20,.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);animation:slideDown .65s cubic-bezier(.2,1.4,.3,1) both}
+  @keyframes slideDown{from{transform:translateY(-70px);opacity:0}to{transform:translateY(0);opacity:1}}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px}
+  .brand .logo{font-size:22px;filter:drop-shadow(0 0 10px rgba(255,122,200,.6))}
+  .brand b{background:linear-gradient(90deg,var(--pink),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .madeby{font-size:12.5px;color:var(--dim)}
+  .madeby b{color:var(--pink2)}
+  .socials{display:flex;gap:8px;flex-wrap:wrap}
+  .socials a{text-decoration:none;font-size:12.5px;font-weight:700;color:#fff;padding:7px 12px;border-radius:999px}
+  .s-discord{background:#5865F2}.s-yt{background:#e03434}
+  .wrap{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding:44px 16px 70px;gap:18px}
+  .hero{text-align:center;max-width:590px;animation:pop .8s cubic-bezier(.2,1.5,.3,1) both}
+  .hero .badge{display:inline-block;font-size:11px;letter-spacing:2px;color:#9ff0d8;border:1px solid rgba(94,242,192,.4);background:rgba(94,242,192,.08);padding:6px 12px;border-radius:999px;margin:0 4px 14px}
+  .hero h1{font-size:34px;line-height:1.12;letter-spacing:-.5px}
+  .hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--pink),var(--blue) 70%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{color:var(--dim);font-size:14.5px;line-height:1.6;margin-top:10px}
+  .hero p b{color:var(--pink2)}
+  .card{width:100%;max-width:520px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:26px 22px;backdrop-filter:blur(14px);box-shadow:0 26px 70px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.03) inset;animation:pop .8s cubic-bezier(.2,1.5,.3,1) both;position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;inset:0;padding:1px;border-radius:22px;background:linear-gradient(140deg,rgba(255,122,200,.5),transparent 40%,rgba(110,200,255,.45));-webkit-mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+  @keyframes pop{from{transform:scale(.9) translateY(22px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+  .stephead{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+  .stepnum{width:26px;height:26px;border-radius:9px;display:grid;place-items:center;font-size:12.5px;font-weight:900;color:#1a0a14;background:linear-gradient(140deg,var(--pink2),var(--pink))}
+  .stephead h2{font-size:14px;letter-spacing:2px;color:var(--blue);font-weight:800}
+  .hint{color:var(--dim);font-size:13px;line-height:1.6}
+  .hint b{color:var(--pink2)}
+  .progressbig{font-size:38px;font-weight:900;letter-spacing:1px;text-align:center;margin:14px 0 2px;color:#ffd7ec;text-shadow:0 0 24px rgba(255,122,200,.35)}
+  .progresssub{text-align:center;font-size:11px;letter-spacing:1.6px;color:var(--dim);margin-bottom:10px}
+  .steps{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:16px 0 12px}
+  .stepdot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:900;color:#8894bb;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04)}
+  .stepdot.on{color:#1a0a14;border-color:transparent;background:linear-gradient(140deg,var(--pink2),var(--pink));box-shadow:0 0 18px rgba(255,122,200,.45)}
+  .stepdot.done{color:#04241b;border-color:transparent;background:var(--teal)}
+  .progressmsg{text-align:center;font-size:13px;line-height:1.6;color:var(--dim);min-height:44px}
+  .progressmsg b{color:var(--pink2)}
+  .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+  .btn{border:0;cursor:pointer;border-radius:12px;font-weight:800;font-size:14px;padding:12px 20px;transition:transform .15s,filter .2s;background:var(--teal);color:#04241b}
+  .btn:hover{transform:translateY(-2px) scale(1.03);filter:brightness(1.08)}
+  .btn:active{transform:scale(.97)}
+  .btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+  .small{color:var(--dim);font-size:11.5px;line-height:1.55;text-align:center;margin-top:12px}
+  .small a{color:var(--blue)}
+  .donebox{text-align:center;padding:8px 0 4px}
+  .donebox .big{font-size:24px;font-weight:900;color:var(--teal);margin:8px 0}
+  footer{position:relative;z-index:2;text-align:center;color:var(--dim);font-size:11.5px;padding:0 16px 34px}
+  footer a{color:var(--blue);text-decoration:none}
+  @media (max-width:520px){.hero h1{font-size:27px}.card{padding:22px 16px}.socials a{font-size:11px;padding:6px 9px}}
+</style>
+</head>
+<body>
+<div class="aurora" aria-hidden="true">
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+</div>
+
+<header>
+  <div class="brand">
+    <span class="logo">🌸</span>
+    <div><b>FLOWER HUB</b> <span class="madeby">made by <b>fahimrbx</b></span></div>
+    <div style="font-size:10.5px;color:var(--dim);letter-spacing:1.4px">LINKVERTISE CHECKPOINTS</div>
+  </div>
+  <nav class="socials">
+    <a class="s-discord" href="https://discord.gg/qDYPqjwqYa" target="_blank" rel="noopener">Discord</a>
+    <a class="s-yt" href="https://www.youtube.com/shorts/-56OvI6mkIU" target="_blank" rel="noopener">YouTube</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="badge" id="planBadge">48 HOUR KEY — 3 CHECKPOINTS</div>
+    <h1>CHECKPOINT <em>PROGRESS</em></h1>
+    <p>Finish one Linkvertise task, come back here, then press <b>CONTINUE</b>. The key appears only after the last checkpoint.</p>
+  </section>
+
+  <section class="card" id="progressCard">
+    <div class="stephead"><div class="stepnum">1</div><h2>YOUR PROGRESS</h2></div>
+    <div class="progressbig" id="progressBig">0 / 3</div>
+    <div class="progresssub" id="progressSub">CHECKPOINTS COMPLETED</div>
+    <div class="steps" id="dots"></div>
+    <div class="progressmsg" id="progressMsg">Complete Linkvertise task 1 to start.</div>
+    <div class="row"><button class="btn" id="continueBtn">START TASK 1</button></div>
+    <p class="small" id="linkHint">You will be sent to Linkvertise for one task. After it, Linkvertise returns you here.</p>
+  </section>
+
+  <section class="card donebox" id="doneCard" style="display:none">
+    <div class="stepnum" style="margin:0 auto 8px">✓</div>
+    <div class="big">ALL CHECKPOINTS COMPLETE</div>
+    <p class="hint">Opening your <b id="donePlan">48</b>-hour final key page now…</p>
+    <div class="row"><button class="btn" id="finalBtn">OPEN FINAL KEY PAGE</button></div>
+  </section>
+</main>
+
+<footer>MADE BY FAHIMRBX · <a href="https://discord.gg/qDYPqjwqYa" target="_blank" rel="noopener">JOIN THE DISCORD</a></footer>
+
+<script>
+(function(){
+/* ============================================================
+   LINKVERTISE CHECKPOINT LOOP — static GitHub page, no backend.
+
+   Required Linkvertise link setup (one link PER PLAN, 1 TASK each):
+     48h: https://link-target.net/8313449/g4aUAmoXzmYf
+     72h: https://direct-link.net/8313449/TERfo1qdTk65
+   Required destination inside each Linkvertise link:
+     48h: .../checkpoint.html?plan=48&done=1   (1 task)
+     72h: .../checkpoint.html?plan=72&done=1   (1 task)
+
+   `done=1` means "I just returned from a completed Linkvertise task".
+   The page increments once, removes `done` from the address, and shows
+   the next checkpoint. Refreshing does not increment again.
+   ============================================================ */
+const LINKS = {
+  48: "https://link-target.net/8313449/g4aUAmoXzmYf",
+  72: "https://direct-link.net/8313449/TERfo1qdTk65"
+};
+const PLAN = (() => {
+  const n = Number(new URLSearchParams(location.search).get("plan"));
+  return n === 48 || n === 72 ? n : 0;
+})();
+if (!PLAN) { location.replace("keypage.html?plan=24"); return; }
+
+const TOTAL = PLAN === 72 ? 6 : 3;
+const KEY = "flower_checkpoint_" + PLAN;
+const state = readState();
+let count = state.count;
+let lastAt = state.at;
+
+function readState(){
+  try {
+    const o = JSON.parse(localStorage.getItem(KEY) || "{}");
+    let c = Math.max(0, Math.min(TOTAL, Number(o.count) || 0));
+    let at = Number(o.at) || 0;
+    if (at && Date.now() - at > PLAN * 3600000) { c = 0; at = 0; }
+    return { count: c, at: at };
+  } catch (e) { return { count: 0, at: 0 }; }
+}
+function saveState(){
+  try { localStorage.setItem(KEY, JSON.stringify({ count: count, at: lastAt })); } catch (e) {}
+}
+
+const params = new URLSearchParams(location.search);
+const returned = String(params.get("done") || "").startsWith("1");
+
+/* One completion per Linkvertise return. Strip `done` so a refresh does
+   not count the same return again. */
+if (returned) {
+  count = Math.min(TOTAL, count + 1);
+  lastAt = Date.now();
+  saveState();
+  try { history.replaceState(null, "", "checkpoint.html?plan=" + PLAN); } catch (e) {}
+}
+
+const dots = document.getElementById("dots");
+const progressBig = document.getElementById("progressBig");
+const progressMsg = document.getElementById("progressMsg");
+const continueBtn = document.getElementById("continueBtn");
+const linkHint = document.getElementById("linkHint");
+const progressCard = document.getElementById("progressCard");
+const doneCard = document.getElementById("doneCard");
+
+document.getElementById("planBadge").textContent = PLAN + " HOUR KEY — " + TOTAL + " CHECKPOINTS";
+document.getElementById("donePlan").textContent = PLAN;
+
+function finish(){
+  progressCard.style.display = "none";
+  doneCard.style.display = "";
+  saveState();
+  setTimeout(() => location.replace("keypage.html?plan=" + PLAN + "&final=1"), 900);
+}
+
+function render(){
+  for (let i = 1; i <= TOTAL; i++) {
+    const d = document.createElement("div");
+    d.className = "stepdot" + (i <= count ? " done" : i === count + 1 ? " on" : "");
+    d.textContent = i;
+    dots.appendChild(d);
+  }
+  progressBig.textContent = count + " / " + TOTAL;
+
+  if (count >= TOTAL) { finish(); return; }
+
+  const left = TOTAL - count;
+  if (count === 0) {
+    progressMsg.textContent = "Complete Linkvertise task 1 to start your " + PLAN + "-hour key.";
+    continueBtn.textContent = "START TASK 1";
+  } else {
+    progressMsg.innerHTML = "Progress: <b>" + count + "/" + TOTAL + " Completed</b> — You need to complete the Linkvertise task " + left + (left === 1 ? " more time." : " more times.");
+    continueBtn.textContent = "CONTINUE TO TASK " + (count + 1);
+  }
+
+  const link = LINKS[PLAN] || "";
+  if (!link) {
+    continueBtn.disabled = true;
+    continueBtn.textContent = "SETUP NEEDED";
+    linkHint.textContent = "The Linkvertise link for this plan is not configured yet.";
+    return;
+  }
+  linkHint.innerHTML = "One Linkvertise task per checkpoint. After completing it, Linkvertise must return you to this page. <b>" + left + "</b> remaining.";
+}
+
+continueBtn.addEventListener("click", () => {
+  const link = LINKS[PLAN] || "";
+  if (link) location.href = link;
+});
+
+document.getElementById("finalBtn").addEventListener("click", () => {
+  location.href = "keypage.html?plan=" + PLAN + "&final=1";
+});
+
+if (count >= TOTAL) {
+  finish();
+} else {
+  render();
+}
+})();
+</script>
+</body>
+</html>

@@ -1,21 +1,21 @@
-# LINKVERTISE SETUP — 24 / 48 / 72 HOUR PLANS
+# LINKVERTISE SETUP — 24 / 48 / 72 HOUR CHECKPOINT PLANS
 
 FLOWER HUB v2.23.0 gives Linkvertise three key durations. LootLabs stays
 **24 hours only**.
 
-| Linkvertise plan | Tasks | Destination |
-| --- | --- | --- |
-| 24 hours | 1 task | `https://sayemvlogs131-afk.github.io/MAIN-KEYSYSTEM/keypage.html?plan=24` |
-| 48 hours | 3 tasks | `https://sayemvlogs131-afk.github.io/MAIN-KEYSYSTEM/keypage.html?plan=48` |
-| 72 hours | 6 tasks | `https://sayemvlogs131-afk.github.io/MAIN-KEYSYSTEM/keypage.html?plan=72` |
+| Plan | Linkvertise task count | Checkpoints | Destination |
+| --- | --- | --- | --- |
+| 24 hours | **1 task** | direct | `keypage.html?plan=24` |
+| 48 hours | **1 task per link** | **3** | `checkpoint.html?plan=48&done=1` |
+| 72 hours | **1 task per link** | **6** | `checkpoint.html?plan=72&done=1` |
 
-The task count is a property of the **Linkvertise link**. The hub cannot turn a
-1-task link into a 6-task link, so you need three separate links.
+The 48h and 72h links are **one-task links repeated by the checkpoint page**.
+The page counts each return from Linkvertise; after the final checkpoint it
+redirects to `keypage.html?plan=48&final=1` or `?plan=72&final=1`.
 
-Linkvertise shows the remaining steps on its own page between tasks. Our key
-page only receives the final redirect, so it cannot display “2 tasks left”.
-After its human check, the key page shows its own **DO IT** gate: **1 step for
-24h, 3 for 48h and 6 for 72h**. The key appears only after the last step.
+> **Important:** a 3-task or 6-task Linkvertise link does not become three or
+> six checkpoints. It completes all of its tasks in one visit and the page
+> counts it as **one** checkpoint. Set each Linkvertise link to **1 task**.
 
 ---
 
@@ -23,36 +23,42 @@ After its human check, the key page shows its own **DO IT** gate: **1 step for
 
 In **https://creators.linkvertise.com/**:
 
-1. Create a link with **1 task** and the `?plan=24` destination above.
-2. Create a second link with **3 tasks** and the `?plan=48` destination.
-3. Create a third link with **6 tasks** and the `?plan=72` destination.
+1. **24h** — create a link with **1 task** and destination:
+   ```text
+   https://sayemvlogs131-afk.github.io/MAIN-KEYSYSTEM/keypage.html?plan=24
+   ```
+2. **48h** — create a link with **1 task** and destination:
+   ```text
+   https://sayemvlogs131-afk.github.io/MAIN-KEYSYSTEM/checkpoint.html?plan=48&done=1
+   ```
+3. **72h** — create a link with **1 task** and destination:
+   ```text
+   https://sayemvlogs131-afk.github.io/MAIN-KEYSYSTEM/checkpoint.html?plan=72&done=1
+   ```
 
-Use the exact destination for each link. If the `?plan=` part is missing, the
-key page falls back to 24 hours.
+The `done=1` marker is what tells the checkpoint page that one Linkvertise task
+was completed. Without it, the progress page will not advance.
 
-## 2. Paste them into CONFIG
+## 2. Paste the short links into CONFIG
 
 In `RBX_KEY_SYSTEM.lua`:
 
 ```lua
 LinkvertisePlans = {
-    [24] = "https://your-1-task-link",
-    [48] = "https://your-3-task-link",
-    [72] = "https://your-6-task-link",
+    [24] = "https://your-1-task-24h-link",
+    [48] = "https://your-1-task-48h-link",
+    [72] = "https://your-1-task-72h-link",
 },
 ```
 
-Notes:
+`LinkvertisePlans[24]` may stay empty; it falls back to `LinkvertiseLink`.
+An empty slot shows `SETUP NEEDED`; the other plans still work.
 
-- `LinkvertisePlans[24]` may stay empty; it falls back to the existing
-  `LinkvertiseLink`. That fallback link must still be the 1-task link for the
-  correct task count.
-- `LinkvertisePlans[48]` and `[72]` show `SETUP NEEDED` until filled. A fan can
-  still use 24H or LootLabs; nothing breaks.
-- Do not put a direct `keypage.html` URL in these slots unless you want the fan
-  to skip Linkvertise. These slots hold the **short links**.
+The checkpoint page also contains the 48h/72h short links in its `LINKS`
+object. If you replace a short link in `LinkvertisePlans`, update the matching
+entry in `checkpoint.html` too.
 
-## 3. Rebuild and publish
+## 3. Publish
 
 From the private repo root:
 
@@ -63,60 +69,91 @@ python tools/verify_protected.py
 python tools/run_smoke_protected.py
 ```
 
-Then copy `build/*` and the changed `web/*` files to the public repo, commit and
+Copy `build/*` and the changed `web/*` files to the public repo, commit and
 push. A private-repo push alone does not update fans.
 
 ## 4. What the fan sees
 
+### 24 hours
+
 1. Press **GET KEY**.
 2. Pick **LINKVERTISE**.
-3. Pick **24 HOURS / 1 TASK**, **48 HOURS / 3 TASKS** or
-   **72 HOURS / 6 TASKS**.
-4. The matching short link is copied. They open it and complete the tasks;
-   Linkvertise shows the remaining steps.
-5. After the final task they land on `keypage.html?plan=...`.
-6. The page shows the selected duration and task count. After the human
-   check, it shows **DO IT** steps counted `1 2 3...N` (1/3/6). The key only
-   appears after the last step, then mints:
-   - 24h: `FLOWER-XXXXX-XXXX`
-   - 48h: `FLOWER48-XXXXX-XXXX`
-   - 72h: `FLOWER72-XXXXX-XXXX`
-7. They paste the key into FLOWER HUB and press **VERIFY**. The key badge counts
-   down the selected duration.
+3. Pick **24 HOURS / 1 TASK**.
+4. Complete the Linkvertise task.
+5. Land on `keypage.html?plan=24`.
+6. Pass the human check, copy `FLOWER-XXXXX-XXXX`.
 
-**LootLabs** is unchanged and always ends on the PlatoBoost key page for a
-24-hour key.
+### 48 hours — 3 checkpoints
+
+1. Pick **48 HOURS / 3 CHECKPOINTS**. The 48h short link opens.
+2. Complete one Linkvertise task. Linkvertise returns to:
+   `checkpoint.html?plan=48&done=1`
+3. The page shows:
+   `Progress: 1/3 Completed — You need to complete the Linkvertise task 2 more times.`
+4. Press **CONTINUE TO TASK 2**. It opens the same 48h short link.
+5. After task 2: `2/3 Completed — 1 more time`.
+6. After task 3: the page redirects to
+   `keypage.html?plan=48&final=1`.
+7. Pass the human check, copy `FLOWER48-XXXXX-XXXX`.
+
+### 72 hours — 6 checkpoints
+
+Same loop with six completions:
+
+```text
+1/6  -> 2/6 -> 3/6 -> 4/6 -> 5/6 -> 6/6 -> final key page
+```
+
+After the sixth return the page redirects to
+`keypage.html?plan=72&final=1`; the key is `FLOWER72-XXXXX-XXXX`.
+
+### LootLabs — 24 hours only
+
+The LootLabs card wraps **our** `keypage.html?plan=24` inside the LootLabs
+Redirect API, so after the LootLabs task the fan lands on our final 24h page.
+LootLabs never offers 48h or 72h.
 
 ## 5. Testing
 
-- `GET KEY` -> `LINKVERTISE` -> all three plan rows must be visible.
-- All three rows should say `READY` when their links are filled.
-- Open `keypage.html?plan=48`: the badge must say `48 HOUR KEY - 3 TASKS`,
-  the format must say `FLOWER48-XXXXX-XXXX`, and the DO IT gate must show
-  **3** steps.
-- Open `keypage.html?plan=72`: the DO IT gate must show **6** steps.
-- Open `keypage.html?plan=72`: it must say `72 HOUR KEY - 6 TASKS` and
-  `FLOWER72-XXXXX-XXXX`.
-- `keypage.html` without `?plan=` must stay on 24 hours.
-- The protected smoke now checks that the plan chooser opens and all three plan
-  buttons exist.
+- `GET KEY` → `LINKVERTISE` → all three plan rows visible.
+- 24h: badge shows `24 HOUR KEY - 1 TASK`; open the 24h link and confirm it
+  lands on `keypage.html?plan=24`.
+- 48h: open `checkpoint.html?plan=48`; it must show `0 / 3` and **START TASK 1**.
+- Add `&done=1` once; it must show `1 / 3`, **CONTINUE TO TASK 2**, and remove
+  `done=1` from the address. Refresh must stay at `1 / 3`.
+- Add `&done=1` twice more; the page must reach `3 / 3` and redirect to
+  `keypage.html?plan=48&final=1`.
+- 72h: `checkpoint.html?plan=72` must show `0 / 6`; after six `done=1` returns
+  it must redirect to `keypage.html?plan=72&final=1`.
+- Direct `keypage.html?plan=48` (without `final=1`) must redirect to the 48h
+  checkpoint page.
+- The final page must show only the human check, then the key — no extra task
+  buttons.
+- Check that the 48h/72h Linkvertise links are **1 task** in the Linkvertise
+  dashboard. A 3-task link still only produces one `done=1` return.
 
 ## 6. Important limitation
 
-The 24/48/72 key math is shared by the key page and the Lua, so the keys verify
-offline. But the website cannot prove which Linkvertise tasks were completed.
-The DO IT gate enforces the 1/3/6 steps **in the page UI only**; a user who
-knows the direct `keypage.html?plan=72` URL can still click through it without
-doing the Linkvertise tasks. Stopping that requires a server-side Linkvertise
-verifier; the current GitHub-only setup does not have one.
+The checkpoint count is stored in the browser (`localStorage`) and the
+`done=1` marker is public. A user who opens `checkpoint.html?plan=72` directly
+can add `done=1` six times without doing the Linkvertise tasks, and a user who
+opens `keypage.html?plan=72&final=1` directly can skip the gate. Stopping that
+requires a server-side Linkvertise verifier; the current GitHub-only setup has
+no backend.
+
+Linkvertise's own task screen still shows how many steps are left inside a
+single link. Our checkpoint page shows how many **Linkvertise completions**
+remain for the 48h/72h plan.
 
 ## 7. Troubleshooting
 
 | Problem | Fix |
 | --- | --- |
-| 48H/72H says `SETUP NEEDED` | Paste the matching short link into `LinkvertisePlans` and rebuild. |
-| Fan gets a 24h key from the 48h link | The Linkvertise destination is missing `?plan=48`; edit the destination. |
-| Link opens the wrong task count | Linkvertise task count is per link; create/edit the correct link. |
+| 48H/72H says `SETUP NEEDED` | Fill the matching slot in `LinkvertisePlans` and rebuild. |
+| Progress stays at 0 after a task | The Linkvertise destination is missing `?plan=48&done=1` (or `72`). Edit the destination. |
+| Progress jumps too far | The link has multiple tasks; set the Linkvertise link to **1 task**. |
+| Refresh adds progress | The page did not strip `done=1`; hard-refresh and re-check the destination. |
+| Fan gets a 24h key from the 48h link | The destination is missing `?plan=48`; edit it to the 48h checkpoint URL. |
+| Key page redirects to checkpoints | Expected for 48h/72h until `final=1` is present. |
 | Key rejected | Copy the whole `FLOWER48-...` / `FLOWER72-...` key; the last 4 characters are a checksum. |
-| Key expires early | Device clock/UTC mismatch, or the save was created before the plan change; get a fresh key. |
 | Link pays 0 | Payout details are missing on the Linkvertise dashboard. |

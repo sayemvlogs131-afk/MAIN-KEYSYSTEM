@@ -66,12 +66,6 @@
   .checks{margin-top:14px;display:grid;gap:6px;font-size:12px;color:#8f9bc4;text-align:left}
   .checks span{display:flex;gap:8px;align-items:center}
   .checks i{font-style:normal;width:16px;text-align:center}
-  .steps{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:16px 0 8px}
-  .stepdot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:900;color:#8894bb;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04)}
-  .stepdot.on{color:#1a0a14;border-color:transparent;background:linear-gradient(140deg,var(--pink2),var(--pink));box-shadow:0 0 18px rgba(255,122,200,.45)}
-  .stepdot.done{color:#04241b;border-color:transparent;background:var(--teal)}
-  .stepcount{text-align:center;font-size:12px;letter-spacing:1.2px;color:var(--dim);margin-top:4px}
-  .stepcount b{color:var(--pink2)}
   .keybox{margin-top:6px;padding:20px 16px;border-radius:16px;text-align:center;background:linear-gradient(135deg,rgba(255,122,200,.12),rgba(110,200,255,.12));border:1.5px solid rgba(255,122,200,.42);animation:pop .55s cubic-bezier(.2,1.6,.3,1) both;position:relative}
   .keybox.flash{animation:flash .7s ease}
   @keyframes flash{0%{box-shadow:0 0 0 0 rgba(255,122,200,.65)}100%{box-shadow:0 0 0 26px rgba(255,122,200,0)}}
@@ -144,7 +138,7 @@
     <div class="badge"> NO HUB CODE NEEDED</div>
     <div class="badge" id="planBadge" style="margin-left:6px;border-color:rgba(255,190,120,.55);background:rgba(255,190,120,.08);color:#ffd9a8">24 HOUR KEY - 1 TASK</div>
     <h1>GET YOUR <em>FLOWER</em> KEY</h1>
-    <p>Pass the human check, finish the <b>DO IT</b> steps, then your key appears -
+    <p id="heroCopy">Pass the human check to reveal your key -
       format <b id="formatLine">FLOWER-XXXXX-XXXX</b>. <b>ONE key per executor</b>: this page
       gives each HUB CODE one key and keeps showing that same key for this plan.
       Paste it in FLOWER HUB and press <b>VERIFY</b>.</p>
@@ -172,16 +166,8 @@
     </div>
   </section>
 
-  <section class="card gate" id="stepsCard" style="display:none">
-    <div class="stephead"><div class="stepnum">2</div><h2>DO IT</h2></div>
-    <p class="hint">Finish the steps for your <b id="stepPlan">24</b>-hour key. The key appears after the last one.</p>
-    <div class="steps" id="stepDots"></div>
-    <div class="stepcount" id="stepCount">STEP 1 / 1</div>
-    <div class="row"><button class="btn copy" id="doStep">DO IT</button></div>
-  </section>
-
   <section class="card" id="keyCard" style="display:none">
-    <div class="stephead"><div class="stepnum">3</div><h2>YOUR KEY</h2></div>
+    <div class="stephead"><div class="stepnum">2</div><h2>YOUR KEY</h2></div>
     <div class="keybox" id="keyBox">
       <div style="font-size:11.5px;letter-spacing:1.5px;color:var(--dim);margin-bottom:8px" id="keyHint">
         COPY THIS INTO FLOWER HUB  VERIFY
@@ -196,8 +182,7 @@
       <b>ONE KEY PER EXECUTOR</b> - the page remembers the key for this plan and
       device, and renews it when the plan expires. Manual rerolls are disabled.<br>
       Type your HUB CODE below to lock that key to your device only.<br>
-      <b>LOOTLABS path?</b> your LootLabs link opens the PlatoBoost key page
-      directly - you don't need this page for that.
+      <b>LOOTLABS path?</b> your LootLabs task redirects here for the 24-hour key.
     </p>
 
     <details>
@@ -237,10 +222,18 @@ const PLAN_HOURS = (() => {
   } catch (e) { return 24; }
 })();
 const PLAN_TASKS = PLAN_HOURS === 72 ? 6 : PLAN_HOURS === 48 ? 3 : 1;
+const IS_FINAL = new URLSearchParams(location.search).get("final") === "1";
+if (PLAN_HOURS > 24 && !IS_FINAL) {
+  location.replace("checkpoint.html?plan=" + PLAN_HOURS);
+}
 document.getElementById("planBadge").textContent =
-  PLAN_HOURS + " HOUR KEY - " + PLAN_TASKS + (PLAN_TASKS === 1 ? " TASK" : " TASKS");
+  PLAN_HOURS + " HOUR KEY - " + PLAN_TASKS + (PLAN_HOURS === 24 ? " TASK" : " CHECKPOINTS");
 document.getElementById("formatLine").textContent =
   (PLAN_HOURS === 24 ? "FLOWER" : "FLOWER" + PLAN_HOURS) + "-XXXXX-XXXX";
+document.getElementById("heroCopy").firstChild.nodeValue =
+  (PLAN_HOURS === 24
+    ? "Pass the human check to reveal your 24-hour key - "
+    : "All " + PLAN_TASKS + " checkpoints complete. Pass the human check to reveal your " + PLAN_HOURS + "-hour key - ");
 function partOf(str){
   let a = 0;
   for (let i = 0; i < str.length; i++) a = (a * 31 + str.charCodeAt(i)) % 4294967296;
@@ -289,10 +282,6 @@ function mintDeviceKey(code, hours){
 
 /* ---------- elements ---------- */
 const gateCard = document.getElementById("gateCard");
-const stepsCard = document.getElementById("stepsCard");
-const stepDots = document.getElementById("stepDots");
-const stepCount = document.getElementById("stepCount");
-const doStep = document.getElementById("doStep");
 const keyCard  = document.getElementById("keyCard");
 const holdEl   = document.getElementById("hold");
 const capEl    = document.getElementById("holdCap");
@@ -364,58 +353,16 @@ function completeGate(){
   setRing(1);
   capEl.textContent = "DONE";
   c2.textContent = ""; c2.style.color = "#5ef2c0";
-  stEl.textContent = "human verified  now finish the steps";
+  stEl.textContent = "human verified  here is your key";
   stEl.className = "status ok";
   burst(18);
   setTimeout(() => {
     gateCard.style.display = "none";
-    startSteps();
-    stepsCard.style.display = "";
-    stepsCard.scrollIntoView({ behavior: "smooth", block: "center" });
+    keyCard.style.display = "";
+    keyCard.scrollIntoView({ behavior: "smooth", block: "center" });
+    makeKey(true);
   }, 380);
 }
-
-/* ---------- DO IT gate: 1 step for 24h, 3 for 48h, 6 for 72h ---------- */
-let stepIndex = 0, stepBusy = false;
-function renderSteps(){
-  for (let i = 0; i < stepDots.children.length; i++){
-    const dot = stepDots.children[i];
-    dot.className = "stepdot" + (i < stepIndex ? " done" : i === stepIndex ? " on" : "");
-  }
-  const shown = Math.min(stepIndex + 1, PLAN_TASKS);
-  stepCount.innerHTML = "STEP <b>" + shown + "</b> / " + PLAN_TASKS;
-  doStep.textContent = stepIndex >= PLAN_TASKS - 1 ? "FINISH" : "DO IT";
-}
-function startSteps(){
-  stepIndex = 0;
-  stepBusy = false;
-  stepDots.innerHTML = "";
-  for (let i = 1; i <= PLAN_TASKS; i++){
-    const d = document.createElement("div");
-    d.className = "stepdot";
-    d.textContent = i;
-    stepDots.appendChild(d);
-  }
-  document.getElementById("stepPlan").textContent = PLAN_HOURS;
-  renderSteps();
-}
-function showKeyCard(){
-  stepsCard.style.display = "none";
-  keyCard.style.display = "";
-  keyCard.scrollIntoView({ behavior: "smooth", block: "center" });
-  makeKey(true);
-}
-doStep.addEventListener("click", () => {
-  if (stepBusy) return;
-  stepBusy = true;
-  stepIndex++;
-  renderSteps();
-  if (stepIndex >= PLAN_TASKS){
-    showKeyCard();
-  } else {
-    setTimeout(() => { stepBusy = false; }, 220);
-  }
-});
 /* v2.18.1 POINTER FIX: capture the press so a finger that slides a few
    pixels off the ring keeps counting instead of cancelling the hold. */
 holdEl.addEventListener("pointerdown", e => {
