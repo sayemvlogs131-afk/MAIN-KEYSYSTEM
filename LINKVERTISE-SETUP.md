@@ -19,7 +19,32 @@ redirects to `keypage.html?plan=48&final=1` or `?plan=72&final=1`.
 
 ---
 
-## 1. Create the three links
+## 0. Keep your existing short links
+
+Do **not** create new short links. Use these same URLs and edit the settings
+inside each existing Linkvertise link:
+
+```text
+24h: https://link-center.net/8313449/3r0W6fwK8KTy
+48h: https://link-target.net/8313449/g4aUAmoXzmYf
+72h: https://direct-link.net/8313449/TERfo1qdTk65
+```
+
+For each link, open **Edit link → Tasks** and set the task count to **1**.
+Then set its destination:
+
+```text
+24h -> https://sayemvlogs131-afk.github.io/MAIN-KEYSYSTEM/keypage.html?plan=24
+48h -> https://sayemvlogs131-afk.github.io/MAIN-KEYSYSTEM/checkpoint.html?plan=48&done=1
+72h -> https://sayemvlogs131-afk.github.io/MAIN-KEYSYSTEM/checkpoint.html?plan=72&done=1
+```
+
+Keep the short links themselves unchanged. The checkpoint page repeats the
+same 48h/72h URL once per checkpoint; it does not need different URLs.
+
+---
+
+## 1. If you are creating links from scratch
 
 In **https://creators.linkvertise.com/**:
 
