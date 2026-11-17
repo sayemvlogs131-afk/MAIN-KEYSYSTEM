@@ -45,7 +45,7 @@ DO THIS NOW — CHECKLIST (5 MINUTES)
 [ ] 3. Copy RBX_KEY_SYSTEM.lua (this folder) and give it to
        your fans — YouTube description, Discord, anywhere.
 
-[ ] 4. LINKVERTISE (v2.23.0 — optional, 5 minutes):
+[ ] 4. LINKVERTISE (v2.24.0 — optional, 5 minutes):
        Fans can pick LOOTLABS or LINKVERTISE on the GET KEY
        screen, and both have 24h / 48h / 72h plans.
        Linkvertise has THREE plans:

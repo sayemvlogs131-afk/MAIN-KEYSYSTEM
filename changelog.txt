@@ -1,3 +1,17 @@
+FLOWER HUB v2.24.0 - 2026-11-17
+- SEA EVENTS fully rebuilt around the real hull assembly. Boat Fly, Ghost Boat
+  and Boat Speed no longer grab the map when a seat is parented to Workspace.
+- Ghost Boat now covers the whole hull, re-applies if the game resets it, and
+  restores every original transparency/collision value on off.
+- Boat Fly uses camera/thumbstick steering with Space/Shift altitude; Boat
+  Speed now pulls away from a standstill and still respects Max Boat Speed.
+- Network ownership is retried and verified instead of being marked done
+  after a failed SetNetworkOwner.
+- Check Boat reports hull, part count, speed, owner and ANCHORED state.
+  Boat To Me moves the whole model.
+- LootLabs and Linkvertise keep 24h/1 run, 48h/3 checkpoints and
+  72h/6 checkpoints.
+
 FLOWER HUB v2.23.0 - 2026-11-15
 - LootLabs and Linkvertise now both offer 24 HOUR (1 completion), 48 HOUR
   (3 checkpoints) and 72 HOUR (6 checkpoints) keys.

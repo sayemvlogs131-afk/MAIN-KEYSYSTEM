@@ -1,1 +1,1 @@
-FLOWER HUB v2.23.0: pick 24h, 48h or 72h on BOTH LootLabs and Linkvertise. 48h has 3 checkpoints, 72h has 6. Final timed keys: FLOWER / FLOWER48 / FLOWER72. Join the Discord https://discord.gg/qDYPqjwqYa
+FLOWER HUB v2.24.0: SEA EVENTS fully fixed - Boat Fly, Ghost Boat and Boat Speed now lock onto the real hull. Plus LootLabs and Linkvertise 24h, 48h (3 checkpoints) and 72h (6 checkpoints). Join the Discord https://discord.gg/qDYPqjwqYa
