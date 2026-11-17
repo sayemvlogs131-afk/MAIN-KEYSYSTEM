@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FLOWER HUB — Opening LootLabs</title>
+<meta name="robots" content="noindex">
+<style>
+  :root{--bg:#070a14;--pink:#ff7ac8;--blue:#6ec8ff;--teal:#5ef2c0;--text:#eef2ff;--dim:#a7b0d4}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{min-height:100vh;display:grid;place-items:center;padding:20px;color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:radial-gradient(circle at 20% 0%,#351a48 0,transparent 42%),radial-gradient(circle at 90% 100%,#102a4a 0,transparent 45%),var(--bg)}
+  .card{width:100%;max-width:440px;text-align:center;padding:34px 24px;border:1px solid rgba(255,255,255,.12);border-radius:24px;background:rgba(14,18,36,.82);box-shadow:0 30px 80px rgba(0,0,0,.55)}
+  .logo{font-size:38px;filter:drop-shadow(0 0 18px rgba(255,122,200,.6))}
+  .eyebrow{margin-top:10px;color:var(--blue);font-size:11px;font-weight:800;letter-spacing:2px}
+  h1{margin-top:10px;font-size:27px;line-height:1.2}
+  h1 span{color:var(--pink)}
+  p{margin-top:12px;color:var(--dim);font-size:14px;line-height:1.6}
+  .btn{display:inline-block;margin-top:22px;padding:13px 24px;border-radius:12px;background:var(--teal);color:#04241b;font-weight:900;text-decoration:none}
+  .small{margin-top:16px;font-size:11.5px}
+  .small a{color:var(--blue)}
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="logo">🌸</div>
+  <div class="eyebrow">FLOWER HUB · LOOTLABS</div>
+  <h1>Opening your <span id="planText">24</span>-hour task…</h1>
+  <p>Complete the LootLabs steps. You will return to FLOWER HUB automatically.</p>
+  <a class="btn" id="goBtn" href="#" rel="noopener">OPEN LOOTLABS</a>
+  <p class="small">If nothing happens, <a id="fallback" href="#">open LootLabs here</a>.</p>
+</main>
+
+<script>
+(function(){
+  /* Wrapped LootLabs link. Its encrypted destination is lootreturn.html,
+     which reads the plan this page remembered and opens the right page. */
+  var LOOT_WRAP = "https://loot-link.com/s?kGq0P0XY&data=Ku2MGuAIS64nsvvDBbWnKcolxYCJ1yDd8CPZTNcr8Tw40KeZf5%2BXqe/kp9FrMQJU5rpFcqjj3UwNu9jubb4MyNVl%2BvSSNvlbmioLrAs/ZMU%3D";
+
+  var raw = Number(new URLSearchParams(location.search).get("plan"));
+  var plan = (raw === 24 || raw === 48 || raw === 72) ? raw : 24;
+  try { sessionStorage.setItem("flower_loot_plan", String(plan)); } catch (e) {}
+  try { localStorage.setItem("flower_loot_plan", String(plan)); } catch (e) {}
+
+  document.getElementById("planText").textContent = plan;
+  document.getElementById("goBtn").href = LOOT_WRAP;
+  document.getElementById("fallback").href = LOOT_WRAP;
+  setTimeout(function(){ location.replace(LOOT_WRAP); }, 650);
+})();
+</script>
+</body>
+</html>

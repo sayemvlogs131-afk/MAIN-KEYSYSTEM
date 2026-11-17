@@ -16,18 +16,18 @@ verified your service 31611 answers on them.
 YOUR NEW MONEY FLOW (LOOTLABS + LINKVERTISE)
 -------------------------------------------
 1) Player presses GET KEY in your key GUI.
-2) The script copies a LOOTLABS link (yours) that has OUR
-   24-hour final key page hidden inside it (AES &data=).
-3) Player completes the LootLabs steps -> YOU EARN (LootLabs).
-4) The link auto-redirects to keypage.html?plan=24.
-5) Player passes the human check, copies the key, VERIFY -> hub.
-
-LINKVERTISE is the second choice:
-  24h -> 1 task  -> final key page.
-  48h -> 3 one-task checkpoints -> final key page.
-  72h -> 6 one-task checkpoints -> final key page.
-If LootLabs is ever down, the button gives the 24h final key
-page directly, so fans still get a key.
+2) Player picks LOOTLABS or LINKVERTISE, then 24h / 48h / 72h.
+3) BOTH providers use the same timed flow:
+  24h -> 1 completion -> final key page.
+  48h -> 3 checkpoints -> final key page.
+  72h -> 6 checkpoints -> final key page.
+4) LootLabs opens lootstart.html?plan=NH, remembers the plan, opens
+   your LootLabs link, then lootreturn.html sends the fan to the
+   final page (24h) or checkpoint page (48h/72h).
+5) Linkvertise opens your matching short link and returns to the
+   checkpoint page after each one-task completion.
+6) Player passes the human check on the final page, copies the key,
+   presses VERIFY -> hub.
 
 DO THIS NOW — CHECKLIST (5 MINUTES)
 -----------------------------------
@@ -38,12 +38,16 @@ DO THIS NOW — CHECKLIST (5 MINUTES)
        creator details. They are MANDATORY — links do NOT earn
        until this is filled. Then check your balance and press
        WITHDRAW if you have money waiting.
+       Your existing LootLabs link is used by all three plans.
+       One LootLabs run = the tasks on that link (currently 3).
+       48h = 3 runs, 72h = 6 runs. The wrapped destination is
+       already inside lootstart.html; no new LootLabs link needed.
 [ ] 3. Copy RBX_KEY_SYSTEM.lua (this folder) and give it to
        your fans — YouTube description, Discord, anywhere.
 
 [ ] 4. LINKVERTISE (v2.23.0 — optional, 5 minutes):
        Fans can pick LOOTLABS or LINKVERTISE on the GET KEY
-       screen. LootLabs stays 24h only.
+       screen, and both have 24h / 48h / 72h plans.
        Linkvertise has THREE plans:
          24h / 1 task, 48h / 3 checkpoints, 72h / 6 checkpoints.
        a) creators.linkvertise.com -> sign up (free) + payout info
@@ -71,31 +75,39 @@ DO THIS NOW — CHECKLIST (5 MINUTES)
 HOW TO TEST IT YOURSELF (2 MINUTES)
 -----------------------------------
 1) Open any executor -> execute RBX_KEY_SYSTEM.lua in Roblox.
-2) Press GET KEY -> a loot-link.com/s?XXXX link is copied.
-3) Open it in your browser -> do the quick steps.
-4) Your FLOWER 24h final key page opens -> pass the human check -> copy the key.
-5) Back in the GUI: PASTE -> VERIFY -> hub loads.
-If all 5 steps work, your fans are earning you money.
+2) Press GET KEY -> LOOTLABS -> 24 HOURS.
+3) A lootstart.html?plan=24 link is copied.
+4) Open it -> LootLabs opens -> finish the steps.
+5) Your FLOWER 24h final key page opens -> pass the human check -> copy the key.
+6) Back in the GUI: PASTE -> VERIFY -> hub loads.
+Then test LOOTLABS 48h once: after the LootLabs run it must show
+1/3 and CONTINUE TO RUN 2. Repeat until the final 48h page.
+If those steps work, your fans are earning you money.
 
 WHERE THE MONEY SHOWS UP
 ------------------------
 - LootLabs: lootlabs.gg dashboard -> stats + balance -> withdraw.
 - PlatoBoost: platoboost.app dashboard -> service 31611 -> stats.
-- Keys last 24h, 48h or 72h depending on the Linkvertise plan
-  the fan chooses; LootLabs keys are 24h. The same fan re-does
-  the key page when the key expires = repeat income.
-  (KeyLifetimeHours = 24 is the legacy/LootLabs default.)
+- Keys last 24h, 48h or 72h depending on the plan the fan
+  chooses. LootLabs and Linkvertise both support all three.
+  The same fan re-does the key page when the key expires =
+  repeat income. (KeyLifetimeHours = 24 is only the legacy
+  default; FLOWER48/FLOWER72 override it.)
 
 SMALL BUT IMPORTANT
 -------------------
-- Your LootLabs API key is inside the script (it is needed to
-  build the double-money link). If you ever see strange links
+- Your LootLabs API key is inside the script (it is still used by
+  the legacy prefetch builder). If you ever see strange links
   made on your account: LootLabs dashboard -> API -> reset key,
   then paste the new key into the script (LootLabsAPIKey line).
+- The LootLabs plan flow uses the wrapped URL inside
+  MAIN-KEYSYSTEM/lootstart.html. It points at lootreturn.html,
+  so the fan returns to the correct 24h/48h/72h page.
 - Your LootLabs links (both yours, tested live):
-    MAIN  = https://loot-link.com/s?kGq0P0XY  <- used by the script now (3 tasks)
+    MAIN  = https://loot-link.com/s?kGq0P0XY  <- used now (3 tasks)
     SPARE = https://loot-link.com/s?4CjS17LO  <- backup, also yours
-  To swap links: edit the LootLabsStaticLink line in the script.
+  To swap the LootLabs link, also regenerate the wrapped URL in
+  lootstart.html (and keep LootLabsStaticLink in the script in sync).
 
 REMOTE CONTROL FROM YOUR DASHBOARD (v2.6.4+)
 --------------------------------------------

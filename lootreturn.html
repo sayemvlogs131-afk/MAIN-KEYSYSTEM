@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FLOWER HUB — Returning to your key</title>
+<meta name="robots" content="noindex">
+<style>
+  :root{--bg:#070a14;--pink:#ff7ac8;--teal:#5ef2c0;--text:#eef2ff;--dim:#a7b0d4}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{min-height:100vh;display:grid;place-items:center;padding:20px;color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:radial-gradient(circle at 20% 0%,#351a48 0,transparent 42%),radial-gradient(circle at 90% 100%,#102a4a 0,transparent 45%),var(--bg)}
+  .card{width:100%;max-width:420px;text-align:center;padding:32px 24px;border:1px solid rgba(255,255,255,.12);border-radius:24px;background:rgba(14,18,36,.82);box-shadow:0 30px 80px rgba(0,0,0,.55)}
+  .logo{font-size:38px;filter:drop-shadow(0 0 18px rgba(255,122,200,.6))}
+  h1{margin-top:12px;font-size:26px;line-height:1.2}
+  h1 span{color:var(--pink)}
+  p{margin-top:12px;color:var(--dim);font-size:14px;line-height:1.6}
+  .btn{display:inline-block;margin-top:22px;padding:13px 24px;border-radius:12px;background:var(--teal);color:#04241b;font-weight:900;text-decoration:none}
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="logo">🌸</div>
+  <h1>Welcome back! Opening your <span id="planText">24</span>-hour key…</h1>
+  <p id="copy">Taking you to the right FLOWER page now.</p>
+  <a class="btn" id="goBtn" href="keypage.html?plan=24">CONTINUE</a>
+</main>
+
+<script>
+(function(){
+  function readPlan(){
+    var raw = null;
+    try { raw = sessionStorage.getItem("flower_loot_plan"); } catch (e) {}
+    if (raw === null) { try { raw = localStorage.getItem("flower_loot_plan"); } catch (e) {} }
+    var n = Number(raw);
+    return (n === 24 || n === 48 || n === 72) ? n : 24;
+  }
+
+  var plan = readPlan();
+  try { sessionStorage.removeItem("flower_loot_plan"); } catch (e) {}
+  try { localStorage.removeItem("flower_loot_plan"); } catch (e) {}
+
+  var target = (plan === 24)
+    ? "keypage.html?plan=24"
+    : "checkpoint.html?plan=" + plan + "&provider=lootlabs&done=1";
+
+  document.getElementById("planText").textContent = plan;
+  document.getElementById("goBtn").href = target;
+  if (plan !== 24) {
+    document.getElementById("copy").textContent = "All done — your checkpoint progress is being updated.";
+  }
+  setTimeout(function(){ location.replace(target); }, 450);
+})();
+</script>
+</body>
+</html>

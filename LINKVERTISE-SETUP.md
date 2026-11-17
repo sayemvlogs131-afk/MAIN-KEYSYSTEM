@@ -1,17 +1,29 @@
 # LINKVERTISE SETUP — 24 / 48 / 72 HOUR CHECKPOINT PLANS
 
-FLOWER HUB v2.23.0 gives Linkvertise three key durations. LootLabs stays
-**24 hours only**.
+FLOWER HUB v2.23.0 gives **both Linkvertise and LootLabs** three key
+durations: **24h direct**, **48h with 3 checkpoints**, and **72h with 6
+checkpoints**.
 
-| Plan | Linkvertise task count | Checkpoints | Destination |
+| Plan | Completion count | Checkpoints | Final page |
 | --- | --- | --- | --- |
-| 24 hours | **1 task** | direct | `keypage.html?plan=24` |
-| 48 hours | **1 task per link** | **3** | `checkpoint.html?plan=48&done=1` |
-| 72 hours | **1 task per link** | **6** | `checkpoint.html?plan=72&done=1` |
+| 24 hours | 1 Linkvertise task or 1 LootLabs run | direct | `keypage.html?plan=24` |
+| 48 hours | 3 completions | **3** | `keypage.html?plan=48&final=1` |
+| 72 hours | 6 completions | **6** | `keypage.html?plan=72&final=1` |
 
-The 48h and 72h links are **one-task links repeated by the checkpoint page**.
-The page counts each return from Linkvertise; after the final checkpoint it
+The 48h and 72h Linkvertise links are **one-task links repeated by the
+checkpoint page**. The page counts each return; after the final checkpoint it
 redirects to `keypage.html?plan=48&final=1` or `?plan=72&final=1`.
+
+LootLabs has its own checkpoint loop. The fan opens `lootstart.html?plan=48`
+or `?plan=72`; that page remembers the plan, opens the LootLabs task link, and
+`lootreturn.html` sends the fan to the LootLabs checkpoint page. LootLabs
+continues with the same start page until `3/3` or `6/6`.
+
+> LootLabs currently has **3 tasks per run**. One LootLabs run counts as one
+> checkpoint, so 48h = 3 LootLabs runs (9 tasks) and 72h = 6 runs (18 tasks).
+> If you want one individual task per checkpoint, set the LootLabs link to
+> **1 task** in its dashboard, then regenerate the wrapped URL in
+> `lootstart.html`.
 
 > **Important:** a 3-task or 6-task Linkvertise link does not become three or
 > six checkpoints. It completes all of its tasks in one visit and the page
@@ -79,9 +91,10 @@ LinkvertisePlans = {
 `LinkvertisePlans[24]` may stay empty; it falls back to `LinkvertiseLink`.
 An empty slot shows `SETUP NEEDED`; the other plans still work.
 
-The checkpoint page also contains the 48h/72h short links in its `LINKS`
-object. If you replace a short link in `LinkvertisePlans`, update the matching
-entry in `checkpoint.html` too.
+The checkpoint page contains the 48h/72h short links in its provider map. If
+you replace a short link in `LinkvertisePlans`, update the matching entry in
+`checkpoint.html` too. LootLabs uses `lootstart.html?plan=48` / `?plan=72` in
+that same map.
 
 ## 3. Publish
 
@@ -132,11 +145,21 @@ Same loop with six completions:
 After the sixth return the page redirects to
 `keypage.html?plan=72&final=1`; the key is `FLOWER72-XXXXX-XXXX`.
 
-### LootLabs — 24 hours only
+### LootLabs — 24h / 48h / 72h
 
-The LootLabs card wraps **our** `keypage.html?plan=24` inside the LootLabs
-Redirect API, so after the LootLabs task the fan lands on our final 24h page.
-LootLabs never offers 48h or 72h.
+1. Press **GET KEY** → **LOOTLABS** → choose **24h**, **48h**, or **72h**.
+2. The GUI copies `lootstart.html?plan=NH`.
+3. `lootstart.html` remembers the plan and opens your LootLabs link.
+4. After the LootLabs run, `lootreturn.html` sends the fan to:
+   - `keypage.html?plan=24` for 24h, or
+   - `checkpoint.html?plan=NH&provider=lootlabs&done=1` for 48h/72h.
+5. The checkpoint page continues with `lootstart.html?plan=48` or `?plan=72`
+   until the last checkpoint, then opens the timed final key page.
+
+**LootLabs setup:** no new short link is needed. The wrapped LootLabs URL is
+inside `lootstart.html` and its encrypted destination is
+`lootreturn.html`. If you replace your LootLabs short link, regenerate that
+wrapped URL and keep `CONFIG.LootLabsStaticLink` in the script in sync.
 
 ## 5. Testing
 
@@ -156,6 +179,13 @@ LootLabs never offers 48h or 72h.
   buttons.
 - Check that the 48h/72h Linkvertise links are **1 task** in the Linkvertise
   dashboard. A 3-task link still only produces one `done=1` return.
+- LootLabs: `GET KEY` → `LOOTLABS` → all three plan rows visible. Choosing 48h
+  copies `lootstart.html?plan=48`; complete a run and confirm it lands on
+  `checkpoint.html?plan=48&provider=lootlabs`, showing `1 / 3` and
+  **CONTINUE TO RUN 2**. Repeat to the final 48h page.
+- LootLabs 72h must show `0 / 6`, then `1 / 6`, and offer **CONTINUE TO RUN 2**.
+- Linkvertise 48h/72h must still show `TASK` wording and keep its old progress
+  key; LootLabs progress is stored separately under `_lootlabs`.
 
 ## 6. Important limitation
 

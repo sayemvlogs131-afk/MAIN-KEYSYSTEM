@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FLOWER HUB — Linkvertise Checkpoints</title>
-<meta name="description" content="Track your FLOWER HUB Linkvertise checkpoints and continue to the next task.">
+<title>FLOWER HUB — Checkpoints</title>
+<meta name="description" content="Track your FLOWER HUB checkpoints and continue to the next task.">
 <meta name="robots" content="noindex">
 <style>
   :root{
@@ -77,7 +77,7 @@
   <div class="brand">
     <span class="logo">🌸</span>
     <div><b>FLOWER HUB</b> <span class="madeby">made by <b>fahimrbx</b></span></div>
-    <div style="font-size:10.5px;color:var(--dim);letter-spacing:1.4px">LINKVERTISE CHECKPOINTS</div>
+    <div id="providerTag" style="font-size:10.5px;color:var(--dim);letter-spacing:1.4px">LINKVERTISE CHECKPOINTS</div>
   </div>
   <nav class="socials">
     <a class="s-discord" href="https://discord.gg/qDYPqjwqYa" target="_blank" rel="noopener">Discord</a>
@@ -89,7 +89,7 @@
   <section class="hero">
     <div class="badge" id="planBadge">48 HOUR KEY — 3 CHECKPOINTS</div>
     <h1>CHECKPOINT <em>PROGRESS</em></h1>
-    <p>Finish one Linkvertise task, come back here, then press <b>CONTINUE</b>. The key appears only after the last checkpoint.</p>
+    <p id="heroCopy">Finish one task, come back here, then press <b>CONTINUE</b>. The key appears only after the last checkpoint.</p>
   </section>
 
   <section class="card" id="progressCard">
@@ -115,34 +115,58 @@
 <script>
 (function(){
 /* ============================================================
-   LINKVERTISE CHECKPOINT LOOP — static GitHub page, no backend.
+   FLOWER CHECKPOINT LOOP — static GitHub page, no backend.
 
-   Required Linkvertise link setup (one link PER PLAN, 1 TASK each):
-     48h: https://link-target.net/8313449/g4aUAmoXzmYf
-     72h: https://direct-link.net/8313449/TERfo1qdTk65
-   Required destination inside each Linkvertise link:
-     48h: .../checkpoint.html?plan=48&done=1   (1 task)
-     72h: .../checkpoint.html?plan=72&done=1   (1 task)
+   Linkvertise (default; old links omit provider):
+     48h: checkpoint.html?plan=48&done=1  (3 one-task loops)
+     72h: checkpoint.html?plan=72&done=1  (6 one-task loops)
 
-   `done=1` means "I just returned from a completed Linkvertise task".
-   The page increments once, removes `done` from the address, and shows
-   the next checkpoint. Refreshing does not increment again.
+   LootLabs:
+     lootstart.html?plan=48 -> LootLabs -> lootreturn.html
+       -> checkpoint.html?plan=48&provider=lootlabs&done=1
+     lootstart.html?plan=72 -> ... (6 loops)
+
+   `done=1` means "I just returned from a completed task". The page
+   increments once, removes `done`, and shows the next checkpoint.
+   Refreshing does not increment again.
    ============================================================ */
-const LINKS = {
-  48: "https://link-target.net/8313449/g4aUAmoXzmYf",
-  72: "https://direct-link.net/8313449/TERfo1qdTk65"
+const PROVIDERS = {
+  linkvertise: {
+    label: "Linkvertise",
+    noun: "task",
+    nounUpper: "TASK",
+    links: {
+      48: "https://link-target.net/8313449/g4aUAmoXzmYf",
+      72: "https://direct-link.net/8313449/TERfo1qdTk65"
+    },
+    returnCopy: "Linkvertise must return you to this page."
+  },
+  lootlabs: {
+    label: "LootLabs",
+    noun: "run",
+    nounUpper: "RUN",
+    links: {
+      48: "lootstart.html?plan=48",
+      72: "lootstart.html?plan=72"
+    },
+    returnCopy: "LootLabs returns you to lootreturn.html, which brings you back here."
+  }
 };
+
+const params = new URLSearchParams(location.search);
 const PLAN = (() => {
-  const n = Number(new URLSearchParams(location.search).get("plan"));
+  const n = Number(params.get("plan"));
   return n === 48 || n === 72 ? n : 0;
 })();
 if (!PLAN) { location.replace("keypage.html?plan=24"); return; }
 
+const providerParam = String(params.get("provider") || "").toLowerCase();
+const PROVIDER = PROVIDERS[providerParam] ? providerParam : "linkvertise";
+const P = PROVIDERS[PROVIDER];
 const TOTAL = PLAN === 72 ? 6 : 3;
-const KEY = "flower_checkpoint_" + PLAN;
-const state = readState();
-let count = state.count;
-let lastAt = state.at;
+/* Linkvertise keeps the original key so old progress survives. LootLabs
+   gets its own progress because it is a separate provider. */
+const KEY = "flower_checkpoint_" + PLAN + (PROVIDER === "linkvertise" ? "" : "_" + PROVIDER);
 
 function readState(){
   try {
@@ -157,16 +181,19 @@ function saveState(){
   try { localStorage.setItem(KEY, JSON.stringify({ count: count, at: lastAt })); } catch (e) {}
 }
 
-const params = new URLSearchParams(location.search);
+const state = readState();
+let count = state.count;
+let lastAt = state.at;
 const returned = String(params.get("done") || "").startsWith("1");
 
-/* One completion per Linkvertise return. Strip `done` so a refresh does
-   not count the same return again. */
 if (returned) {
   count = Math.min(TOTAL, count + 1);
   lastAt = Date.now();
   saveState();
-  try { history.replaceState(null, "", "checkpoint.html?plan=" + PLAN); } catch (e) {}
+  try {
+    history.replaceState(null, "", "checkpoint.html?plan=" + PLAN
+      + (PROVIDER === "linkvertise" ? "" : "&provider=" + PROVIDER));
+  } catch (e) {}
 }
 
 const dots = document.getElementById("dots");
@@ -177,6 +204,12 @@ const linkHint = document.getElementById("linkHint");
 const progressCard = document.getElementById("progressCard");
 const doneCard = document.getElementById("doneCard");
 
+document.title = "FLOWER HUB — " + P.label + " Checkpoints";
+const providerTag = document.getElementById("providerTag");
+if (providerTag) providerTag.textContent = P.label.toUpperCase() + " CHECKPOINTS";
+const heroCopy = document.getElementById("heroCopy");
+if (heroCopy) heroCopy.innerHTML = "Finish one <b>" + P.label + " " + P.noun
+  + "</b>, come back here, then press <b>CONTINUE</b>. The key appears only after the last checkpoint.";
 document.getElementById("planBadge").textContent = PLAN + " HOUR KEY — " + TOTAL + " CHECKPOINTS";
 document.getElementById("donePlan").textContent = PLAN;
 
@@ -200,25 +233,25 @@ function render(){
 
   const left = TOTAL - count;
   if (count === 0) {
-    progressMsg.textContent = "Complete Linkvertise task 1 to start your " + PLAN + "-hour key.";
-    continueBtn.textContent = "START TASK 1";
+    progressMsg.textContent = "Complete " + P.label + " " + P.noun + " 1 to start your " + PLAN + "-hour key.";
+    continueBtn.textContent = "START " + P.nounUpper + " 1";
   } else {
-    progressMsg.innerHTML = "Progress: <b>" + count + "/" + TOTAL + " Completed</b> — You need to complete the Linkvertise task " + left + (left === 1 ? " more time." : " more times.");
-    continueBtn.textContent = "CONTINUE TO TASK " + (count + 1);
+    progressMsg.innerHTML = "Progress: <b>" + count + "/" + TOTAL + " Completed</b> — You need to complete the " + P.label + " " + P.noun + " " + left + (left === 1 ? " more time." : " more times.");
+    continueBtn.textContent = "CONTINUE TO " + P.nounUpper + " " + (count + 1);
   }
 
-  const link = LINKS[PLAN] || "";
+  const link = P.links[PLAN] || "";
   if (!link) {
     continueBtn.disabled = true;
     continueBtn.textContent = "SETUP NEEDED";
-    linkHint.textContent = "The Linkvertise link for this plan is not configured yet.";
+    linkHint.textContent = "The " + P.label + " link for this plan is not configured yet.";
     return;
   }
-  linkHint.innerHTML = "One Linkvertise task per checkpoint. After completing it, Linkvertise must return you to this page. <b>" + left + "</b> remaining.";
+  linkHint.innerHTML = "One " + P.label + " " + P.noun + " per checkpoint. " + P.returnCopy + " <b>" + left + "</b> remaining.";
 }
 
 continueBtn.addEventListener("click", () => {
-  const link = LINKS[PLAN] || "";
+  const link = P.links[PLAN] || "";
   if (link) location.href = link;
 });
 
