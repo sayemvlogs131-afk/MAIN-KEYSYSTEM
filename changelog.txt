@@ -1,3 +1,19 @@
+FLOWER HUB v2.25.0 - 2026-11-18
+- MENU KEY: CTRL now opens and closes the main hub. RightShift still works as
+  the legacy shortcut. Click TP moved to LeftAlt so CTRL stays free.
+- AIMBOT: the Aim Part dropdown is now respected (Head, Torso, UpperTorso,
+  HumanoidRootPart, arms) with the body-part fallback kept.
+- AIMBOT: smoothing is frame-rate independent, the smooth slider matches the
+  real value (35 = 0.35), and the FOV distance label stays on screen.
+- AIMBOT: Auto Shoot has one rate-limited loop - it no longer double-clicks
+  every frame when Aimbot is also on.
+- CAMERA LOCK: works on its own now (X key or toggle), without Aimbot.
+- KEY SYSTEM: full new window - flower hero header, 4-step guide, key card
+  with PASTE, status console, gradient GET KEY / VERIFY buttons and rebuilt
+  LootLabs / Linkvertise sheets. Same links, same key checks.
+- Version: hub v2.25.0 / v2.25.0-MOBILE, key system v2.25.0.
+
+===========================================================
 FLOWER HUB v2.24.0 - 2026-11-17
 - SEA EVENTS fully rebuilt around the real hull assembly. Boat Fly, Ghost Boat
   and Boat Speed no longer grab the map when a seat is parented to Workspace.

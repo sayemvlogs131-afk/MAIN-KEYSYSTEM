@@ -1,1 +1,1 @@
-FLOWER HUB v2.24.0: SEA EVENTS fully fixed - Boat Fly, Ghost Boat and Boat Speed now lock onto the real hull. Plus LootLabs and Linkvertise 24h, 48h (3 checkpoints) and 72h (6 checkpoints). Join the Discord https://discord.gg/qDYPqjwqYa
+FLOWER HUB v2.25.0: CTRL now opens the menu (RightShift still works), AIMBOT is fixed (Aim Part, smoother aim, no more double Auto Shoot clicks, Camera Lock works alone) and the key system has a brand new window. Join the Discord https://discord.gg/qDYPqjwqYa
