@@ -1,3 +1,14 @@
+FLOWER HUB v2.25.1 - 2026-11-18
+- MENU KEY: Settings now has a Menu Key row. Click it and press any keyboard
+  key to change the menu shortcut; mouse, touch and reserved keys like End
+  are rejected.
+- The new shortcut saves to your profile automatically (MenuKey= line) and
+  is restored when the profile loads.
+- RightShift always stays as the fallback shortcut.
+- INFO TAB: v2.25.1 notes added to UPDATE NOTES, WHAT'S NEW and credits.
+- Version: hub v2.25.1 / v2.25.1-MOBILE, key system v2.25.1.
+
+===========================================================
 FLOWER HUB v2.25.0 - 2026-11-18
 - MENU KEY: CTRL now opens and closes the main hub. RightShift still works as
   the legacy shortcut. Click TP moved to LeftAlt so CTRL stays free.

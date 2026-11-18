@@ -1,1 +1,1 @@
-FLOWER HUB v2.25.0: CTRL now opens the menu (RightShift still works), AIMBOT is fixed (Aim Part, smoother aim, no more double Auto Shoot clicks, Camera Lock works alone) and the key system has a brand new window. Join the Discord https://discord.gg/qDYPqjwqYa
+FLOWER HUB v2.25.1: you can now rebind the menu key in Settings > Menu Key. Press any keyboard key, it saves with your profile, and RightShift always stays as the fallback. Join the Discord https://discord.gg/qDYPqjwqYa
