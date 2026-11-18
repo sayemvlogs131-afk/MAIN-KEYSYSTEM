@@ -1,1 +1,1 @@
-FLOWER HUB v2.25.1: you can now rebind the menu key in Settings > Menu Key. Press any keyboard key, it saves with your profile, and RightShift always stays as the fallback. Join the Discord https://discord.gg/qDYPqjwqYa
+FLOWER HUB v2.25.2: the key window now has FORGET SAVED KEY. It clears both saved-key files, stops auto-login, and lets you test the key flow again. Your Menu Key rebind and RightShift fallback are unchanged. Join the Discord https://discord.gg/qDYPqjwqYa

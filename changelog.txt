@@ -1,3 +1,13 @@
+FLOWER HUB v2.25.2 - 2026-11-18
+- KEY WINDOW: new settings-style SAVED KEY row with FORGET SAVED KEY.
+  It clears both RBXHub_Key.txt and RBXHub_Key_backup.txt, resets the key
+  input and status, and stops auto-login so testers can walk the flow again.
+- KEY SMOKE: added a reset pass that proves both files clear, the key GUI
+  stays open, and no hub launch happens after FORGET.
+- INFO TAB: v2.25.2 notes added to UPDATE NOTES, WHAT'S NEW and credits.
+- Version: hub v2.25.2 / v2.25.2-MOBILE, key system v2.25.2.
+
+===========================================================
 FLOWER HUB v2.25.1 - 2026-11-18
 - MENU KEY: Settings now has a Menu Key row. Click it and press any keyboard
   key to change the menu shortcut; mouse, touch and reserved keys like End
