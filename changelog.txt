@@ -1,3 +1,15 @@
+FLOWER HUB v2.27.0 - 2026-11-19
+- SETTINGS: COPY PROFILE CODE / IMPORT PROFILE CODE share the whole setup
+  (theme, scale, Menu Key, toggles, sliders, favorites) as a FLOWERPROF1
+  code. Base64 + checksum; damaged or foreign codes are rejected.
+- SETTINGS: UPDATE HUB NOW saves the profile, purges the old build and
+  re-runs the load line, so the newest version loads in one click.
+- The UPDATE AVAILABLE notice now points to Settings > UPDATE HUB NOW.
+- SMOKE: profile-code copy/import roundtrip, damaged-code rejection and
+  the update request are covered in both hubs (118 checks each).
+- Version: hub v2.27.0 / v2.27.0-MOBILE, key system v2.27.0.
+
+===========================================================
 FLOWER HUB v2.26.0 - 2026-11-19
 - KEY WINDOW REDESIGN: new transparent, hand-built window. Flat buttons,
   hairline dividers, text links and a see-through panel replace the old
