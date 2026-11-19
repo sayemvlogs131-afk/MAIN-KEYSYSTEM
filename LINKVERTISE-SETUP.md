@@ -1,6 +1,6 @@
 # LINKVERTISE SETUP — 24 / 48 / 72 HOUR CHECKPOINT PLANS
 
-FLOWER HUB v2.25.2 gives **both Linkvertise and LootLabs** three key
+FLOWER HUB v2.26.0 gives **both Linkvertise and LootLabs** three key
 durations: **24h direct**, **48h with 3 checkpoints**, and **72h with 6
 checkpoints**.
 

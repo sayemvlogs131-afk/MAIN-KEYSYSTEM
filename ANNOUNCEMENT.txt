@@ -1,1 +1,1 @@
-FLOWER HUB v2.25.2: the key window now has FORGET SAVED KEY. It clears both saved-key files, stops auto-login, and lets you test the key flow again. Your Menu Key rebind and RightShift fallback are unchanged. Join the Discord https://discord.gg/qDYPqjwqYa
+FLOWER HUB v2.26.0: the key window has a new transparent design, and the hub Settings tab now has FORGET SAVED KEY too. Both reset buttons clear both saved-key files and cancel an auto-login that is already running. Your Menu Key rebind and RightShift fallback are unchanged. Join the Discord https://discord.gg/qDYPqjwqYa

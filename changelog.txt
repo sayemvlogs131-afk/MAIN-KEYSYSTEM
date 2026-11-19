@@ -1,3 +1,18 @@
+FLOWER HUB v2.26.0 - 2026-11-19
+- KEY WINDOW REDESIGN: new transparent, hand-built window. Flat buttons,
+  hairline dividers, text links and a see-through panel replace the old
+  stacked cards, gradients and glow effects. Same key flow and links.
+- SETTINGS RESET: the hub Settings tab now has FORGET SAVED KEY as well,
+  so auto-login can be reset without racing the key window.
+- RESET BEHAVIOUR: both reset buttons clear RBXHub_Key.txt and
+  RBXHub_Key_backup.txt AND cancel an auto-login already in progress.
+- KEY SMOKE: new in-flight passes prove the key-window button and the
+  hub-facing canceller stop a running auto-login; hub smoke clicks the
+  Settings button and checks both files plus the canceller call.
+- INFO TAB: v2.26.0 notes added to UPDATE NOTES, WHAT'S NEW and credits.
+- Version: hub v2.26.0 / v2.26.0-MOBILE, key system v2.26.0.
+
+===========================================================
 FLOWER HUB v2.25.2 - 2026-11-18
 - KEY WINDOW: new settings-style SAVED KEY row with FORGET SAVED KEY.
   It clears both RBXHub_Key.txt and RBXHub_Key_backup.txt, resets the key
